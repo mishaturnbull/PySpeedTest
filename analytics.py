@@ -2,15 +2,19 @@
 
 import time as tm
 
-with open("speed_record_new.txt", 'r') as record:
-    lines = record.readlines()[4:]  # get rid of the header
+from settings import REC_FILE, ANALYZE_FILE, ANALYTICS_REC_FILE, \
+                     STANDARDS_ENABLE, STANDARD_PING, STANDARD_DOWN, \
+                     STANDARD_UP
+
+readfilename = REC_FILE
+if ANALYZE_FILE != None:
+    readfilename = ANALYZE_FILE
+
+with open(readfilename, 'r') as record:
+    lines = record.readlines()
 
 records = {"time": [], "locs": [], "ping": [], "down": [], "up": []}
 fails, totaltries = 0, 0
-
-MAX_PING = 25
-MIN_DOWN = 20 * 1000000
-MIN_UP = 20 * 1000000
 
 for line in lines:
     try:
@@ -71,56 +75,62 @@ statlines.append("Average upload: " + cspd(avg(records['up'])))
 
 statlines.append("\n")
 
-statlines.append(" " * 10 + " OUT-OF-STANDARDS" + " " * 10)
+if STANDARDS_ENABLE:
+    
+    # convert from Mbit/s to bit/s
+    STANDARD_DOWN *= 1000000
+    STANDARD_UP *= 1000000
+    
+    statlines.append(" " * 10 + " OUT-OF-STANDARDS" + " " * 10)
+    
+    # below standard rates
+    statlines.append("Total connection attempts: " + str(totaltries))
+    statlines.append("Total failed connection attempts: " + str(fails))
+    statlines.append("Total successful connection attempts: " +
+                     str(totaltries - fails))
+    statlines.append("Percentage of failed connections: " +
+                     str(round(fails / totaltries, 4) * 100) + "%")
+    
+    statlines.append("")
+    
+    n_ping_above_std = 0
+    for ping in records['ping']:
+        if ping > STANDARD_PING:
+            n_ping_above_std += 1
+    statlines.append("Number of ping times above " + str(STANDARD_PING) + " ms: " +
+                     str(n_ping_above_std))
+    p_ping_above_std = round(n_ping_above_std / totaltries, 3)
+    statlines.append("Percentage of ping times below standard: " +
+                     str(p_ping_above_std * 100) + "%")
+    statlines.append("Hours/day ping time is below standard: " +
+                     str(round(p_ping_above_std * 24, 1)) + " hours")
+    statlines.append("")
+    
+    n_down_below_std = 0
+    for down in records['down']:
+        if down < STANDARD_DOWN:
+            n_down_below_std += 1
+    statlines.append("Number of download speeds below " + cspd(STANDARD_DOWN) + ": " +
+                     str(n_down_below_std))
+    p_down_below_std = round(n_down_below_std / totaltries, 3)
+    statlines.append("Percentage of download speeds below standard: " +
+                     str(p_down_below_std * 100) + "%")
+    statlines.append("Hours/day download speed is below standard: " +
+                     str(round(p_down_below_std * 24, 1)) + " hours")
+    statlines.append("")
+    
+    n_up_below_std = 0
+    for up in records['up']:
+        if up < STANDARD_UP:
+            n_up_below_std += 1
+    statlines.append("Number of upload speeds below " + cspd(STANDARD_UP) + ": " +
+                     str(n_up_below_std))
+    p_up_below_std = round(n_up_below_std / totaltries, 3)
+    statlines.append("Percentage of upload speeds below standard: " +
+                     str(p_up_below_std * 100) + "%")
+    statlines.append("Hours/day upload speed is below standard: " +
+                     str(round(p_up_below_std * 24, 1)) + " hours")
+    statlines.append("\n")
 
-# below standard rates
-statlines.append("Total connection attempts: " + str(totaltries))
-statlines.append("Total failed connection attempts: " + str(fails))
-statlines.append("Total successful connection attempts: " +
-                 str(totaltries - fails))
-statlines.append("Percentage of failed connections: " +
-                 str(round(fails / totaltries, 4) * 100) + "%")
-
-statlines.append("")
-
-n_ping_above_std = 0
-for ping in records['ping']:
-    if ping > MAX_PING:
-        n_ping_above_std += 1
-statlines.append("Number of ping times above " + str(MAX_PING) + " ms: " +
-                 str(n_ping_above_std))
-p_ping_above_std = round(n_ping_above_std / totaltries, 3)
-statlines.append("Percentage of ping times below standard: " +
-                 str(p_ping_above_std * 100) + "%")
-statlines.append("Hours/day ping time is below standard: " +
-                 str(round(p_ping_above_std * 24, 1)) + " hours")
-statlines.append("")
-
-n_down_below_std = 0
-for down in records['down']:
-    if down < MIN_DOWN:
-        n_down_below_std += 1
-statlines.append("Number of download speeds below " + cspd(MIN_DOWN) + ": " +
-                 str(n_down_below_std))
-p_down_below_std = round(n_down_below_std / totaltries, 3)
-statlines.append("Percentage of download speeds below standard: " +
-                 str(p_down_below_std * 100) + "%")
-statlines.append("Hours/day download speed is below standard: " +
-                 str(round(p_down_below_std * 24, 1)) + " hours")
-statlines.append("")
-
-n_up_below_std = 0
-for up in records['up']:
-    if up < MIN_UP:
-        n_up_below_std += 1
-statlines.append("Number of upload speeds below " + cspd(MIN_UP) + ": " +
-                 str(n_up_below_std))
-p_up_below_std = round(n_up_below_std / totaltries, 3)
-statlines.append("Percentage of upload speeds below standard: " +
-                 str(p_up_below_std * 100) + "%")
-statlines.append("Hours/day upload speed is below standard: " +
-                 str(round(p_up_below_std * 24, 1)) + " hours")
-statlines.append("\n")
-
-with open('report_new.txt', 'w') as out:
+with open(ANALYTICS_REC_FILE, 'w') as out:
     out.writelines('\n'.join(statlines))

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import time
 
+from settings import CSV_INPUT_FILE, CSV_OUTPUT_FILE, CSV_CLEAR_INFILE, REC_FILE
 
 def reformat_date(datefield):
     date = time.strptime(datefield, "%a %b %d %w %Y at %H:%M:%S")
@@ -10,8 +11,11 @@ def reformat_date(datefield):
     out += str(timeidx) + ',-0500'
     return out
 
+readfilename = REC_FILE
+if CSV_INPUT_FILE:
+    readfilename = CSV_INPUT_FILE
 
-with open("speed_record_new.txt", 'r') as record:
+with open(readfilename, 'r') as record:
     lines = record.readlines()[4:]
 
 newlines = []
@@ -45,13 +49,16 @@ for line in lines:
         fields.extend(line[1:])
     else:
         print(line)
+        print("Critical: The above line is misformatted.  No data has been")
+        print("          written to {} or cleared from {}.".format())
         assert False, "Misformatted line"
 
     line = ','.join(fields) + '\n'
     newlines.append(line)
 
-with open("data_new.csv", 'w') as datafile:
+with open(CSV_OUTPUT_FILE, 'w') as datafile:
     datafile.writelines(newlines)
 
-with open("speed_record_new.txt", 'w') as clearfile:
-    clearfile.write('')
+if CSV_CLEAR_INFILE:
+    with open(readfilename, 'w') as clearfile:
+        clearfile.write('')
