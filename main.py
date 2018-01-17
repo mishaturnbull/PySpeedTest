@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 
+"""
+Main program for PySpeedMonitor.
+
+Monitors internet speed at set intervals.  Can be configured through the
+accompanying `settings.py` file.
+"""
+
 import datetime
 import time
 import sys
@@ -14,7 +21,9 @@ except ModuleNotFoundError:
     print("          pip install pyspeedtest")
     sys.exit(1)
 
+# lazy man's debugging
 def dprint(level, msg):
+    """Debug printer.  Args are [level], [message]."""
     if VERBOSITY >= level:
         print(msg)
 
@@ -39,7 +48,7 @@ while True:
         dprint(1, "It didn't work!  Joining error line...")
         newline = ", ".join([curtime, LOCATION, e.__repr__()]) + '\n'
 
-    dprint(1, "Test completed, result:")
+    dprint(2, "Test completed, result:")
     dprint(1, newline)
     with open(REC_FILE, 'a') as record:
         record.write(newline)

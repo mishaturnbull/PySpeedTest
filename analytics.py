@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import time as tm
+from pyspeedtest import pretty_speed
 
 from settings import REC_FILE, ANALYZE_FILE, ANALYTICS_REC_FILE, \
                      STANDARDS_ENABLE, STANDARD_PING, STANDARD_DOWN, \
@@ -33,14 +34,8 @@ statlines = []
 
 
 def avg(l):
+    """Average of a list."""
     return round(sum(l) / float(len(l)), 2)
-
-
-def cspd(spd):
-    n = spd / 1000000.0
-    n = round(n, 3)
-    return str(n) + " Mbit/s"
-
 
 # meta
 statlines.append(" " * 10 + " INTERNET SPEED REPORT")
@@ -60,17 +55,17 @@ statlines.append("\n")
 
 # download
 statlines.append(" " * 10 + "DOWNLOAD STATISTICS" + " " * 10)
-statlines.append("Fastest download: " + cspd(max(records['down'])))
-statlines.append("Slowest download: " + cspd(min(records['down'])))
-statlines.append("Average download: " + cspd(avg(records['down'])))
+statlines.append("Fastest download: " + pretty_speed(max(records['down'])))
+statlines.append("Slowest download: " + pretty_speed(min(records['down'])))
+statlines.append("Average download: " + pretty_speed(avg(records['down'])))
 
 statlines.append("\n")
 
 # upload
 statlines.append(" " * 10 + " UPLOAD STATISTICS " + " " * 10)
-statlines.append("Fastest upload: " + cspd(max(records['up'])))
-statlines.append("Slowest upload: " + cspd(min(records['up'])))
-statlines.append("Average upload: " + cspd(avg(records['up'])))
+statlines.append("Fastest upload: " + pretty_speed(max(records['up'])))
+statlines.append("Slowest upload: " + pretty_speed(min(records['up'])))
+statlines.append("Average upload: " + pretty_speed(avg(records['up'])))
 
 statlines.append("\n")
 
@@ -109,7 +104,7 @@ if STANDARDS_ENABLE:
     for down in records['down']:
         if down < STANDARD_DOWN:
             n_down_below_std += 1
-    statlines.append("Number of download speeds below " + cspd(STANDARD_DOWN) + ": " +
+    statlines.append("Number of download speeds below " + pretty_speed(STANDARD_DOWN) + ": " +
                      str(n_down_below_std))
     p_down_below_std = round(n_down_below_std / totaltries, 3)
     statlines.append("Percentage of download speeds below standard: " +
@@ -122,7 +117,7 @@ if STANDARDS_ENABLE:
     for up in records['up']:
         if up < STANDARD_UP:
             n_up_below_std += 1
-    statlines.append("Number of upload speeds below " + cspd(STANDARD_UP) + ": " +
+    statlines.append("Number of upload speeds below " + pretty_speed(STANDARD_UP) + ": " +
                      str(n_up_below_std))
     p_up_below_std = round(n_up_below_std / totaltries, 3)
     statlines.append("Percentage of upload speeds below standard: " +

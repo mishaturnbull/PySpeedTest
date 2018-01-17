@@ -4,6 +4,7 @@ import time
 from settings import CSV_INPUT_FILE, CSV_OUTPUT_FILE, CSV_CLEAR_INFILE, REC_FILE
 
 def reformat_date(datefield):
+    """Convert pretty date to date separated by columns."""
     date = time.strptime(datefield, "%a %b %d %w %Y at %H:%M:%S")
     out = time.strftime("%Y,%m,%d,%w,%H,%M,%S,", date)
     timeidx = (date.tm_sec + date.tm_min*60 + date.tm_hour*3600)/86400 + \
