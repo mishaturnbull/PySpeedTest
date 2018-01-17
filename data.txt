@@ -1,0 +1,12 @@
+1, 1, <Hidden>, 62:45:B1:76:6E:22, .1, 48, *
+2, 1, HP-Print-57-Deskjet 2540 series, B0:5A:DA:78:60:57, .2, 6, 802.11g
+3, 1, UND_ResHall, 6C:F3:7F:C9:75:90, .16, 40, 802.11n
+3, 2, UND_ResHall, 24:DE:C6:21:87:F0, .26, 1, 802.11n
+3, 3, UND_ResHall, 6C:F3:7F:C9:72:20, .43, 6, 802.11n
+3, 4, UND_ResHall, 6C:F3:7F:C9:61:00, .1, 40, 802.11n
+3, 5, UND_ResHall, 6C:F3:7F:C9:6F:D0, .8, 1, 802.11n
+3, 6, UND_ResHall, 6C:F3:7F:C9:67:60, .11, 36, 802.11n
+3, 7, UND_ResHall, 6C:F3:7F:C9:6C:10, .1, 153, 802.11n
+3, 8, UND_ResHall, 24:DE:C6:21:89:B0, .31, 6, 802.11n
+4, 1, DIRECT-49-HP DeskJet 3700 series, 40:B0:34:B0:AF:4A, .26, 1, 802.11n
+5, 1, DIRECT-D36CE1C6, 9E:AE:D3:6C:61:C6, .26, 1, 802.11n

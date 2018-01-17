@@ -1,0 +1,166 @@
+Sun Nov 05 0 2017 at 16:50:25, Center, 27.3, 8032483.1, 8903490.2
+Sun Nov 05 0 2017 at 16:50:55, Center, 35.15, 8481337.8, 7637348.2
+Sun Nov 05 0 2017 at 16:51:25, Center, 30.36, 8528665.5, 22157360.1
+Sun Nov 05 0 2017 at 16:51:55, Center, 39.02, 6280308.9, 16831929.9
+Sun Nov 05 0 2017 at 16:52:25, Center, 23.41, 7972403.8, 11596911.6
+Sun Nov 05 0 2017 at 16:52:55, Center, 23.48, 8373237.8, 17804932.7
+Sun Nov 05 0 2017 at 16:53:25, Center, 27.37, 9201873.5, 10709682.6
+Sun Nov 05 0 2017 at 16:53:55, Center, 36.81, 9316026.9, 8784455.5
+Sun Nov 05 0 2017 at 16:54:25, Center, 27.26, 8539605.4, 18036422.6
+Sun Nov 05 0 2017 at 16:54:55, Center, 35.16, 6227840.4, 22941324.2
+Sun Nov 05 0 2017 at 16:55:25, Center, 27.41, 10910865.9, 20998980.6
+Sun Nov 05 0 2017 at 16:55:55, Center, 35.16, 8108223.1, 11813186.7
+Sun Nov 05 0 2017 at 16:56:25, Center, AttributeError("'Thread' object has no attribute 'downloaded'",)
+Sun Nov 05 0 2017 at 17:09:26, Center, Exception("Unable to connect to 'speedtest.midco.net'",)
+Sun Nov 05 0 2017 at 17:09:56, Center, 23.48, 3948286.7, 20720950.7
+Sun Nov 05 0 2017 at 17:10:26, Center, 27.37, 6976573.8, 16022927.5
+Sun Nov 05 0 2017 at 17:10:56, Center, 42.91, 4366087.1, 19542984.1
+Fri Dec 08 5 2017 at 16:59:01, Centerish, AttributeError("'Thread' object has no attribute 'downloaded'",)
+Fri Dec 08 5 2017 at 16:59:31, Centerish, AttributeError("'Thread' object has no attribute 'downloaded'",)
+Fri Dec 08 5 2017 at 17:00:13, Centerish, AttributeError("'Thread' object has no attribute 'downloaded'",)
+Fri Dec 08 5 2017 at 17:01:27, Centerish, AttributeError("'Thread' object has no attribute 'downloaded'",)
+Fri Dec 08 5 2017 at 17:03:15, Centerish, AttributeError("'Thread' object has no attribute 'downloaded'",)
+Fri Dec 08 5 2017 at 17:04:46, Centerish, AttributeError("'Thread' object has no attribute 'downloaded'",)
+Fri Dec 08 5 2017 at 17:11:35, Centerish, AttributeError("'Thread' object has no attribute 'downloaded'",)
+Fri Dec 08 5 2017 at 17:12:06, Centerish, 291.52, 267063.5, 1081700.4
+Fri Dec 08 5 2017 at 17:17:33, Centerish, AttributeError("'Thread' object has no attribute 'downloaded'",)
+Fri Dec 08 5 2017 at 17:18:14, Centerish, AttributeError("'Thread' object has no attribute 'downloaded'",)
+Fri Dec 08 5 2017 at 17:19:19, Centerish, AttributeError("'Thread' object has no attribute 'downloaded'",)
+Fri Dec 08 5 2017 at 17:25:09, Centerish, AttributeError("'Thread' object has no attribute 'downloaded'",)
+Fri Dec 08 5 2017 at 17:26:32, Centerish, AttributeError("'Thread' object has no attribute 'downloaded'",)
+Fri Dec 08 5 2017 at 17:31:52, Centerish, AttributeError("'Thread' object has no attribute 'downloaded'",)
+Fri Dec 08 5 2017 at 17:32:22, Centerish, AttributeError("'Thread' object has no attribute 'downloaded'",)
+Fri Dec 08 5 2017 at 17:33:40, Centerish, AttributeError("'Thread' object has no attribute 'downloaded'",)
+Fri Dec 08 5 2017 at 17:39:09, Centerish, 267.49, 230718.3, 2907809.0
+Fri Dec 08 5 2017 at 17:45:18, Centerish, 106.53, 1543091.5, 4324050.7
+Fri Dec 08 5 2017 at 17:46:16, Centerish, 55.89, 2798729.8, 8148476.2
+Fri Dec 08 5 2017 at 17:46:48, Centerish, 33.84, 4023964.8, 3035616.0
+Fri Dec 08 5 2017 at 17:47:18, Centerish, 65.68, 4100863.6, 3369652.6
+Fri Dec 08 5 2017 at 17:47:48, Centerish, 67.68, 2974637.7, 15819436.7
+Fri Dec 08 5 2017 at 17:48:18, Centerish, 116.81, 3457411.5, 14924427.1
+Fri Dec 08 5 2017 at 17:48:48, Centerish, 56.9, 2491008.1, 2436039.4
+Fri Dec 08 5 2017 at 17:49:27, Centerish, 74.69, 1854954.7, 14006273.6
+Fri Dec 08 5 2017 at 17:50:14, Centerish, 30.58, 3233223.8, 3711820.6
+Fri Dec 08 5 2017 at 17:50:44, Centerish, 33.84, 2822632.9, 14727141.1
+Fri Dec 08 5 2017 at 17:51:18, Centerish, 40.36, 4283432.0, 20906644.4
+Fri Dec 08 5 2017 at 17:51:48, Centerish, 51.13, 4081978.7, 13888768.4
+Fri Dec 08 5 2017 at 17:52:18, Centerish, 60.88, 4000818.9, 3111966.6
+Fri Dec 08 5 2017 at 17:52:48, Centerish, 34.85, 2845349.7, 13281813.2
+Fri Dec 08 5 2017 at 17:53:19, Centerish, 46.11, 5077426.3, 19037540.2
+Fri Dec 08 5 2017 at 17:53:49, Centerish, 45.12, 3766405.5, 8530929.8
+Fri Dec 08 5 2017 at 17:54:19, Centerish, 56.66, 2342146.7, 13473168.6
+Fri Dec 08 5 2017 at 17:54:56, Centerish, 46.63, 4029181.2, 17149681.1
+Fri Dec 08 5 2017 at 17:55:26, Centerish, 41.86, 5875887.3, 8378454.9
+Fri Dec 08 5 2017 at 17:55:56, Centerish, 46.87, 4396591.4, 15551164.5
+Fri Dec 08 5 2017 at 17:56:26, Centerish, 29.58, 3614155.2, 19073812.4
+Fri Dec 08 5 2017 at 17:56:56, Centerish, 54.91, 6424301.6, 13870421.6
+Fri Dec 08 5 2017 at 17:57:26, Centerish, 39.6, 11735107.7, 5719295.3
+Fri Dec 08 5 2017 at 17:57:56, Centerish, 42.6, 3803632.3, 22555011.3
+Fri Dec 08 5 2017 at 17:58:26, Centerish, 28.83, 4381005.5, 12433663.0
+Fri Dec 08 5 2017 at 17:58:56, Centerish, 31.58, 2838461.2, 5469417.2
+Fri Dec 08 5 2017 at 17:59:28, Centerish, 56.91, 5866160.5, 8862399.5
+Fri Dec 08 5 2017 at 17:59:58, Centerish, 50.89, 2299917.0, 18043176.1
+Fri Dec 08 5 2017 at 18:00:36, Centerish, 40.36, 2781501.1, 12153826.2
+Fri Dec 08 5 2017 at 18:01:07, Centerish, 52.39, 3707129.5, 5788720.7
+Fri Dec 08 5 2017 at 18:01:37, Centerish, 42.86, 2500044.3, 2880172.1
+Fri Dec 08 5 2017 at 18:02:15, Centerish, 52.59, 4591204.6, 16152077.6
+Fri Dec 08 5 2017 at 18:02:45, Centerish, 52.89, 2109111.8, 3645592.6
+Fri Dec 08 5 2017 at 18:03:28, Centerish, 37.35, 2783789.4, 12212048.8
+Fri Dec 08 5 2017 at 18:04:00, Centerish, 36.35, 1951817.8, 13831546.9
+Fri Dec 08 5 2017 at 18:04:44, Centerish, 42.11, 3431011.3, 19333735.1
+Fri Dec 08 5 2017 at 18:05:14, Centerish, 41.11, 2865943.7, 18010129.1
+Fri Dec 08 5 2017 at 18:05:45, Centerish, 42.58, 3677180.9, 14555915.9
+Fri Dec 08 5 2017 at 18:06:15, Centerish, 90.99, 3477766.1, 15014671.2
+Fri Dec 08 5 2017 at 18:06:45, Centerish, 37.6, 3203023.2, 6930438.2
+Fri Dec 08 5 2017 at 18:07:15, Centerish, 43.61, 2779763.9, 17787651.9
+Fri Dec 08 5 2017 at 18:07:47, Centerish, 40.87, 4564315.0, 17446857.9
+Fri Dec 08 5 2017 at 18:08:17, Centerish, 41.33, 4629126.9, 21724317.1
+Fri Dec 08 5 2017 at 18:08:47, Centerish, 29.08, 10289620.4, 16390020.9
+Fri Dec 08 5 2017 at 18:09:17, Centerish, 49.89, 3456810.9, 3819448.5
+Fri Dec 08 5 2017 at 18:09:47, Centerish, 29.08, 3607994.7, 11090165.4
+Fri Dec 08 5 2017 at 18:10:17, Centerish, 38.85, 3055972.2, 12213167.8
+Fri Dec 08 5 2017 at 18:10:47, Centerish, 42.86, 3689698.8, 7147954.5
+Fri Dec 08 5 2017 at 18:11:17, Centerish, 29.08, 5869642.4, 2705152.4
+Fri Dec 08 5 2017 at 18:11:47, Centerish, 41.86, 2788509.4, 12597138.5
+Fri Dec 08 5 2017 at 18:12:18, Centerish, 45.37, 4300791.2, 13039664.4
+Fri Dec 08 5 2017 at 18:12:48, Centerish, 44.37, 3198636.4, 14619504.5
+Fri Dec 08 5 2017 at 18:13:18, Centerish, 50.38, 3474819.3, 3014546.1
+Fri Dec 08 5 2017 at 18:13:48, Centerish, 34.33, 2771431.6, 12822789.2
+Fri Dec 08 5 2017 at 18:14:20, Centerish, 46.38, 3820543.8, 6431864.4
+Fri Dec 08 5 2017 at 18:14:50, Centerish, 46.63, 5015048.8, 18930380.2
+Fri Dec 08 5 2017 at 18:15:20, Centerish, 46.62, 4097642.2, 15596984.2
+Fri Dec 08 5 2017 at 18:15:50, Centerish, 29.58, 2453515.8, 15672821.7
+Fri Dec 08 5 2017 at 18:16:26, Centerish, 34.84, 2886644.2, 7231696.8
+Fri Dec 08 5 2017 at 18:16:57, Centerish, 69.44, 3642856.6, 12502445.3
+Fri Dec 08 5 2017 at 18:17:27, Centerish, 43.07, 3285878.6, 2205844.7
+Fri Dec 08 5 2017 at 18:17:58, Centerish, 46.37, 6972364.5, 23399861.1
+Fri Dec 08 5 2017 at 18:18:28, Centerish, 31.33, 3030660.2, 19948207.5
+Fri Dec 08 5 2017 at 18:19:00, Centerish, 27.07, 4177262.3, 20068604.1
+Fri Dec 08 5 2017 at 18:19:30, Centerish, 29.58, 4374187.7, 15997189.4
+Fri Dec 08 5 2017 at 18:20:00, Centerish, 39.61, 4607198.2, 18718591.0
+Fri Dec 08 5 2017 at 18:20:30, Centerish, 40.1, 2641033.9, 10767640.2
+Fri Dec 08 5 2017 at 18:21:06, Centerish, 36.6, 3234479.3, 7052407.5
+Fri Dec 08 5 2017 at 18:21:36, Centerish, 117.06, 3827231.3, 16773801.5
+Fri Dec 08 5 2017 at 18:22:06, Centerish, 38.85, 2672139.6, 15996557.5
+Fri Dec 08 5 2017 at 18:22:39, Centerish, 26.83, 2069141.2, 6051089.0
+Fri Dec 08 5 2017 at 18:23:22, Centerish, 56.4, 2563944.9, 15242505.8
+Fri Dec 08 5 2017 at 18:23:59, Centerish, 28.58, 2706766.7, 4220156.1
+Fri Dec 08 5 2017 at 18:24:33, Centerish, 42.35, 3531017.8, 14306357.1
+Fri Dec 08 5 2017 at 18:25:03, Centerish, 30.14, 3056082.1, 13737282.7
+Fri Dec 08 5 2017 at 18:25:33, Centerish, 40.86, 3801694.9, 5785342.7
+Fri Dec 08 5 2017 at 18:26:03, Centerish, 52.39, 3175281.9, 15550113.7
+Fri Dec 08 5 2017 at 18:26:33, Centerish, 45.08, 3180635.9, 15103846.3
+Fri Dec 08 5 2017 at 18:27:03, Centerish, 41.61, 4758572.5, 14264733.5
+Fri Dec 08 5 2017 at 18:27:33, Centerish, 96.01, 2527426.0, 15696747.7
+Fri Dec 08 5 2017 at 18:28:10, Centerish, 27.07, 3893806.1, 18142126.4
+Fri Dec 08 5 2017 at 18:28:40, Centerish, 69.44, 3327396.6, 18788913.1
+Fri Dec 08 5 2017 at 18:29:10, Centerish, 37.61, 2776376.7, 1880666.0
+Fri Dec 08 5 2017 at 18:29:46, Centerish, 43.36, 3919978.9, 9510034.9
+Fri Dec 08 5 2017 at 18:30:16, Centerish, 53.14, 1981863.3, 14252558.9
+Fri Dec 08 5 2017 at 18:31:03, Centerish, 54.15, 2088203.8, 4494315.6
+Fri Dec 08 5 2017 at 18:31:46, Centerish, 32.59, 3012931.0, 5324392.5
+Fri Dec 08 5 2017 at 18:32:16, Centerish, 61.15, 4397862.3, 9846612.8
+Fri Dec 08 5 2017 at 18:32:46, Centerish, 47.63, 1802694.2, 14368529.3
+Fri Dec 08 5 2017 at 18:33:34, Centerish, 44.37, 3332771.7, 12840620.4
+Fri Dec 08 5 2017 at 18:34:04, Centerish, 53.68, 1908990.1, 11848087.9
+Fri Dec 08 5 2017 at 18:34:50, Centerish, 50.39, 3923145.4, 18475716.2
+Fri Dec 08 5 2017 at 18:35:20, Centerish, 42.87, 2596932.8, 15106435.9
+Fri Dec 08 5 2017 at 18:35:53, Centerish, 41.11, 4114772.0, 12985692.6
+Fri Dec 08 5 2017 at 18:36:23, Centerish, 41.87, 4248764.3, 18824344.2
+Fri Dec 08 5 2017 at 18:36:53, Centerish, 51.18, 4157931.4, 16417142.1
+Fri Dec 08 5 2017 at 18:37:23, Centerish, 43.37, 4264705.7, 11617631.5
+Fri Dec 08 5 2017 at 18:37:53, Centerish, 43.36, 1902709.6, 2775656.8
+Fri Dec 08 5 2017 at 18:38:41, Centerish, 42.32, 4459281.3, 20068384.2
+Fri Dec 08 5 2017 at 18:39:11, Centerish, 29.83, 5611403.9, 5039957.1
+Fri Dec 08 5 2017 at 18:39:41, Centerish, 38.1, 2651429.4, 13333200.1
+Fri Dec 08 5 2017 at 18:40:14, Centerish, 60.66, 3587778.5, 3249137.1
+Fri Dec 08 5 2017 at 18:40:44, Centerish, 47.13, 3554356.0, 2141971.2
+Fri Dec 08 5 2017 at 18:41:14, Centerish, 54.13, 2387168.2, 10957107.9
+Fri Dec 08 5 2017 at 18:41:51, Centerish, 38.1, 2225487.5, 12989257.0
+Fri Dec 08 5 2017 at 18:42:30, Centerish, 44.87, 2389978.9, 6716779.3
+Fri Dec 08 5 2017 at 18:43:08, Centerish, 85.23, 3367963.4, 13751389.3
+Fri Dec 08 5 2017 at 18:43:38, Centerish, 32.09, 1927296.0, 3310578.3
+Fri Dec 08 5 2017 at 18:44:27, Centerish, 32.85, 4031578.4, 12146948.6
+Fri Dec 08 5 2017 at 18:44:57, Centerish, 115.07, 2617462.9, 14492713.5
+Fri Dec 08 5 2017 at 18:45:31, Centerish, 38.86, 3387423.5, 20231489.7
+Fri Dec 08 5 2017 at 18:46:01, Centerish, 35.06, 2942573.5, 11119246.1
+Fri Dec 08 5 2017 at 18:46:31, Centerish, 35.84, 2602415.3, 12785978.2
+Fri Dec 08 5 2017 at 18:47:05, Centerish, 44.37, 11834620.7, 16802684.7
+Fri Dec 08 5 2017 at 18:47:35, Centerish, 117.33, 5073965.8, 9259470.0
+Fri Dec 08 5 2017 at 18:48:05, Centerish, 31.06, 3150270.2, 17177485.0
+Fri Dec 08 5 2017 at 18:48:35, Centerish, 86.73, 3152891.3, 14748853.8
+Fri Dec 08 5 2017 at 18:49:05, Centerish, 70.15, 3942111.4, 8168557.1
+Fri Dec 08 5 2017 at 18:49:35, Centerish, 55.27, 6909909.6, 18136954.4
+Fri Dec 08 5 2017 at 18:50:05, Centerish, 44.87, 4344022.0, 5175702.5
+Fri Dec 08 5 2017 at 18:50:35, Centerish, 57.53, 3350554.1, 14924696.8
+Fri Dec 08 5 2017 at 18:51:05, Centerish, 29.33, 2776089.2, 2634210.8
+Fri Dec 08 5 2017 at 18:51:40, Centerish, 51.89, 4367621.4, 2814527.6
+Fri Dec 08 5 2017 at 18:52:10, Centerish, 30.83, 3476778.7, 10601817.9
+Fri Dec 08 5 2017 at 18:52:40, Centerish, 34.05, 3305440.6, 5866714.6
+Fri Dec 08 5 2017 at 18:53:10, Centerish, 38.6, 2630369.3, 5322480.1
+Fri Dec 08 5 2017 at 18:53:44, Centerish, 36.37, 3260435.6, 7021934.4
+Wed Jan 10 3 2018 at 22:55:34, Outside 301A, 20.35, 3381802.6, 12030766.7
+Wed Jan 10 3 2018 at 22:56:04, Outside 301A, 21.66, 3378493.9, 12018547.9
+Wed Jan 10 3 2018 at 22:56:46, Outside 301A, 18.53, 4801239.9, 5251837.4
+Wed Jan 10 3 2018 at 22:57:22, Outside 301A, 49.44, 5080460.1, 16837084.4
+Wed Jan 10 3 2018 at 22:58:07, Outside 301A, 17.83, 4782154.5, 11727009.4

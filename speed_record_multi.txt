@@ -1,0 +1,30 @@
+               SPEED TEST RECORD
+      AUTO-RECORDED USING pyspeedtest MODULE
+
+        TIME                      Location        PING      DOWN         UP
+Mon Oct 23 1 2017 at 16:32:28, Mid-East side, 28.85, 1292436.6, 563514.1
+Mon Oct 23 1 2017 at 16:37:28, Mid-East side, 18.1, 3465780.8, 3081008.2
+Mon Oct 23 1 2017 at 16:42:28, Mid-East side, 17.47, 11057506.7, 26125896.9
+Mon Oct 23 1 2017 at 16:47:28, Mid-East side, 19.99, 13962056.2, 23277899.7
+Mon Oct 23 1 2017 at 16:52:28, Mid-East side, 17.27, 9238010.6, 25600230.8
+Mon Oct 23 1 2017 at 16:57:28, Mid-East side, 30.19, 3976212.2, 23538028.9
+Mon Oct 23 1 2017 at 17:02:28, Mid-East side, 15.66, 8236008.4, 32127013.5
+Mon Oct 23 1 2017 at 17:07:28, Mid-East side, 19.52, 10391644.0, 29077582.6
+Mon Oct 23 1 2017 at 17:12:28, Mid-East side, 27.34, 847026.6, 914180.6
+Mon Oct 23 1 2017 at 17:17:28, Mid-East side, 219.19, 1586405.5, 2301536.7
+Mon Oct 23 1 2017 at 17:22:28, Mid-East side, 19.53, 1394601.8, 1434858.2
+Mon Oct 23 1 2017 at 17:27:28, Mid-East side, 23.4, 1096816.8, 945587.3
+Mon Oct 23 1 2017 at 17:32:28, Mid-East side, 16.8, 1487895.0, 595588.4
+Mon Oct 23 1 2017 at 17:37:28, Mid-East side, 15.55, 11369740.2, 29193235.0
+Mon Oct 23 1 2017 at 17:42:28, Mid-East side, 15.83, 11205154.2, 28820872.7
+Mon Oct 23 1 2017 at 17:47:28, Mid-East side, 15.57, 10594750.9, 21803087.6
+Mon Oct 23 1 2017 at 17:52:28, Mid-East side, 15.66, 12331189.8, 24710806.5
+Mon Oct 23 1 2017 at 17:57:28, Mid-East side, 27.36, 2703631.1, 3823841.8
+Mon Oct 23 1 2017 at 18:02:28, Mid-East side, AttributeError("'Thread' object has no attribute 'uploaded'",)
+Mon Oct 23 1 2017 at 21:41:58, Mid-East side, 50.84, 900619.9, 2223946.1
+Mon Oct 23 1 2017 at 21:46:58, Mid-East side, 105.76, 1289598.5, 1209469.1
+Mon Oct 23 1 2017 at 21:51:58, Mid-East side, 58.61, 1678314.7, 3822654.5
+Mon Oct 23 1 2017 at 21:56:58, Mid-East side, 23.43, 1298431.3, 300956.9
+Mon Oct 23 1 2017 at 22:01:58, Mid-East side, 31.25, 3243802.2, 1080000.8
+Mon Oct 23 1 2017 at 22:06:58, Mid-East side, AttributeError("'Thread' object has no attribute 'downloaded'",)
+Mon Oct 23 1 2017 at 22:11:58, Mid-East side, 58.33, 747357.7, 3460585.7

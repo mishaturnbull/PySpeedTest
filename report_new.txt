@@ -1,0 +1,43 @@
+           INTERNET SPEED REPORT
+McVey 3rd floor north wing common area
+Time window: beginning Tue Oct 24 16:54:47 2017
+             end       Tue Oct 24 20:05:39 2017
+Connected to server: speedtest.midco.net
+
+
+            PING STATISTICS            
+Fastest ping: 23.4 ms
+Slowest ping: 144.54 ms
+Average ping: 35.3 ms
+
+
+          DOWNLOAD STATISTICS          
+Fastest download: 18.9 Mbit/s
+Slowest download: 2.274 Mbit/s
+Average download: 6.422 Mbit/s
+
+
+           UPLOAD STATISTICS           
+Fastest upload: 29.198 Mbit/s
+Slowest upload: 1.922 Mbit/s
+Average upload: 16.664 Mbit/s
+
+
+           OUT-OF-STANDARDS          
+Total connection attempts: 382
+Total failed connection attempts: 2
+Total successful connection attempts: 380
+Percentage of failed connections: 0.52%
+
+Number of ping times above 25 ms: 366
+Percentage of ping times below standard: 95.8%
+Hours/day ping time is below standard: 23.0 hours
+
+Number of download speeds below 20.0 Mbit/s: 380
+Percentage of download speeds below standard: 99.5%
+Hours/day download speed is below standard: 23.9 hours
+
+Number of upload speeds below 20.0 Mbit/s: 230
+Percentage of upload speeds below standard: 60.199999999999996%
+Hours/day upload speed is below standard: 14.4 hours
+
