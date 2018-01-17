@@ -15,7 +15,7 @@ except ModuleNotFoundError:
     sys.exit(1)
 
 def dprint(level, msg):
-    if level >= VERBOSITY:
+    if VERBOSITY >= level:
         print(msg)
 
 while True:

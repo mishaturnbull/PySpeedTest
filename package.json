@@ -1,0 +1,7 @@
+{
+	"name": "PySpeedMonitor",
+	"version": "0.0.0",
+	"dependencies": {
+		"pyspeedtest": ">=1.2.7"
+	}
+}

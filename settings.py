@@ -17,7 +17,7 @@ REC_FILE = "speed_record.ilog"
 # room 301' or 'Atrium').   Set the location here.  For prettier outputs,
 # don't set a location longer than the guide below.
 # Guide:   "-----------------"
-LOCATION = "wherever"
+LOCATION = "Common Area"
 
 ######## Speed test frequency:
 # This value specifies how many minutes should elapse between speed tests.
