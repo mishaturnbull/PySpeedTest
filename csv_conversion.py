@@ -50,7 +50,8 @@ for line in lines:
     else:
         print(line)
         print("Critical: The above line is misformatted.  No data has been")
-        print("          written to {} or cleared from {}.".format())
+        print("          written to {} or cleared from {}.".format(
+                CSV_OUTPUT_FILE, readfilename))
         assert False, "Misformatted line"
 
     line = ','.join(fields) + '\n'

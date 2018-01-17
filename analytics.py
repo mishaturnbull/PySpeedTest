@@ -47,7 +47,6 @@ statlines.append(" " * 10 + " INTERNET SPEED REPORT")
 statlines.append("McVey 3rd floor north wing common area")
 statlines.append("Time window: beginning " + tm.asctime(records['time'][0]))
 statlines.append("             end       " + tm.asctime(records['time'][-1]))
-statlines.append("Connected to server: speedtest.midco.net")
 
 statlines.append("\n")
 
