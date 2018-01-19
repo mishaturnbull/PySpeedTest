@@ -27,40 +27,56 @@ def dprint(level, msg):
     if VERBOSITY >= level:
         print(msg)
 
-while True:
+def make_speedtest_object():
+    speed_tester = pyspeedtest.SpeedTest()
 
-    st = pyspeedtest.SpeedTest()
-    
     # Yes, I know this is ultra-bad practice.  I'm overriding the setting
     # without editing the source of pyspeedtest.
-    st._host = FORCE_SERVER # pylint: disable=W0212
+    speed_tester._host = FORCE_SERVER # pylint: disable=W0212
 
-    a = datetime.datetime.now()
-    curtime = a.strftime("%a %b %d %w %Y at %H:%M:%S")
+    return speed_tester
+
+
+def test_once():
+    speed_tester = make_speedtest_object()
+
+    time_a = datetime.datetime.now()
+    curtime = time_a.strftime("%a %b %d %w %Y at %H:%M:%S")
 
     dprint(2, "About to test at " + curtime)
     try:
         dprint(3, "About to ping...")
-        ping = round(st.ping(), 2)
+        ping = round(speed_tester.ping(), 2)
         dprint(3, "About to download...")
-        down = round(st.download(), 1)
+        down = round(speed_tester.download(), 1)
         dprint(3, "About to upload...")
-        up = round(st.upload(), 1)
-        newline = ", ".join([curtime, LOCATION, str(ping), str(down), str(up)]) \
+        upload_speed = round(speed_tester.upload(), 1)
+        newline = ", ".join([curtime, LOCATION, str(ping), str(down), str(upload_speed)]) \
                   + '\n'
-    except Exception as e:
+    except Exception as exc:
         dprint(1, "It didn't work!  Joining error line...")
-        newline = ", ".join([curtime, LOCATION, e.__repr__()]) + '\n'
+        newline = ", ".join([curtime, LOCATION, exc.__repr__()]) + '\n'
+
+    time_b = datetime.datetime.now()
 
     dprint(2, "Test completed, result:")
     dprint(1, newline)
-    with open(REC_FILE, 'a') as record:
-        record.write(newline)
 
-    b = datetime.datetime.now()
+    time_diff = (FREQ * 60) - (time_b - time_a).total_seconds()
+    if time_diff < 0:
+        time_diff = 0  # hope we catch up eventually
 
-    t = (FREQ * 60) - (b - a).total_seconds()
-    if t < 0:
-        t = 0  # hope we catch up eventually
+    return newline, time_diff
 
-    time.sleep(t)
+
+def main():
+
+    while True:
+        newline, time_diff = test_once()
+        with open(REC_FILE, 'a') as record:
+            record.write(newline)
+        time.sleep(time_diff)
+
+
+if __name__ == '__main__':
+    main()
