@@ -11,7 +11,7 @@ import datetime
 import time
 import sys
 
-from settings import REC_FILE, LOCATION, FREQ, VERBOSITY
+from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER
 
 try:
     import pyspeedtest
@@ -30,6 +30,10 @@ def dprint(level, msg):
 while True:
 
     st = pyspeedtest.SpeedTest()
+    
+    # Yes, I know this is ultra-bad practice.  I'm overriding the setting
+    # without editing the source of pyspeedtest.
+    st._host = FORCE_SERVER # pylint: disable=W0212
 
     a = datetime.datetime.now()
     curtime = a.strftime("%a %b %d %w %Y at %H:%M:%S")

@@ -10,14 +10,14 @@ Created on Wed Jan 17 09:02:00 2018
 ######## Name of file to output to:
 # No matter the extension, the program writes pure text data and the file can
 # be opened and read with any text editor
-REC_FILE = "speed_record.ilog"
+REC_FILE = "speed_record_room.ilog"
 
 ######## Location to record at:
 # The program supports recording speeds at multiple locations (e.g. 'Outside
 # room 301' or 'Atrium').   Set the location here.  For prettier outputs,
 # don't set a location longer than the guide below.
 # Guide:   "-----------------"
-LOCATION = "Common Area"
+LOCATION = "McVey 306B"
 
 ######## Speed test frequency:
 # This value specifies how many minutes should elapse between speed tests.
@@ -34,6 +34,14 @@ FREQ = 0.5
 #
 # Well I mean decimals *should* work but why would you want do that?
 VERBOSITY = 3
+
+######## Speedtest server:
+# If (and only if) you would like to specify a specific speedtest server,
+# set the next value to the string format of the url of the server.
+# For example, "speedtest.midco.net".
+# If you would like to have the program (pyspeedtest) determine the best server
+# automatically, leave the value as None.
+FORCE_SERVER = None
 
 ################ ANALYTICS PROGRAM SETTINGS ################
 

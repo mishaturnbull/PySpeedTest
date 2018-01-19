@@ -1,3 +1,8 @@
 *.pyc
 *.ilog
 report*
+*exe*
+build/
+dist/
+Records/
+.spyproject/
