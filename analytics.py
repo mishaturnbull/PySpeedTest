@@ -5,7 +5,7 @@ from pyspeedtest import pretty_speed
 
 from settings import REC_FILE, ANALYZE_FILE, ANALYTICS_REC_FILE, \
                      STANDARDS_ENABLE, STANDARD_PING, STANDARD_DOWN, \
-                     STANDARD_UP
+                     STANDARD_UP, LOCATION, FORCE_SERVER
 
 readfilename = REC_FILE
 if ANALYZE_FILE != None:
@@ -39,9 +39,10 @@ def avg(l):
 
 # meta
 statlines.append(" " * 10 + " INTERNET SPEED REPORT")
-statlines.append("McVey 3rd floor north wing common area")
+statlines.append("     Location: " + LOCATION)
 statlines.append("Time window: beginning " + tm.asctime(records['time'][0]))
 statlines.append("             end       " + tm.asctime(records['time'][-1]))
+statlines.append("Server specified: " + str(FORCE_SERVER))
 
 statlines.append("\n")
 
