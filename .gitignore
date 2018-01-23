@@ -2,6 +2,7 @@
 *.ilog
 report*
 *exe*
+*.spec
 build/
 dist/
 Records/
