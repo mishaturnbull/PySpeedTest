@@ -66,13 +66,13 @@ def test_once():
     if time_diff < 0:
         time_diff = 0  # hope we catch up eventually
 
-    return newline, time_diff
+    return newline, time_diff, {'ping': ping, 'down': down, 'up': upload_speed}
 
 
 def main():
 
     while True:
-        newline, time_diff = test_once()
+        newline, time_diff, _ = test_once()
         with open(REC_FILE, 'a') as record:
             record.write(newline)
         time.sleep(time_diff)
