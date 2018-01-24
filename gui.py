@@ -30,16 +30,23 @@ class SpeedTesterThread(threading.Thread):
         self.handler = handler
 
     def run(self):
+        self.handler.thread_status.config(text="Thread status: alive")
         while not self.stoprequest.isSet():
-            newline, time_diff, self.last_result = test_once()
+            self.handler.thread_status.config(text="Thread status: testing")
+            newline, time_diff, self.last_result = test_once(
+                self.handler.location_entry.get())
+            self.handler.thread_status.config(
+                text="Thread status: writing results")
             with open(REC_FILE, 'a') as record:
                 record.write(newline)
             self.handler.update_statistics()
             # check again for stop request here -- otherwise, we'll wait
             # to the next test unnecessarily
             if not self.stoprequest.isSet():
+                self.handler.thread_status.config(text="Thread status: waiting")
                 time.sleep(time_diff)
         self.handler.status_label.config(text="Status: stopped")
+        self.handler.thread_status.config(text="Thread status: dead")
 
     def join(self, timeout=None):
         self.stoprequest.set()
@@ -278,11 +285,13 @@ class SpeedTesterGUI(object):
                                        command=self.upload_data)
         self.upload_button.grid(row=3, column=1, sticky=tk.W)
 
+        self.thread_status = tk.Label(self.root, text="Thread status:")
+        self.thread_status.grid(row=4, column=0, columnspan=3, sticky=tk.W)
         self.last_test_label = tk.Label(self.root, text="Last: ")
-        self.last_test_label.grid(row=4, column=0, columnspan=3, sticky=tk.W)
+        self.last_test_label.grid(row=5, column=0, columnspan=3, sticky=tk.W)
 
         self.avg_test_label = tk.Label(self.root, text="Avg.: ")
-        self.avg_test_label.grid(row=5, column=0, columnspan=3, sticky=tk.W)
+        self.avg_test_label.grid(row=6, column=0, columnspan=3, sticky=tk.W)
 
         self.config_button = tk.Button(self.root, text="Edit configuration",
                                        command=self.edit_config)

@@ -37,7 +37,7 @@ def make_speedtest_object():
     return speed_tester
 
 
-def test_once():
+def test_once(location=None):
     speed_tester = make_speedtest_object()
 
     time_a = datetime.datetime.now()
@@ -51,11 +51,11 @@ def test_once():
         down = round(speed_tester.download(), 1)
         dprint(3, "About to upload...")
         upload_speed = round(speed_tester.upload(), 1)
-        newline = ", ".join([curtime, LOCATION, str(ping), str(down), str(upload_speed)]) \
+        newline = ", ".join([curtime, location or LOCATION, str(ping), str(down), str(upload_speed)]) \
                   + '\n'
     except Exception as exc:
         dprint(1, "It didn't work!  Joining error line...")
-        newline = ", ".join([curtime, LOCATION, exc.__repr__()]) + '\n'
+        newline = ", ".join([curtime, location or LOCATION, exc.__repr__()]) + '\n'
         ping = down = upload_speed = 0
 
     time_b = datetime.datetime.now()
