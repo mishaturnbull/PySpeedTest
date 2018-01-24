@@ -7,6 +7,35 @@ Created on Wed Jan 17 09:02:00 2018
 
 import configparser
 
+EMERGENCY_DEFAULT = """
+[Speedtester]
+rec_file = speed_record.ilog
+location = McVey 306B
+freq = 0.5
+verbosity = 3
+force_server = None
+
+[Analytics]
+analyze_file = None
+analytics_rec_file = report.txt
+standards_enable = False
+standard_ping = 0.0
+standard_down = 0.0
+standard_up = 0.0
+
+[CSV]
+csv_input_file = None
+csv_output_file = Internet_speed_record.csv
+csv_clear_infile = False
+"""
+
+try:
+    f = open('config.ini')
+    f.close()
+except FileNotFoundError:
+    with open('config.ini', 'w') as configfile:
+        configfile.write(EMERGENCY_DEFAULT)
+
 parser = configparser.ConfigParser()
 parser.read("config.ini")
 
