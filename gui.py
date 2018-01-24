@@ -17,7 +17,9 @@ import time
 from pyspeedtest import pretty_speed
 
 from main import test_once
-from settings import *  # yeah I know this is bad.
+from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER, \
+                     ANALYZE_FILE, ANALYTICS_REC_FILE, STANDARDS_ENABLE, \
+                     STANDARD_PING, STANDARD_UP, STANDARD_DOWN, parser
 
 class SpeedTesterThread(threading.Thread):
 
@@ -63,20 +65,23 @@ class SpeedTesterGUI(object):
         self.lasttest = self.thread.last_result
         self.ntests += 1
         self.avg['ping'] = self.avg['ping'] + ((self.lasttest['ping'] -
-                self.avg['ping']) / self.ntests)
+                                                self.avg['ping']) /
+                                               self.ntests)
         self.avg['down'] = self.avg['down'] + ((self.lasttest['down'] -
-                self.avg['down']) / self.ntests)
+                                                self.avg['down']) /
+                                               self.ntests)
         self.avg['up'] = self.avg['up'] + ((self.lasttest['up'] -
-                self.avg['up']) / self.ntests)
+                                            self.avg['up']) /
+                                           self.ntests)
 
         last_str = "Last: Ping: {ping}ms / {up}\u2191 / {down}\u2193".format(
-                ping=self.lasttest['ping'],
-                up=pretty_speed(self.lasttest['up']),
-                down=pretty_speed(self.lasttest['down']))
+            ping=self.lasttest['ping'],
+            up=pretty_speed(self.lasttest['up']),
+            down=pretty_speed(self.lasttest['down']))
         avg_str = "Avg: Ping: {ping}ms / {up}\u2191 / {down}\u2193".format(
-                ping=self.avg['ping'],
-                up=pretty_speed(self.avg['up']),
-                down=pretty_speed(self.avg['down']))
+            ping=self.avg['ping'],
+            up=pretty_speed(self.avg['up']),
+            down=pretty_speed(self.avg['down']))
 
         self.last_test_label.config(text=last_str)
         self.avg_test_label.config(text=avg_str)
@@ -103,10 +108,55 @@ class SpeedTesterGUI(object):
         cfgmen.wm_title("Configuration")
 
         def set_vars():
-            pass
+            parser['Speedtester']['rec_file'] = entry_recfile.get()
+            parser['Speedtester']['location'] = entry_location.get()
+            parser['Speedtester']['freq'] = entry_freq.get()
+            parser['Speedtester']['verbosity'] = entry_verbosity.get()
+            parser['Speedtester']['force_server'] = entry_server.get()
+            parser['Analytics']['analyze_file'] = entry_afile.get()
+            parser['Analytics']['analytics_rec_file'] = entry_arecfile.get()
+            parser['Analytics']['standards_enable'] = str(bool(standvar.get()))
+            parser['Analytics']['standard_ping'] = entry_stan_ping.get()
+            parser['Analytics']['standard_up'] = entry_stan_up.get()
+            parser['Analytics']['standard_down'] = entry_stan_down.get()
+
+            with open("config.ini", 'w') as configfile:
+                parser.write(configfile)
 
         def refresh():
-            pass
+            entry_recfile.delete(0, 'end')
+            entry_recfile.insert(0, REC_FILE)
+
+            entry_location.delete(0, 'end')
+            entry_location.insert(0, LOCATION)
+
+            entry_freq.delete(0, 'end')
+            entry_freq.insert(0, FREQ)
+
+            entry_verbosity.delete(0, 'end')
+            entry_verbosity.insert(0, VERBOSITY)
+
+            entry_server.delete(0, 'end')
+            entry_server.insert(0, str(FORCE_SERVER))
+
+            entry_afile.delete(0, 'end')
+            entry_afile.insert(0, str(ANALYZE_FILE))
+
+            entry_arecfile.delete(0, 'end')
+            entry_arecfile.insert(0, ANALYTICS_REC_FILE)
+
+            standvar.set(int(bool(STANDARDS_ENABLE)))
+            _updopt()
+
+            entry_stan_ping.delete(0, 'end')
+            entry_stan_ping.insert(0, STANDARD_PING)
+
+            entry_stan_up.delete(0, 'end')
+            entry_stan_up.insert(0, STANDARD_UP)
+
+            entry_stan_down.delete(0, 'end')
+            entry_stan_down.insert(0, STANDARD_DOWN)
+
 
         setbutton = tk.Button(cfgmen, text="Apply", command=set_vars)
         setbutton.grid(row=0, column=0, sticky=tk.W)
@@ -158,7 +208,40 @@ class SpeedTesterGUI(object):
         entry_arecfile = tk.Entry(cfgmen, width=40)
         entry_arecfile.grid(row=9, column=1, sticky=tk.W)
 
+        def _updopt():
+            if standvar.get() != 0:
+                entry_stan_ping.config(state=tk.NORMAL)
+                entry_stan_up.config(state=tk.NORMAL)
+                entry_stan_down.config(state=tk.NORMAL)
+            else:
+                entry_stan_ping.config(state=tk.DISABLED)
+                entry_stan_up.config(state=tk.DISABLED)
+                entry_stan_down.config(state=tk.DISABLED)
 
+        standvar = tk.IntVar()
+        label_standards = tk.Label(cfgmen, text="Standards:")
+        label_standards.grid(row=10, column=0, sticky=tk.W)
+        button_standards = tk.Checkbutton(cfgmen, text="Enable",
+                                          variable=standvar,
+                                          command=_updopt)
+        button_standards.grid(row=10, column=1, sticky=tk.W)
+
+        label_stan_ping = tk.Label(cfgmen, text="Ping standard:")
+        label_stan_ping.grid(row=11, column=0, sticky=tk.W)
+        entry_stan_ping = tk.Entry(cfgmen, width=5)
+        entry_stan_ping.grid(row=11, column=1, sticky=tk.W)
+
+        label_stan_up = tk.Label(cfgmen, text="Upload standard (Mbps):")
+        label_stan_up.grid(row=12, column=0, sticky=tk.W)
+        entry_stan_up = tk.Entry(cfgmen, width=6)
+        entry_stan_up.grid(row=12, column=1, sticky=tk.W)
+
+        label_stan_down = tk.Label(cfgmen, text="Download standard (Mbps):")
+        label_stan_down.grid(row=13, column=0, sticky=tk.W)
+        entry_stan_down = tk.Entry(cfgmen, width=6)
+        entry_stan_down.grid(row=13, column=1, sticky=tk.W)
+
+        _updopt()
 
 
     def resnet(self):
@@ -192,7 +275,7 @@ class SpeedTesterGUI(object):
         self.makefile_button.grid(row=3, column=0, columnspan=2,
                                   sticky=tk.W)
         self.upload_button = tk.Button(self.root, text="Upload",
-                                      command=self.upload_data)
+                                       command=self.upload_data)
         self.upload_button.grid(row=3, column=1, sticky=tk.W)
 
         self.last_test_label = tk.Label(self.root, text="Last: ")

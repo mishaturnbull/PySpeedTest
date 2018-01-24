@@ -56,6 +56,7 @@ def test_once():
     except Exception as exc:
         dprint(1, "It didn't work!  Joining error line...")
         newline = ", ".join([curtime, LOCATION, exc.__repr__()]) + '\n'
+        ping = down = upload_speed = 0
 
     time_b = datetime.datetime.now()
 
