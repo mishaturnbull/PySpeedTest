@@ -10,7 +10,7 @@ import configparser
 EMERGENCY_DEFAULT = """
 [Speedtester]
 rec_file = speed_record.ilog
-location = McVey 306B
+location = Wherever
 freq = 0.5
 verbosity = 3
 force_server = None

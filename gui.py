@@ -81,12 +81,12 @@ class SpeedTesterGUI(object):
                                             self.avg['up']) /
                                            self.ntests)
 
-        last_str = "Last: Ping: {ping}ms / {up}\u2191 / {down}\u2193".format(
+        last_str = "Last: {ping}ms / {up}\u2191 / {down}\u2193".format(
             ping=self.lasttest['ping'],
             up=pretty_speed(self.lasttest['up']),
             down=pretty_speed(self.lasttest['down']))
-        avg_str = "Avg: Ping: {ping}ms / {up}\u2191 / {down}\u2193".format(
-            ping=self.avg['ping'],
+        avg_str = "Avg: {ping}ms / {up}\u2191 / {down}\u2193".format(
+            ping=round(self.avg['ping'], 2),
             up=pretty_speed(self.avg['up']),
             down=pretty_speed(self.avg['down']))
 
@@ -134,8 +134,11 @@ class SpeedTesterGUI(object):
             entry_recfile.delete(0, 'end')
             entry_recfile.insert(0, REC_FILE)
 
+            # Set the location field to be the value of the location field
+            # in the main menu
+            
             entry_location.delete(0, 'end')
-            entry_location.insert(0, LOCATION)
+            entry_location.insert(0, self.location_entry.get())
 
             entry_freq.delete(0, 'end')
             entry_freq.insert(0, FREQ)
