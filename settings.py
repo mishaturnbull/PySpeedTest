@@ -27,6 +27,10 @@ standard_up = 0.0
 csv_input_file = None
 csv_output_file = Internet_speed_record.csv
 csv_clear_infile = False
+
+[UPLOAD]
+url = mcv156.163.und.nodak.edu
+port = 11356
 """
 
 try:
