@@ -56,3 +56,6 @@ STANDARD_UP = float(parser['Analytics']['standard_up'])
 CSV_INPUT_FILE = parser['CSV']['csv_input_file']
 CSV_OUTPUT_FILE = parser['CSV']['csv_output_file']
 CSV_CLEAR_INFILE = parser['CSV']['csv_clear_infile']
+
+UPLOAD_URL = parser['UPLOAD']['url']
+UPLOAD_PORT = int(parser['UPLOAD']['port'])

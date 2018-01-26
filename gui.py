@@ -17,9 +17,11 @@ import time
 from pyspeedtest import pretty_speed
 
 from main import test_once
+from uploadclient import upload
 from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER, \
                      ANALYZE_FILE, ANALYTICS_REC_FILE, STANDARDS_ENABLE, \
-                     STANDARD_PING, STANDARD_UP, STANDARD_DOWN, parser
+                     STANDARD_PING, STANDARD_UP, STANDARD_DOWN, UPLOAD_URL, \
+                     UPLOAD_PORT, parser
 
 class SpeedTesterThread(threading.Thread):
 
@@ -108,7 +110,7 @@ class SpeedTesterGUI(object):
         import analytics   # this should do the trick...
 
     def upload_data(self):
-        pass
+        upload()  # easy enough :)
 
     def edit_config(self):
         cfgmen = tk.Toplevel(self.root)
@@ -126,6 +128,8 @@ class SpeedTesterGUI(object):
             parser['Analytics']['standard_ping'] = entry_stan_ping.get()
             parser['Analytics']['standard_up'] = entry_stan_up.get()
             parser['Analytics']['standard_down'] = entry_stan_down.get()
+            parser['Upload']['url'] = entry_upload_url.get()
+            parser['Upload']['port'] = int(entry_upload_port.get())
 
             with open("config.ini", 'w') as configfile:
                 parser.write(configfile)
@@ -166,6 +170,12 @@ class SpeedTesterGUI(object):
 
             entry_stan_down.delete(0, 'end')
             entry_stan_down.insert(0, STANDARD_DOWN)
+            
+            entry_upload_url.delete(0, 'end')
+            entry_upload_url.insert(0, UPLOAD_URL)
+            
+            entry_upload_port.delete(0, 'end')
+            entry_upload_port.insert(0, str(UPLOAD_PORT))
 
 
         setbutton = tk.Button(cfgmen, text="Apply", command=set_vars)
@@ -250,6 +260,19 @@ class SpeedTesterGUI(object):
         label_stan_down.grid(row=13, column=0, sticky=tk.W)
         entry_stan_down = tk.Entry(cfgmen, width=6)
         entry_stan_down.grid(row=13, column=1, sticky=tk.W)
+        
+        label_sec_upload = tk.Label(cfgmen, text="===== UPLOAD SETTINGS =====")
+        label_sec_upload.grid(row=14, column=0, columnspan=2, sticky=tk.W)
+        
+        label_upload_url = tk.Label(cfgmen, text="Upload URL:")
+        label_upload_url.grid(row=15, column=0, sticky=tk.W)
+        entry_upload_url = tk.Entry(cfgmen, width=40)
+        entry_upload_url.grid(row=15, column=1, sticky=tk.W)
+        
+        label_upload_port = tk.Label(cfgmen, text="Upload port:")
+        label_upload_port.grid(row=16, column=0, sticky=tk.W)
+        entry_upload_port = tk.Entry(cfgmen, width=7)
+        entry_upload_port.grid(row=16, column=1, sticky=tk.W)
 
         _updopt()
 
