@@ -7,8 +7,10 @@ Hopefully useful.
 
 try:
     import tkinter as tk
+    import tkinter.messagebox as messagebox
 except ImportError:
     import Tkinter as tk
+    import TkMessageBox as messagebox
 
 import webbrowser
 import threading
@@ -18,6 +20,7 @@ from pyspeedtest import pretty_speed
 
 from main import test_once
 from uploadclient import upload
+from autoupdate import has_update, download_update
 from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER, \
                      ANALYZE_FILE, ANALYTICS_REC_FILE, STANDARDS_ENABLE, \
                      STANDARD_PING, STANDARD_UP, STANDARD_DOWN, UPLOAD_URL, \
@@ -59,8 +62,16 @@ class SpeedTesterGUI(object):
 
     def __init__(self):
         self.root = tk.Tk()
+        
+        update_available = has_update()
+        if update_available:
+            want_update = messagebox.askyesno("Update", 
+                                              "An update has been detected." +
+                                              "  Would you like to download?")
+            if want_update == 'yes':
+                download_update()
+        
         self.location = "-- ENTER LOCATION --"
-
         self.lasttest = {'ping': 0, 'up': 0, 'down': 0}
         self.avg = {'ping': 0, 'up': 0, 'down': 0}
         self.ntests = 0
