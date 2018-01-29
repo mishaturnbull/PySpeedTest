@@ -1,14 +1,16 @@
 # PySpeedTest
 
-This is a small, lightweight utility that tests the Internet connection at set intervals. I wrote it to prove to the people who manage my Internet that it's really bad. It takes periodic (or not-so-periodic) samples of your Internet speed. Statistics recorded are upload speed, download speed, ping time, and if something fails reason for failure.
+This is a small, lightweight utility that tests the Internet connection at set intervals. I wrote it specifically for University of North Dakota to prove to ResNet that the internet in my dorm is **real bad**.  As part of the project and that I hope to distribute it to the rest of the dorm, I figured I should probably write documentation, so here it is.
 
-Test link: [Here!][0]
+## Download/Releases/Sharing
+
+You can download the latest release from [here][latestrelease].  As of version 0.4.3, the program will automatically offer to download the latest version for you if there's a new one.  
+
+# Help
+
+[Click here][help] for extended help documentation.
 
 
-
-
-
-[sharinglink]: tinyurl.com/mcnetspeed
-[latestrelease]: github.com/mishaturnbull/PySpeedTest/releases/latest
-
-[0]: test.md
+[sharinglink]: tinyurl.com/mcnetspeed "Sharing link"
+[latestrelease]: github.com/mishaturnbull/PySpeedTest/releases/latest "Latest release"
+[help]: help/index.md "Docs top"
