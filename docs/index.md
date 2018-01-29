@@ -13,4 +13,4 @@ You can download the latest release from [here][latestrelease].  As of version 0
 
 [sharinglink]: tinyurl.com/mcnetspeed "Sharing link"
 [latestrelease]: github.com/mishaturnbull/PySpeedTest/releases/latest "Latest release"
-[help]: help/index.md "Docs top"
+[help]: help.md "Docs top"
