@@ -28,7 +28,7 @@ I'm working on a more accessible system for Macs, but don't have one, so it migh
 
 # Basic Usage
 <p align="center">
-![PySpeedTest](/docs/window.png)
+![PySpeedTest](window.png)
 </p>
 
 ## Running Speed Tests
@@ -56,7 +56,19 @@ This button creates a summary file based on your current results.  It
 [specified in the configuration](https://github.com/mishaturnbull/PySpeedTest/issues/5)
 without removing the results.  The only gotcha with this feature is that it must be done before uploading: for various reasons, uploading the results clears them from your machine.
 
+## Example Usage
 
+The way I typically use the program is as follows:
+
+1. Notice the internet speed is bad/I want to run tests.
+2. Start the program.
+3. Upload any previous results (uploading empty data doesn't hurt anything)
+4. Tell it where I am (e.g. "McVey 3rd north")
+5. Click `Start`
+6. Do homework until I decide to procrastinate again.
+7. Click `Stop`
+8. Click `Upload`
+9. Done
 
 
 [downloads]: github.com/mishaturnbull/PySpeedTest/releases/latest
