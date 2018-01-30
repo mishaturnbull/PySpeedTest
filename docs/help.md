@@ -2,14 +2,15 @@
 
 # Table of contents
 
-1. [Getting Started](# Getting Started)  
-    1.1 [Downloads](# Downloads)  
-    1.2 [Running](# Running)  
-2. [Basic Usage](# Basic Usage)  
+1. [Getting Started](#getting-started)  
+    1.1 [Downloads](#downloads)  
+    1.2 [Running](#running)  
+2. [Basic Usage](#basic-usage)  
     2.1 [Running Speed Tests](#running-speed-tests)  
     2.2 [Uploading Results](#uploading-results)  
     2.3 [The ResNet Button](#the-resnet-button)  
     2.4 [Create Analysis File Button](#create-analysis-file-button)  
+    2.5 [Example Usage](#example-usage)  
 
 # Getting Started
 
@@ -17,18 +18,34 @@
 
 First, I would recommend downloading the program.  That typically makes it a bit easier to run.  Download it on [this page](downloads).
 
-For Windows, you should download the `.exe` file.  For OSx/Linux, you can download the source tarball in either `.tar.gz` or `.zip`, whichever is easier for you.  On Linux, that is probably `.tar.gz`; on OSx, I have no idea (if you do, please let me know.  I only have access to a Windows laptop).
+For Windows, you should download the `.exe` file.  For Macs, you can download the source tarball in either `.tar.gz` or `.zip`, whichever is easier for you.  
+
+For Linux, run this command (assuming you have `git` installed):
+```bash
+git clone https://github.com/mishaturnbull/PySpeedTest.git PySpeedTest
+```
 
 ## Running
 
-On Windows, simply double-click the `.exe` file you downloaded.  It will automatically create a file called `config.ini` containing various configuration details; ignore this unless you want to change your default preferences.
+### Windows
 
-On OSx/Linux, which come by default with Python, navigate to the downloaded source and unzip it.  To unzip a tarball, run `tar xf [name_of_downloaded_file].tar.gz`.  To unzip the `.zip` file, run `tar xvf [name_of_downloaded_file].zip`.  Then navigate to the directory and run `python gui.py &` (make sure to use Python 3 -- if you have both 2 and 3 on your system, run `python3 gui.py &`.  If you don't know what this means, do just plain python.  
-I'm working on a more accessible system for Macs, but don't have one, so it might be a while.
+All you have to do is double-click the `.exe` file you downloaded.  It will automatically create a file called `config.ini` containing various configuration details; ignore this unless you want to change your default preferences.
+
+### Mac
+
+Not really sure.  I don't have a Mac, so if you have one, download the source and let me know what happens.  (I'm working on convincing a friend to let me test it on their Macbook)
+
+### Linux/\*nix
+
+Run the following commands (assuming you downloaded it as [above](#downloads))
+```bash
+cd PySpeedTest
+python3 gui.py
+```
 
 # Basic Usage
 <p align="center">
-![PySpeedTest](window.png)
+![PySpeedTest](/PySpeedTest/docs/window.png)
 </p>
 
 ## Running Speed Tests
