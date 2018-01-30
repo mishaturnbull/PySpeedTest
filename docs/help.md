@@ -5,11 +5,11 @@
 1. [Getting Started](# Getting Started)  
     1.1 [Downloads](# Downloads)  
     1.2 [Running](# Running)  
-2. [Basic Usage](# Basic Usage)
-    2.1 [Running Speed Tests](## Running Speed Tests)
+2. [Basic Usage](# Basic Usage)  
+    2.1 [Running Speed Tests](##Running-Speed-Tests)
     2.2 [Uploading Results](## Uploading results)
     2.3 [The ResNet Button](## The ResNet Button)
-    2.4 [Create Analysis File Button](## Create Analysis File Button)
+    2.4 [Create Analysis File Button](##Create-Analysis-File-Button)
 
 # Getting Started
 
