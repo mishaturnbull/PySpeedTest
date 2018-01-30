@@ -6,10 +6,10 @@
     1.1 [Downloads](# Downloads)  
     1.2 [Running](# Running)  
 2. [Basic Usage](# Basic Usage)  
-    2.1 [Running Speed Tests](##Running-Speed-Tests)  
-    2.2 [Uploading Results](## Uploading results)  
-    2.3 [The ResNet Button](## The ResNet Button)  
-    2.4 [Create Analysis File Button](##Create-Analysis-File-Button)  
+    2.1 [Running Speed Tests](#running-speed-tests)  
+    2.2 [Uploading Results](#uploading-results)  
+    2.3 [The ResNet Button](#the-resnet-button)  
+    2.4 [Create Analysis File Button](#create-analysis-file-button)  
 
 # Getting Started
 
