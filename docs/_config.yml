@@ -1,2 +1,13 @@
+# name
+name: PySpeedTest Documentation
+
+# description
+description: Documentation for the internet speed tester.
+
+# site theme
 theme: jekyll-theme-minimal
-include: [help, ]
+
+# author
+author: Michael Turnbull
+author_email: mishaturnbull@gmail.com
+
