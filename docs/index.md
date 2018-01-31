@@ -8,9 +8,12 @@ You can download the latest release from [here][latestrelease].  As of version 0
 
 ## Help
 
+[Getting Started](starting).  <--- Click that one for a quick start guide to downloading and running the program.
+
 [Click here][help] for extended help documentation.
 
 
 [sharinglink]: tinyurl.com/mcnetspeed "Sharing link"
 [latestrelease]: github.com/mishaturnbull/PySpeedTest/releases/latest "Latest release"
+[starting]: gettingstarted.html "Getting Started Guide"
 [help]: help.html "Docs top"

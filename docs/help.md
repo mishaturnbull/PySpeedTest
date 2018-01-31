@@ -1,47 +1,12 @@
 [Back to main page](index.html)
 
 # Table of contents
-
-1. [Getting Started](#getting-started)  
-    1.1 [Downloads](#downloads)  
-    1.2 [Running](#running)  
-2. [Basic Usage](#basic-usage)  
-    2.1 [Running Speed Tests](#running-speed-tests)  
-    2.2 [Uploading Results](#uploading-results)  
-    2.3 [The ResNet Button](#the-resnet-button)  
-    2.4 [Create Analysis File Button](#create-analysis-file-button)  
-    2.5 [Example Usage](#example-usage)  
-
-# Getting Started
-
-## Downloads
-
-First, I would recommend downloading the program.  That typically makes it a bit easier to run.  Download it on [this page](downloads).
-
-For Windows, you should download the `.exe` file.  For Macs, you can download the source tarball in either `.tar.gz` or `.zip`, whichever is easier for you.  
-
-For Linux, run this command (assuming you have `git` installed):
-```bash
-git clone https://github.com/mishaturnbull/PySpeedTest.git PySpeedTest
-```
-
-## Running
-
-### Windows
-
-All you have to do is double-click the `.exe` file you downloaded.  It will automatically create a file called `config.ini` containing various configuration details; ignore this unless you want to change your default preferences.
-
-### Mac
-
-Not really sure.  I don't have a Mac, so if you have one, download the source and let me know what happens.  (I'm working on convincing a friend to let me test it on their Macbook)
-
-### Linux/\*nix
-
-Run the following commands (assuming you downloaded it as [above](#downloads))
-```bash
-cd PySpeedTest
-python3 gui.py
-```
+1. [Basic Usage](#basic-usage)  
+    1.1 [Running Speed Tests](#running-speed-tests)  
+    1.2 [Uploading Results](#uploading-results)  
+    1.3 [The ResNet Button](#the-resnet-button)  
+    1.4 [Create Analysis File Button](#create-analysis-file-button)  
+    1.5 [Example Usage](#example-usage)  
 
 # Basic Usage
 <p align="center">
