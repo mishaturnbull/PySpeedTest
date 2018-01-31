@@ -11,3 +11,4 @@ theme: jekyll-theme-minimal
 author: Michael Turnbull
 author_email: mishaturnbull@gmail.com
 
+show_downloads: true

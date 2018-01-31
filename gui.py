@@ -5,6 +5,8 @@ Graphical user interface for speed test.
 Hopefully useful.
 """
 
+# tcl/tk -- used for building GUI
+# messagebox -- neat little popup window
 try:
     import tkinter as tk
     import tkinter.messagebox as messagebox
@@ -12,12 +14,19 @@ except ImportError:
     import Tkinter as tk
     import TkMessageBox as messagebox
 
+# for the Resnet button
 import webbrowser
+
+# for running the speedtester thread in the background
 import threading
+
+# recordng time
 import time
 
+# makes the test display easier to read
 from pyspeedtest import pretty_speed
 
+# import the rest of the code
 from main import test_once
 from uploadclient import upload
 from autoupdate import has_update, download_update
@@ -26,25 +35,47 @@ from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER, \
                      STANDARD_PING, STANDARD_UP, STANDARD_DOWN, UPLOAD_URL, \
                      UPLOAD_PORT, parser
 
+# background thread for running speed tests
 class SpeedTesterThread(threading.Thread):
 
     def __init__(self, handler):
         threading.Thread.__init__(self)
+
+        # used to pass the last result to the GUI handler for analysis/display
         self.last_result = {'ping': 0, 'up': 0, 'down': 0}
+
+        # GUI tells us whether to stop or not
         self.stoprequest = threading.Event()
+
+        # GUI handler itself
         self.handler = handler
 
     def run(self):
+
+        # tell the user we're running
         self.handler.thread_status.config(text="Thread status: alive")
+
+        # if the stop request is set, we want to stop.  so, run while it's not
         while not self.stoprequest.isSet():
+
+            # tell user we're testing
             self.handler.thread_status.config(text="Thread status: testing")
+
+            # run the speed test
             newline, time_diff, self.last_result = test_once(
                 self.handler.location_entry.get())
+
+            # tell the user we're now outputting the results
             self.handler.thread_status.config(
                 text="Thread status: writing results")
+
+            # write the results to the specified file
             with open(REC_FILE, 'a') as record:
                 record.write(newline)
+
+            # tell the handler we're done so it can update the display
             self.handler.update_statistics()
+
             # check again for stop request here -- otherwise, we'll wait
             # to the next test unnecessarily
             if not self.stoprequest.isSet():
@@ -54,6 +85,7 @@ class SpeedTesterThread(threading.Thread):
         self.handler.thread_status.config(text="Thread status: dead")
 
     def join(self, timeout=None):
+        # set the stop request so next time the test starts/stops we'll exit
         self.stoprequest.set()
         super(SpeedTesterThread, self).join(timeout)
 
@@ -61,23 +93,32 @@ class SpeedTesterThread(threading.Thread):
 class SpeedTesterGUI(object):
 
     def __init__(self):
+        """
+        Instantiate the GUI menu.  Runs automatically.
+        """
+
+        # root window
         self.root = tk.Tk()
-        
+
+        # check for an update.  if there is, prompt user to download
         update_available = has_update()
         if update_available:
-            want_update = messagebox.askyesno("Update", 
+            want_update = messagebox.askyesno("Update",
                                               "An update has been detected." +
                                               "  Would you like to download?")
             if want_update == 'yes':
                 download_update()
-        
+
+        # set defaults
         self.location = "-- ENTER LOCATION --"
         self.lasttest = {'ping': 0, 'up': 0, 'down': 0}
         self.avg = {'ping': 0, 'up': 0, 'down': 0}
         self.ntests = 0
 
+        # instantiate the speed tester background thread
         self.thread = SpeedTesterThread(self)
 
+        # build and start the GUI
         self.init_gui()
         self.root.mainloop()
 
@@ -151,7 +192,7 @@ class SpeedTesterGUI(object):
 
             # Set the location field to be the value of the location field
             # in the main menu
-            
+
             entry_location.delete(0, 'end')
             entry_location.insert(0, self.location_entry.get())
 
@@ -181,10 +222,10 @@ class SpeedTesterGUI(object):
 
             entry_stan_down.delete(0, 'end')
             entry_stan_down.insert(0, STANDARD_DOWN)
-            
+
             entry_upload_url.delete(0, 'end')
             entry_upload_url.insert(0, UPLOAD_URL)
-            
+
             entry_upload_port.delete(0, 'end')
             entry_upload_port.insert(0, str(UPLOAD_PORT))
 
@@ -271,15 +312,15 @@ class SpeedTesterGUI(object):
         label_stan_down.grid(row=13, column=0, sticky=tk.W)
         entry_stan_down = tk.Entry(cfgmen, width=6)
         entry_stan_down.grid(row=13, column=1, sticky=tk.W)
-        
+
         label_sec_upload = tk.Label(cfgmen, text="===== UPLOAD SETTINGS =====")
         label_sec_upload.grid(row=14, column=0, columnspan=2, sticky=tk.W)
-        
+
         label_upload_url = tk.Label(cfgmen, text="Upload URL:")
         label_upload_url.grid(row=15, column=0, sticky=tk.W)
         entry_upload_url = tk.Entry(cfgmen, width=40)
         entry_upload_url.grid(row=15, column=1, sticky=tk.W)
-        
+
         label_upload_port = tk.Label(cfgmen, text="Upload port:")
         label_upload_port.grid(row=16, column=0, sticky=tk.W)
         entry_upload_port = tk.Entry(cfgmen, width=7)
