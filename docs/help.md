@@ -10,7 +10,7 @@
 
 # Basic Usage
 <p align="center">
-![PySpeedTest](/PySpeedTest/docs/window.png)
+![PySpeedTest](./window.png)
 </p>
 
 ## Running Speed Tests
@@ -29,7 +29,7 @@ After the results have been uploaded, they are cleared from your computer.  The 
 
 ## The ResNet Button
 
-Pressing the ResNet button brings you to ResNet's support ticket page.  The sole purpose of this button is because I can never find this page and frequently want to submit tickets when the internet isn't working.  Please don't flood ResNet with tickets for slow internet -- they know about this -- but if it goes down, then let them know.
+Pressing the ResNet button brings you to ResNet's support ticket page.  The sole purpose of this button is because I can never find this page and frequently want to submit tickets when the internet isn't working.  **Please don't flood ResNet with tickets for slow internet** -- they know about this -- but if it goes down, then let them know.
 
 ## Create Analysis File Button
 
