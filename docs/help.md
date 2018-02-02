@@ -10,7 +10,7 @@
 
 # Basic Usage
 <p align="center">
-![PySpeedTest](./window.png)
+![PySpeedTest](./docs/window.png)
 </p>
 
 ## Running Speed Tests

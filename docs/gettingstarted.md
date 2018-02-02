@@ -1,3 +1,5 @@
+[Back to main page](index.html)
+
 # Getting Started
 
 ## Windows
