@@ -5,7 +5,7 @@ name: PySpeedTest Documentation
 description: Documentation for the internet speed tester.
 
 # base URL
-baseurl = /docs
+baseurl: /docs
 
 # site theme
 theme: jekyll-theme-minimal
