@@ -9,9 +9,9 @@
     1.5 [Example Usage](#example-usage)  
 
 # Basic Usage
-<p align="center">
-![PySpeedTest](https://github.com/mishaturnbull/PySpeedTest/raw/master/docs/window.png)
-</p>
+<div style="text-align:center">
+    <img src ="https://github.com/mishaturnbull/PySpeedTest/raw/master/docs/window.png" />
+</div>
 
 ## Running Speed Tests
 
