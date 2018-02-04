@@ -26,9 +26,13 @@ import time
 # makes the test display easier to read
 from pyspeedtest import pretty_speed
 
+# showing errors
+import traceback
+
 # import the rest of the code
 from main import test_once
 from uploadclient import upload
+from analytics import run_analytics
 from autoupdate import has_update, download_update
 from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER, \
                      ANALYZE_FILE, ANALYTICS_REC_FILE, STANDARDS_ENABLE, \
@@ -37,8 +41,15 @@ from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER, \
 
 # background thread for running speed tests
 class SpeedTesterThread(threading.Thread):
+    """
+    Background thread for running speed tests.
+    """
 
     def __init__(self, handler):
+        """
+        Instantiate thread handler.
+        """
+
         threading.Thread.__init__(self)
 
         # used to pass the last result to the GUI handler for analysis/display
@@ -51,6 +62,9 @@ class SpeedTesterThread(threading.Thread):
         self.handler = handler
 
     def run(self):
+        """
+        Run the thread (or don't)
+        """
 
         # tell the user we're running
         self.handler.thread_status.config(text="Thread status: alive")
@@ -91,6 +105,9 @@ class SpeedTesterThread(threading.Thread):
 
 
 class SpeedTesterGUI(object):
+    """
+    Speed tester GUI object
+    """
 
     def __init__(self):
         """
@@ -101,7 +118,10 @@ class SpeedTesterGUI(object):
         self.root = tk.Tk()
 
         # check for an update.  if there is, prompt user to download
-        update_available = has_update()
+        try:
+            update_available = has_update()
+        except Exception:
+            update_available = False  # can't update with no connection!
         if update_available:
             want_update = messagebox.askyesno("Update",
                                               "An update has been detected." +
@@ -120,9 +140,25 @@ class SpeedTesterGUI(object):
 
         # build and start the GUI
         self.init_gui()
-        self.root.mainloop()
-
+        
+        try:
+            self.root.mainloop()
+        except Exception as exc:
+            messagebox.showerror("PySpeedTest Broke",
+                                 exc.message)
+            
+    def show_error(self, *args):
+        err = traceback.format_exception(*args)
+        messagebox.showerror('Exception',err)
+            
     def update_statistics(self):
+        """
+        Updates the statistics display on the GUI menu.
+
+        Responsible for keeping track of rolling averages and last tests.
+        Called directly by the tester thread.
+        """
+
         self.lasttest = self.thread.last_result
         self.ntests += 1
         self.avg['ping'] = self.avg['ping'] + ((self.lasttest['ping'] -
@@ -135,6 +171,9 @@ class SpeedTesterGUI(object):
                                             self.avg['up']) /
                                            self.ntests)
 
+        # create new format strings from computed averages/last test
+        # \u2191 is an up arrow
+        # \u2193 is a down arrow
         last_str = "Last: {ping}ms / {up}\u2191 / {down}\u2193".format(
             ping=self.lasttest['ping'],
             up=pretty_speed(self.lasttest['up']),
@@ -144,10 +183,16 @@ class SpeedTesterGUI(object):
             up=pretty_speed(self.avg['up']),
             down=pretty_speed(self.avg['down']))
 
+        # apply changes
         self.last_test_label.config(text=last_str)
         self.avg_test_label.config(text=avg_str)
 
     def start(self):
+        """
+        Start the tester thread.
+
+        https://github.com/mishaturnbull/PySpeedTest/issues/4
+        """
         self.lasttest = {'ping': 0, 'up': 0, 'down': 0}
         self.avg = {'ping': 0, 'up': 0, 'down': 0}
         self.ntests = 0
@@ -155,20 +200,43 @@ class SpeedTesterGUI(object):
         self.thread.start()
 
     def stop(self):
+        """
+        Stop the tester thread.
+
+        Should not cause the program to hang.
+        """
         self.status_label.config(text="Status: stopping")
-        self.thread.join(0.5)
+        self.thread.join(0)
 
     def make_analysis_file(self):
-        import analytics   # this should do the trick...
+        """
+        Create the statistical analysis file.
+        """
+        run_analytics()
 
     def upload_data(self):
+        """
+        Upload data to the server.
+
+        Requires a network connection (duh).
+        """
         upload()  # easy enough :)
 
     def edit_config(self):
+        """
+        Configuration edit menu.
+        Shouldn't all be in one function, but oh well.
+        """
+
         cfgmen = tk.Toplevel(self.root)
         cfgmen.wm_title("Configuration")
 
         def set_vars():
+            """
+            The 'Apply' button.
+
+            https://github.com/mishaturnbull/PySpeedTest/issues/5
+            """
             parser['Speedtester']['rec_file'] = entry_recfile.get()
             parser['Speedtester']['location'] = entry_location.get()
             parser['Speedtester']['freq'] = entry_freq.get()
@@ -187,6 +255,9 @@ class SpeedTesterGUI(object):
                 parser.write(configfile)
 
         def refresh():
+            """
+            The 'Defaults' button.
+            """
             entry_recfile.delete(0, 'end')
             entry_recfile.insert(0, REC_FILE)
 
@@ -281,6 +352,9 @@ class SpeedTesterGUI(object):
         entry_arecfile.grid(row=9, column=1, sticky=tk.W)
 
         def _updopt():
+            """
+            Standards enable/disable toggle greyout fields shortcut.
+            """
             if standvar.get() != 0:
                 entry_stan_ping.config(state=tk.NORMAL)
                 entry_stan_up.config(state=tk.NORMAL)
@@ -327,15 +401,22 @@ class SpeedTesterGUI(object):
         entry_upload_port.grid(row=16, column=1, sticky=tk.W)
 
         _updopt()
+        refresh()
 
 
     def resnet(self):
+        """
+        Open your web browser to the ResNet support ticket page.
+        """
         # If only ResNet would've made this page easier to find,
         # this option wouldn't be needed.
         webbrowser.open("http://und.edu/web-support/request.cfm")
 
     # here we go... avoid this code.  it's bad.
     def init_gui(self):
+        """
+        Make it all look pretty (not)
+        """
         self.root.title("Internet Speed Tester")
 
         self.status_label = tk.Label(self.root, text="Status: stopped")

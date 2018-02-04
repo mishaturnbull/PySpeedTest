@@ -52,7 +52,8 @@ FORCE_SERVER = None if server == 'None' else server
 
 ANALYZE_FILE = parser['Analytics']['analyze_file']
 ANALYTICS_REC_FILE = parser['Analytics']['analytics_rec_file']
-STANDARDS_ENABLE = parser['Analytics']['standards_enable']
+STANDARDS_ENABLE = parser['Analytics']['standards_enable'] in ['true', '1', 
+                         't', 'y', 'yes', 'yeah', 'yup', 'certainly', 'uh-huh']
 STANDARD_PING = float(parser['Analytics']['standard_ping'])
 STANDARD_DOWN = float(parser['Analytics']['standard_down'])
 STANDARD_UP = float(parser['Analytics']['standard_up'])

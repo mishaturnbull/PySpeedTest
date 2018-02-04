@@ -8,7 +8,7 @@ You can download the latest release from [here][latestrelease].  As of version 0
 
 ## Help
 
-[Getting Started](starting).  <--- Click that one for a quick start guide to downloading and running the program.
+[Getting Started][starting].  <--- Click that one for a quick start guide to downloading and running the program.
 
 [Click here][help] for extended help documentation.
 

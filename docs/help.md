@@ -15,7 +15,7 @@
 
 ## Running Speed Tests
 
-In order to run speed tests, first, run the program as [described above](## Running), and the little window should pop up.  To start recording the internet speed (which you want to do), click the button that says "Start".
+In order to run speed tests, first, run the program as [described here](running), and the little window should pop up.  To start recording the internet speed (which you want to do), click the button that says "Start".
 
 Before you do this, however, enter in the Location field where you are.  This *really* helps me sort through the data and make it useful -- I can't very well tell ResNet that the network speeds are slow in "McVey", but I can tell them it's slow in "McVey 3rd north".  This is surprisingly important.
 
@@ -54,3 +54,4 @@ The way I typically use the program is as follows:
 
 
 [downloads]: github.com/mishaturnbull/PySpeedTest/releases/latest
+[running]: gettingstarted.html#running

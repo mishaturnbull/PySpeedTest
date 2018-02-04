@@ -7,7 +7,7 @@ import requests
 
 __major__ = '0'
 __minor__ = '4'
-__patch__ = '3'
+__patch__ = '4'
 __version__ = '.'.join([__major__, __minor__, __patch__])
 __int_version__ = int(''.join([__major__, __minor__, __patch__]))
 
