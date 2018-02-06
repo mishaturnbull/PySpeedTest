@@ -253,6 +253,10 @@ class SpeedTesterGUI(object):
 
             with open("config.ini", 'w') as configfile:
                 parser.write(configfile)
+                
+            ## FIXME: workaround for issue #5.  NOT A FIX!
+            messagebox.showwarning("Configuration", "You will need to restart"+
+                                   "the program for changes to take effect!")
 
         def refresh():
             """
