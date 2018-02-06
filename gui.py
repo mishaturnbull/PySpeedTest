@@ -206,7 +206,7 @@ class SpeedTesterGUI(object):
         Should not cause the program to hang.
         """
         self.status_label.config(text="Status: stopping")
-        self.thread.join(0)
+        self.
 
     def make_analysis_file(self):
         """
