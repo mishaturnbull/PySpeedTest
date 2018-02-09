@@ -8,13 +8,15 @@ import requests
 from __version__ import __int_version__
 
 def has_update():
-    versions = requests.get("https://api.github.com/repos/mishaturnbull/PySpeedTest/releases")
+    versions = requests.get(
+            "https://api.github.com/repos/mishaturnbull/PySpeedTest/releases")
     latest_version = versions.json()[0]['tag_name']
     latest_int_version = int(''.join(latest_version[1:].split('.')))
     return latest_int_version > __int_version__
 
 def get_download_url():
-    versions = requests.get("https://api.github.com/repos/mishaturnbull/PySpeedTest/releases")
+    versions = requests.get(
+            "https://api.github.com/repos/mishaturnbull/PySpeedTest/releases")
     exe_url = versions.json()[0]['assets'][0]['browser_download_url']
     return exe_url
 

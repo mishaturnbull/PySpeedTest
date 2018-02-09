@@ -12,7 +12,7 @@ try:
     import tkinter.messagebox as messagebox
 except ImportError:
     import Tkinter as tk
-    import TkMessageBox as messagebox
+    import tkMessageBox as messagebox
 
 # for the Resnet button
 import webbrowser
@@ -95,6 +95,9 @@ class SpeedTesterThread(threading.Thread):
             if not self.stoprequest.isSet():
                 self.handler.thread_status.config(text="Thread status: waiting")
                 time.sleep(time_diff)
+            else:
+                self.handler.thread_status.config(text='Thread status: paused')
+                continue
         self.handler.status_label.config(text="Status: stopped")
         self.handler.thread_status.config(text="Thread status: dead")
 
@@ -197,7 +200,10 @@ class SpeedTesterGUI(object):
         self.avg = {'ping': 0, 'up': 0, 'down': 0}
         self.ntests = 0
         self.status_label.config(text="Status: running")
-        self.thread.start()
+        if self.thread.is_alive():
+            self.thread.stoprequest.clear()
+        else:
+            self.thread.start()
 
     def stop(self):
         """
@@ -206,7 +212,7 @@ class SpeedTesterGUI(object):
         Should not cause the program to hang.
         """
         self.status_label.config(text="Status: stopping")
-        self.
+        self.thread.stoprequest.set()
 
     def make_analysis_file(self):
         """

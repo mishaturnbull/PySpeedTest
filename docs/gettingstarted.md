@@ -10,6 +10,8 @@ Put that file somewhere you'll remember it, then double-click it to run.  The pr
 
 ## Mac
 
+***UPDATE 2018/02/08***:  I tested it on a friend's Mac and found [multiple issues](https://github.com/mishaturnbull/PySpeedTest/issues/8).  It doesn't work right now.  I'm working on making it work.  Hopefully it will work soon.
+
 Problem here.  I don't have a Mac, so I can't test anything on them.  I also can't compile single-file builds for them either.  You'll be stuck executing the Python source until I can find a better solution -- which I am working on.  In the mean time, you can do this:
 
 1. Download the zip file from the left side of the screen

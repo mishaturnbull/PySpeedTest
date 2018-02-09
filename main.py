@@ -16,10 +16,9 @@ from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER
 try:
     import pyspeedtest
 except ModuleNotFoundError:
-    print("Critical: Required module PySpeedTest not found.")
-    print("          Running this in terminal/cmd will probably fix it:")
-    print("          pip install pyspeedtest")
-    sys.exit(1)
+    from dependencies import download_dependencies
+    download_dependencies()
+    import pyspeedtest
 
 # lazy man's debugging
 def dprint(level, msg):
