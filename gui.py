@@ -60,6 +60,9 @@ class SpeedTesterThread(threading.Thread):
 
         # GUI handler itself
         self.handler = handler
+        
+        # program is closing, stop now
+        self.exit = False
 
     def run(self):
         """
@@ -69,7 +72,7 @@ class SpeedTesterThread(threading.Thread):
         # tell the user we're running
         self.handler.thread_status.config(text="Thread status: alive")
 
-        while True:
+        while not self.exit:
             # if the stop request is set, we want to stop.  so, run while it's not
             while not self.stoprequest.isSet():
                 print("Stop request is unset")
@@ -123,18 +126,6 @@ class SpeedTesterGUI(object):
         # root window
         self.root = tk.Tk()
 
-        # check for an update.  if there is, prompt user to download
-        try:
-            update_available = has_update()
-        except Exception:
-            update_available = False  # can't update with no connection!
-        if update_available:
-            want_update = messagebox.askyesno("Update",
-                                              "An update has been detected." +
-                                              "  Would you like to download?")
-            if want_update:
-                download_update()
-
         # set defaults
         self.location = "-- ENTER LOCATION --"
         self.lasttest = {'ping': 0, 'up': 0, 'down': 0}
@@ -146,6 +137,21 @@ class SpeedTesterGUI(object):
 
         # build and start the GUI
         self.init_gui()
+        self.root.protocol("WM_DELETE_WINDOW", self.close)
+        
+        # moved below init_gui per 
+        # https://github.com/mishaturnbull/PySpeedTest/issues/6
+        # check for an update.  if there is, prompt user to download
+        try:
+            update_available = has_update()
+        except Exception:
+            update_available = False  # can't update with no connection!
+        if update_available:
+            want_update = messagebox.askyesno("Update",
+                                              "An update has been detected." +
+                                              "  Would you like to download?")
+            if want_update:
+                download_update()
         
         try:
             self.root.mainloop()
@@ -216,6 +222,20 @@ class SpeedTesterGUI(object):
         """
         self.status_label.config(text="Status: stopping")
         self.thread.stoprequest.set()
+        
+    def close(self):
+        """
+        Close action
+        """
+        status = self.thread_status.cget("text")
+        self.thread.exit = True
+        if not 'dead' in status:
+            messagebox.showerror("Closing", "Please wait until the thread is dead to close the program.")
+            return   # no close!
+        else:
+            # allow close
+            self.thread.join()
+            self.root.destroy()
 
     def make_analysis_file(self):
         """
