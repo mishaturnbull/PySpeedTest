@@ -5,7 +5,13 @@ Created on Wed Jan 17 09:02:00 2018
 @author: Misha
 """
 
-import configparser
+# python 2-proofing
+import sys
+
+if sys.version_info[0] == 2:
+    import ConfigParser as configparser
+elif sys.version_info[0] == 3:
+    import configparser
 
 EMERGENCY_DEFAULT = """
 [Speedtester]
@@ -43,24 +49,24 @@ except FileNotFoundError:
 parser = configparser.ConfigParser()
 parser.read("config.ini")
 
-REC_FILE = parser['Speedtester']['rec_file']
-LOCATION = parser['Speedtester']['location']
-FREQ = float(parser['Speedtester']['freq'])
-VERBOSITY = int(parser['Speedtester']['verbosity'])
-server = parser['Speedtester']['force_server']
+REC_FILE = parser.get('Speedtester', 'rec_file')
+LOCATION = parser.get('Speedtester', 'location')
+FREQ = float(parser.get('Speedtester', 'freq'))
+VERBOSITY = int(parser.get('Speedtester', 'verbosity'))
+server = parser.get('Speedtester', 'force_server')
 FORCE_SERVER = None if server == 'None' else server
 
-ANALYZE_FILE = parser['Analytics']['analyze_file']
-ANALYTICS_REC_FILE = parser['Analytics']['analytics_rec_file']
-STANDARDS_ENABLE = parser['Analytics']['standards_enable'] in ['true', '1', 
+ANALYZE_FILE = parser.get('Analytics', 'analyze_file')
+ANALYTICS_REC_FILE = parser.get('Analytics', 'analytics_rec_file')
+STANDARDS_ENABLE = parser.get('Analytics', 'standards_enable') in ['true', '1', 
                          't', 'y', 'yes', 'yeah', 'yup', 'certainly', 'uh-huh']
-STANDARD_PING = float(parser['Analytics']['standard_ping'])
-STANDARD_DOWN = float(parser['Analytics']['standard_down'])
-STANDARD_UP = float(parser['Analytics']['standard_up'])
+STANDARD_PING = float(parser.get('Analytics', 'standard_ping'))
+STANDARD_DOWN = float(parser.get('Analytics', 'standard_down'))
+STANDARD_UP = float(parser.get('Analytics', 'standard_up'))
 
-CSV_INPUT_FILE = parser['CSV']['csv_input_file']
-CSV_OUTPUT_FILE = parser['CSV']['csv_output_file']
-CSV_CLEAR_INFILE = parser['CSV']['csv_clear_infile']
+CSV_INPUT_FILE = parser.get('CSV', 'csv_input_file')
+CSV_OUTPUT_FILE = parser.get('CSV', 'csv_output_file')
+CSV_CLEAR_INFILE = parser.get('CSV', 'csv_clear_infile')
 
-UPLOAD_URL = parser['UPLOAD']['url']
-UPLOAD_PORT = int(parser['UPLOAD']['port'])
+UPLOAD_URL = parser.get('UPLOAD', 'url')
+UPLOAD_PORT = int(parser.get('UPLOAD', 'port'))
