@@ -8,3 +8,7 @@ dist/
 Records/
 .spyproject/
 controller/
+requests/
+requests-master/
+requests.zip
+pyspeedtest.py
