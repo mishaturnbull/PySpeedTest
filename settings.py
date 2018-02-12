@@ -34,7 +34,7 @@ csv_input_file = None
 csv_output_file = Internet_speed_record.csv
 csv_clear_infile = False
 
-[UPLOAD]
+[Upload]
 url = mcv156.163.und.nodak.edu
 port = 11356
 """
@@ -60,13 +60,13 @@ ANALYZE_FILE = parser.get('Analytics', 'analyze_file')
 ANALYTICS_REC_FILE = parser.get('Analytics', 'analytics_rec_file')
 STANDARDS_ENABLE = parser.get('Analytics', 'standards_enable') in ['true', '1', 
                          't', 'y', 'yes', 'yeah', 'yup', 'certainly', 'uh-huh']
-STANDARD_PING = float(parser.get('Analytics', 'standard_ping'))
-STANDARD_DOWN = float(parser.get('Analytics', 'standard_down'))
-STANDARD_UP = float(parser.get('Analytics', 'standard_up'))
+STANDARD_PING = float(parser.get('Analytics', 'standard_ping') or 0)
+STANDARD_DOWN = float(parser.get('Analytics', 'standard_down') or 0)
+STANDARD_UP = float(parser.get('Analytics', 'standard_up') or 0)
 
 CSV_INPUT_FILE = parser.get('CSV', 'csv_input_file')
 CSV_OUTPUT_FILE = parser.get('CSV', 'csv_output_file')
 CSV_CLEAR_INFILE = parser.get('CSV', 'csv_clear_infile')
 
-UPLOAD_URL = parser.get('UPLOAD', 'url')
-UPLOAD_PORT = int(parser.get('UPLOAD', 'port'))
+UPLOAD_URL = parser.get('Upload', 'url')
+UPLOAD_PORT = int(parser.get('Upload', 'port'))

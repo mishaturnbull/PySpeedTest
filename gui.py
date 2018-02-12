@@ -17,11 +17,19 @@ except ImportError:
 # for the Resnet button
 import webbrowser
 
+# py2/py3
+import sys
+
 # for running the speedtester thread in the background
 import threading
 
 # recordng time
 import time
+
+# now, we have to import the dependency tester to make sure required modules
+# are present and if not install them for us
+from dependencies import download_dependencies
+download_dependencies()  # pretty please work
 
 # makes the test display easier to read
 from pyspeedtest import pretty_speed
@@ -158,8 +166,12 @@ class SpeedTesterGUI(object):
         try:
             self.root.mainloop()
         except Exception as exc:
-            messagebox.showerror("PySpeedTest Broke",
-                                 exc.message)
+            if sys.version_info[0] == 2:
+                messagebox.showerror("PySpeedTest Broke",
+                                     exc.message)
+            elif sys.version_info[0] == 3:
+                messagebox.showerror("PySpeedTest Broke",
+                                     sys.exc_info()[0])
             
     def show_error(self, *args):
         err = traceback.format_exception(*args)
@@ -273,26 +285,26 @@ class SpeedTesterGUI(object):
 
             https://github.com/mishaturnbull/PySpeedTest/issues/5
             """
-            parser['Speedtester']['rec_file'] = entry_recfile.get()
-            parser['Speedtester']['location'] = entry_location.get()
-            parser['Speedtester']['freq'] = entry_freq.get()
-            parser['Speedtester']['verbosity'] = entry_verbosity.get()
-            parser['Speedtester']['force_server'] = entry_server.get()
-            parser['Analytics']['analyze_file'] = entry_afile.get()
-            parser['Analytics']['analytics_rec_file'] = entry_arecfile.get()
-            parser['Analytics']['standards_enable'] = str(bool(standvar.get()))
-            parser['Analytics']['standard_ping'] = entry_stan_ping.get()
-            parser['Analytics']['standard_up'] = entry_stan_up.get()
-            parser['Analytics']['standard_down'] = entry_stan_down.get()
-            parser['Upload']['url'] = entry_upload_url.get()
-            parser['Upload']['port'] = int(entry_upload_port.get())
+            parser.set('Speedtester', 'rec_file', entry_recfile.get())
+            parser.set('Speedtester', 'freq', entry_freq.get())
+            parser.set('Speedtester', 'verbosity', entry_verbosity.get())
+            parser.set('Speedtester', 'force_server', entry_server.get())
+            parser.set('Speedtester', 'location', entry_location.get())
+            parser.set('Analytics', 'analyze_file', entry_afile.get())
+            parser.set('Analytics', 'analytics_rec_file', entry_arecfile.get())
+            parser.set('Analytics', 'standards_enable', str(bool(standvar.get())))
+            parser.set('Analytics', 'standard_ping', entry_stan_ping.get())
+            parser.set('Analytics', 'standard_up', entry_stan_up.get())
+            parser.set('Analytics', 'standard_down', entry_stan_down.get())
+            parser.set('Upload', 'url', entry_upload_url.get())
+            parser.set('Upload', 'port', entry_upload_port.get())
 
             with open("config.ini", 'w') as configfile:
                 parser.write(configfile)
                 
             ## FIXME: workaround for issue #5.  NOT A FIX!
             messagebox.showwarning("Configuration", "You will need to restart"+
-                                   "the program for changes to take effect!")
+                                   " the program for changes to take effect!")
 
         def refresh():
             """
@@ -400,6 +412,9 @@ class SpeedTesterGUI(object):
                 entry_stan_up.config(state=tk.NORMAL)
                 entry_stan_down.config(state=tk.NORMAL)
             else:
+                entry_stan_ping.config(text='0')
+                entry_stan_up.config(text='0')
+                entry_stan_down.config(text='0')
                 entry_stan_ping.config(state=tk.DISABLED)
                 entry_stan_up.config(state=tk.DISABLED)
                 entry_stan_down.config(state=tk.DISABLED)

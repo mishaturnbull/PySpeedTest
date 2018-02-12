@@ -23,6 +23,7 @@ class DependencyError(Exception): pass
 
 def download_dependencies():
     print("Running emergency dependency download routine")
+    CHANGES = False
 
     HAS_PYSPEEDTEST = True
     try:
