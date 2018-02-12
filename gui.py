@@ -38,6 +38,8 @@ from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER, \
                      ANALYZE_FILE, ANALYTICS_REC_FILE, STANDARDS_ENABLE, \
                      STANDARD_PING, STANDARD_UP, STANDARD_DOWN, UPLOAD_URL, \
                      UPLOAD_PORT, parser
+                     
+BLOCK_EXIT_CONDITIONS = ['testing', 'waiting']
 
 # background thread for running speed tests
 class SpeedTesterThread(threading.Thread):
@@ -229,12 +231,17 @@ class SpeedTesterGUI(object):
         """
         status = self.thread_status.cget("text")
         self.thread.exit = True
-        if not 'dead' in status:
+        if any(s in status for s in BLOCK_EXIT_CONDITIONS):
             messagebox.showerror("Closing", "Please wait until the thread is dead to close the program.")
             return   # no close!
         else:
             # allow close
-            self.thread.join()
+            try:
+                self.thread.join()
+            except RuntimeError as e:
+                # it's the "cannot join thread before it is started" error
+                # normal.  just ignore and close
+                pass
             self.root.destroy()
 
     def make_analysis_file(self):
