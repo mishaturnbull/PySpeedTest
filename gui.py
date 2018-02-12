@@ -69,37 +69,40 @@ class SpeedTesterThread(threading.Thread):
         # tell the user we're running
         self.handler.thread_status.config(text="Thread status: alive")
 
-        # if the stop request is set, we want to stop.  so, run while it's not
-        while not self.stoprequest.isSet():
-
-            # tell user we're testing
-            self.handler.thread_status.config(text="Thread status: testing")
-
-            # run the speed test
-            newline, time_diff, self.last_result = test_once(
-                self.handler.location_entry.get())
-
-            # tell the user we're now outputting the results
-            self.handler.thread_status.config(
-                text="Thread status: writing results")
-
-            # write the results to the specified file
-            with open(REC_FILE, 'a') as record:
-                record.write(newline)
-
-            # tell the handler we're done so it can update the display
-            self.handler.update_statistics()
-
-            # check again for stop request here -- otherwise, we'll wait
-            # to the next test unnecessarily
-            if not self.stoprequest.isSet():
-                self.handler.thread_status.config(text="Thread status: waiting")
-                time.sleep(time_diff)
-            else:
-                self.handler.thread_status.config(text='Thread status: paused')
-                continue
-        self.handler.status_label.config(text="Status: stopped")
-        self.handler.thread_status.config(text="Thread status: dead")
+        while True:
+            # if the stop request is set, we want to stop.  so, run while it's not
+            while not self.stoprequest.isSet():
+                print("Stop request is unset")
+    
+                # tell user we're testing
+                self.handler.thread_status.config(text="Thread status: testing")
+    
+                # run the speed test
+                newline, time_diff, self.last_result = test_once(
+                    self.handler.location_entry.get())
+    
+                # tell the user we're now outputting the results
+                self.handler.thread_status.config(
+                    text="Thread status: writing results")
+    
+                # write the results to the specified file
+                with open(REC_FILE, 'a') as record:
+                    record.write(newline)
+    
+                # tell the handler we're done so it can update the display
+                self.handler.update_statistics()
+    
+                # check again for stop request here -- otherwise, we'll wait
+                # to the next test unnecessarily
+                if not self.stoprequest.isSet():
+                    self.handler.thread_status.config(text="Thread status: waiting")
+                    time.sleep(time_diff)
+                else:
+                    self.handler.thread_status.config(text='Thread status: paused')
+                    continue
+            self.handler.status_label.config(text="Status: stopped")
+            self.handler.thread_status.config(text="Thread status: dead")
+            time.sleep(0.5)  # let's not be too hard on the system
 
     def join(self, timeout=None):
         # set the stop request so next time the test starts/stops we'll exit
@@ -200,7 +203,7 @@ class SpeedTesterGUI(object):
         self.avg = {'ping': 0, 'up': 0, 'down': 0}
         self.ntests = 0
         self.status_label.config(text="Status: running")
-        if self.thread.is_alive():
+        if self.thread.stoprequest.isSet():
             self.thread.stoprequest.clear()
         else:
             self.thread.start()
