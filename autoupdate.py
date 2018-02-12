@@ -6,11 +6,24 @@ Automatically update the program if needed.
 import urllib3
 import json
 import shutil
+import platform
 
 from __version__ import __int_version__
 
 # give github a user-agent so they don't block our requests
 AGENT = {'user-agent': 'Python-urllib/3.0'}
+
+def get_filetype():
+    """Determine the appropriate file type for your operating system."""
+    p = platform.platform(terse=True)
+    if 'Windows' in p:
+        return 'exe'
+    elif 'Linux' in p:
+        return 'tarball'
+    elif 'Darwin' in p:
+        return 'zipball'  # i think... do Macs do .zip?
+    else:
+        return 'tarball'  # most things can open tarballs
 
 def has_update():
     http = urllib3.PoolManager(headers=AGENT)
@@ -21,13 +34,21 @@ def has_update():
     latest_int_version = int(''.join(latest_version[1:].split('.')))
     return latest_int_version > __int_version__
 
-def get_download_url():
+def get_download_url(filetype):
+    if filetype not in ['exe', 'zipball', 'tarball']:
+        raise ValueError("I don't know where to download a {}".format(filetype))
     http = urllib3.PoolManager(headers=AGENT)
     versions = http.request('GET',
             "https://api.github.com/repos/mishaturnbull/PySpeedTest/releases")
     data = json.loads(versions.data)
-    exe_url = data[0]['assets'][0]['browser_download_url']
-    return exe_url
+    
+    if filetype == 'exe':
+        url = data[0]['assets'][0]['browser_download_url']
+    elif filetype == 'tarball':
+        url = data[0]['tarball_url']
+    elif filetype == 'zipball':
+        url = data[0]['zipball_url']
+    return url
 
 # this is shamefully stolen from:
 # https://stackoverflow.com/a/27389016/4612410
@@ -40,4 +61,4 @@ def download_file(url):
     return local_filename
 
 def download_update():
-    download_file(get_download_url())
+    download_file(get_download_url(get_filetype()))
