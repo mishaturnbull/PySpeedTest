@@ -129,7 +129,7 @@ class SpeedTesterGUI(object):
             want_update = messagebox.askyesno("Update",
                                               "An update has been detected." +
                                               "  Would you like to download?")
-            if want_update == 'yes':
+            if want_update:
                 download_update()
 
         # set defaults

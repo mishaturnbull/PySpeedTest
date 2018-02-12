@@ -9,8 +9,8 @@ import shutil
 
 from __version__ import __int_version__
 
-# oops...
-AGENT = {'user-agent': 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) ..'}
+# give github a user-agent so they don't block our requests
+AGENT = {'user-agent': 'Python-urllib/3.0'}
 
 def has_update():
     http = urllib3.PoolManager(headers=AGENT)
@@ -34,8 +34,7 @@ def get_download_url():
 # because I don't know how to use urllib3 
 def download_file(url):
     local_filename = url.split('/')[-1]
-    http = urllib3.PoolManager()
-
+    http = urllib3.PoolManager(headers=AGENT)
     with http.request('GET', url, preload_content=False) as r, open(local_filename, 'wb') as out_file:       
         shutil.copyfileobj(r, out_file)
     return local_filename
