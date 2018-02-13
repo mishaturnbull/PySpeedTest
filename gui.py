@@ -161,7 +161,7 @@ class SpeedTesterGUI(object):
                                               "An update has been detected." +
                                               "  Would you like to download?")
             if want_update:
-                download_update()
+                download_update()        
         
         try:
             self.root.mainloop()
@@ -200,11 +200,11 @@ class SpeedTesterGUI(object):
         # create new format strings from computed averages/last test
         # \u2191 is an up arrow
         # \u2193 is a down arrow
-        last_str = "Last: {ping}ms / {up}\u2191 / {down}\u2193".format(
+        last_str = u"Last: {ping}ms / {up}\u2191 / {down}\u2193".format(
             ping=self.lasttest['ping'],
             up=pretty_speed(self.lasttest['up']),
             down=pretty_speed(self.lasttest['down']))
-        avg_str = "Avg: {ping}ms / {up}\u2191 / {down}\u2193".format(
+        avg_str = u"Avg: {ping}ms / {up}\u2191 / {down}\u2193".format(
             ping=round(self.avg['ping'], 2),
             up=pretty_speed(self.avg['up']),
             down=pretty_speed(self.avg['down']))

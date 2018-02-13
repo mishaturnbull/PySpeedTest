@@ -19,14 +19,20 @@ def upload():
         lines = f.readlines()
     outlines = copy.copy(lines)
     try:
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-            sock.connect((UPLOAD_URL, UPLOAD_PORT))
-            for line in lines:
-                sock.sendall(bytes(line, 'ascii'))
-                outlines.remove(line)
+        print("Pre-setup")
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(30)  # it's slow...
+        print("Socket created: " + repr(socket))
+        s.connect((UPLOAD_URL, int(UPLOAD_PORT)))
+        print("Connected")
+        for line in lines:
+            print(line)
+            s.sendall(bytes(line, 'ascii'))
+            outlines.remove(line)
+
     except Exception as exc:  # too general, I know... working on it.
-        messagebox.showerror("Upload", "Couldn't upload data!\nTraceback:" +
-                             exc.args)
+        messagebox.showerror("Upload", "Couldn't upload data!\nTraceback: " +
+                             repr(exc.args))
     with open(REC_FILE, 'w') as f:
         f.writelines(outlines)
         # this is a *REALLY* good idea...
