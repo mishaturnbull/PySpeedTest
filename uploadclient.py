@@ -25,16 +25,13 @@ def upload():
         print("Socket created: " + repr(socket))
         s.connect((UPLOAD_URL, int(UPLOAD_PORT)))
         print("Connected")
-        for line in lines:
-            print(line)
-            s.sendall(bytes(line, 'ascii'))
-            outlines.remove(line)
+        s.sendall(bytes(''.join(lines), 'ascii'))
 
     except Exception as exc:  # too general, I know... working on it.
         messagebox.showerror("Upload", "Couldn't upload data!\nTraceback: " +
                              repr(exc.args))
     with open(REC_FILE, 'w') as f:
-        f.writelines(outlines)
+        f.write('')
         # this is a *REALLY* good idea...
         # it prevents duplicate data being uploaded to the server
         # please, if you remove it, tell me why
