@@ -1,2 +1,1 @@
-#!/usr/bin bash
-python gui.py
+python gui.py | output.log
