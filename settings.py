@@ -42,7 +42,7 @@ port = 11356
 try:
     f = open('config.ini')
     f.close()
-except FileNotFoundError:
+except IOError:
     with open('config.ini', 'w') as configfile:
         configfile.write(EMERGENCY_DEFAULT)
 
