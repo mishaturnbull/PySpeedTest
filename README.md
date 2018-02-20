@@ -2,6 +2,8 @@
 
 This is a small, lightweight utility that tests the Internet connection at set intervals.  I wrote it to prove to the people who manage my Internet that it's ***really*** bad.  It takes periodic (or not-so-periodic) samples of your Internet speed.  Statistics recorded are upload speed, download speed, ping time, and if something fails reason for failure.  
 
+Documentation can be found [here][docs]
+
 p.s. our easy-sharing link is [tinyurl.com/mcnetspeed][tinyurl.con/mcnetspeed]
 
 ## Quick start
@@ -19,4 +21,5 @@ If you want to change your settings, launch the program and click the `Edit Conf
 
 [0]: https://github.com/mishaturnbull/PySpeedTest/releases	"Latest Release"
 [1]: https://github.com/mishaturnbull/PySpeedTest/releases/v0.4.3	"Version 0.4.3"
-[tinyurl.con/mcnetspeed]: 
+[tinyurl.con/mcnetspeed]: tinyurl.com/mcnetspeed
+[docs]: https://mishaturnbull.github.io/PySPeedTest/

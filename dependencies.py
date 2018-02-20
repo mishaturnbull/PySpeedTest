@@ -47,6 +47,8 @@ def download_dependencies():
         zipball.extractall('.')
         zipball.close()
         shutil.copytree('./urllib3-master/urllib3', './urllib3')
+        shutil.rmtree('./urllib3-master/')
+        os.remove('urllib3.zip')
         CHANGES = True
 
         # test the install
@@ -70,4 +72,6 @@ def download_dependencies():
             print("+++ E: unable to install pyspeedtest   <========")
             
     if CHANGES:
+        # quitting and making the user run again is wayyy easier than dealing
+        # with UMR
         raise Exception("I think I fixed the problem -- restart and try again.")
