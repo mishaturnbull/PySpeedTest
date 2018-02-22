@@ -7,6 +7,7 @@ import urllib3
 import json
 import shutil
 import platform
+import os
 
 from __version__ import __version__, is_version_greater
 
@@ -62,3 +63,6 @@ def download_file(url):
 
 def download_update():
     download_file(get_download_url(get_filetype()))
+    # remove the config file, and allow the new version to extract its new
+    # default.  resolves #17
+    os.remove('config.ini')

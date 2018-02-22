@@ -85,7 +85,6 @@ class SpeedTesterThread(threading.Thread):
         while not self.exit:
             # if the stop request is set, we want to stop.  so, run while it's not
             while not self.stoprequest.isSet():
-                print("Stop request is unset")
     
                 # tell user we're testing
                 self.handler.thread_status.config(text="Thread status: testing")
