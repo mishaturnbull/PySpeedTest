@@ -1,5 +1,5 @@
 compiler = pyinstaller
-target = gui.py
+target = src/gui.py
 upx = --upx-dir="C:/Program Files (x86)/upx394wce/"
 spec = --specpath build
 ver_major = 0
@@ -14,6 +14,6 @@ mac:
 	$(compiler) -F -y -n PySpeedTest_$(ver_major).$(ver_minor).$(ver_patch)_MAC $(target)
 
 preclean:
-	del *.pyc;
+	del src/*.pyc;
 postclean:
-	del *.pyc; del urllib3; del PySpeedTest_*;
+	del src/*.pyc; del src/urllib3; del PySpeedTest_*;
