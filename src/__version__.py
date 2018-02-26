@@ -5,9 +5,9 @@ Created on Sun Feb  4 15:11:57 2018
 @author: Misha
 """
 
-__major__ = 0
+__major__ = 1
 __minor__ = 5
-__patch__ = 0
+__patch__ = 1
 
 __version__ = '.'.join(map(str, [__major__, __minor__, __patch__]))
 __int_version__ = int(''.join(map(str, [__major__, __minor__, __patch__])))

@@ -1,11 +1,14 @@
-.PHONY : main all os_check preclean postclean
+.PHONY : main all os_check clean preclean postclean
 
 compiler = pyinstaller
 target = src/gui.py
 
-ver_major = 0
+ver_major = 1
 ver_minor = 5
-ver_patch = 0
+ver_patch = 1
+
+hiddenimports = --hidden-import urllib3
+hiddenimports += --hidden-import pyspeedtest
 
 ifeq ($(OS),Windows_NT)
 	name = PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch).exe
@@ -13,17 +16,17 @@ ifeq ($(OS),Windows_NT)
 	delete_dir = rmdir /S /q
 else
 	ifeq ($(OS),Darwin)
-		name += PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch)_mac
+		name = PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch)_mac
 		delete_cmd = rm
 		delete_dir = rmdir -r
 	else
-		name += PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch)_unix
+		name = PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch)_unix
 		delete_cmd = rm
 		delete_dir = rm -r
 	endif
 endif
 
-cflags = -F -y -n $(name) --specpath build
+cflags = -F -y -n $(name) --specpath build --clean $(hiddenimports)
 
 ifeq ($(OS),Windows_NT)
 	cflags += -w
@@ -32,25 +35,30 @@ else
 		cflags += -w
 	else
 		# linux users like their consoles
-		cflags += -c  
+		cflags += -c
 	endif
 endif
 
-all: os_check preclean main postclean
+all: os_check dependencies preclean main postclean
+
+dependencies:
+	python src/dependencies.py
+
+clean: preclean postclean
 
 os_check:
 	@echo $(OS)
-	
+
 preclean:
-	-$(delete_cmd) *.pyc
+	-$(delete_cmd) src/*.pyc
 	-$(delete_cmd) dist/$(name)
 	-$(delete_dir) __pycache__
-	
+
 postclean:
-	-$(delete_cmd) *.pyc
+	-$(delete_cmd) src/*.pyc
 	-$(delete_dir) "src/urllib3"
 	-$(delete_dir) build
 
-main: 
+main:
 	$(compiler) $(cflags) $(target)
 

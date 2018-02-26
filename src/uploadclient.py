@@ -19,7 +19,7 @@ if sys.version_info[0] == 2:
         return string.encode('ascii')
 else:
     def encoder(string):
-        return str(string, 'ascii')
+        return bytes(string, 'ascii')
 
 from settings import REC_FILE, UPLOAD_URL, UPLOAD_PORT
 
