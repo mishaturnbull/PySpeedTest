@@ -1,1 +1,1 @@
-python gui.py | output.log
+python gui.py

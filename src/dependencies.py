@@ -53,10 +53,10 @@ def download_dependencies():
 
         # test the install
         try:
-            import requests
-            print("+++ requests installed successfully")
+            import urllib3
+            print("+++ urllib3 installed successfully")
         except ImportError:
-            print("+++ E: unable to install requests   <========")
+            print("+++ E: unable to install urllib3   <========")
 
     if not HAS_PYSPEEDTEST:
         print("+++ attempting to download pyspeedtest...")
@@ -74,4 +74,4 @@ def download_dependencies():
     if CHANGES:
         # quitting and making the user run again is wayyy easier than dealing
         # with UMR
-        raise Exception("I think I fixed the problem -- restart and try again.")
+        raise Exception("\n\n\nI think I fixed the problem -- restart and try again.\n\n\n")

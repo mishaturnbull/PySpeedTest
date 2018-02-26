@@ -22,4 +22,4 @@ If you want to change your settings, launch the program and click the `Edit Conf
 [0]: https://github.com/mishaturnbull/PySpeedTest/releases	"Latest Release"
 [1]: https://github.com/mishaturnbull/PySpeedTest/releases/v0.4.3	"Version 0.4.3"
 [tinyurl.con/mcnetspeed]: tinyurl.com/mcnetspeed
-[docs]: https://mishaturnbull.github.io/PySPeedTest/
+[docs]: https://mishaturnbull.github.io/PySpeedTest/
