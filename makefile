@@ -47,7 +47,7 @@ dependencies:
 clean: preclean postclean
 
 os_check:
-	@echo $(OS)
+	$(info OS has been detected: $(OS)) 
 
 preclean:
 	-$(delete_cmd) src/*.pyc
@@ -56,9 +56,19 @@ preclean:
 
 postclean:
 	-$(delete_cmd) src/*.pyc
-	-$(delete_dir) "src/urllib3"
+	-$(delete_dir) src/urllib3
+	-$(delete_dir) build
+
+deepclean: preclean postclean
+	$(info This will make a lot of errors!  That's okay, just ignore them.)
+	-$(delete_dir) dist
+	-$(delete_dir) __pycache
+	-$(delete_cmd) src/*.pyc
+	-$(delete_dir) src/urllib3
 	-$(delete_dir) build
 
 main:
 	$(compiler) $(cflags) $(target)
+
+print-%  : ; @echo $* = $($*)
 

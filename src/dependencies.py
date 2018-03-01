@@ -21,7 +21,8 @@ PYSPEEDTEST_URL = "https://raw.githubusercontent.com/fopina/pyspeedtest/master/p
 
 class DependencyError(Exception): pass
 
-def download_dependencies():
+def download_dependencies(pst_loc=None, urllib3_loc=None,
+                          quiet=False):
     print("Running emergency dependency download routine")
     CHANGES = False
 
@@ -46,7 +47,7 @@ def download_dependencies():
         zipball = zipfile.ZipFile('urllib3.zip', 'r')
         zipball.extractall('.')
         zipball.close()
-        shutil.copytree('./urllib3-master/urllib3', './urllib3')
+        shutil.copytree('./urllib3-master/urllib3', urllib3_loc or './urllib3')
         shutil.rmtree('./urllib3-master/')
         os.remove('urllib3.zip')
         CHANGES = True
@@ -60,7 +61,7 @@ def download_dependencies():
 
     if not HAS_PYSPEEDTEST:
         print("+++ attempting to download pyspeedtest...")
-        urlretrieve(PYSPEEDTEST_URL, 'pyspeedtest.py')
+        urlretrieve(PYSPEEDTEST_URL, pst_loc or 'pyspeedtest.py')
         print("+++ download complete")
         CHANGES = True
         
@@ -71,7 +72,10 @@ def download_dependencies():
         except ImportError:
             print("+++ E: unable to install pyspeedtest   <========")
             
-    if CHANGES:
+    if CHANGES and not quiet:
         # quitting and making the user run again is wayyy easier than dealing
         # with UMR
         raise Exception("\n\n\nI think I fixed the problem -- restart and try again.\n\n\n")
+
+if __name__ == '__main__':
+    download_dependencies('src/pyspeedtest.py', 'src/urllib3/')
