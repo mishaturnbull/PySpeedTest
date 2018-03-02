@@ -11,8 +11,10 @@ import sys
 from settings import REC_FILE, UPLOAD_URLS, UPLOAD_PORT
 
 try:
+    import tkinter as tk
     import tkinter.messagebox as messagebox
 except ImportError:
+    import Tkinter as tk
     import tkMessageBox as messagebox
 
 # solution for issue #16
@@ -22,7 +24,6 @@ if sys.version_info[0] == 2:
 else:
     def encoder(string):
         return bytes(string, 'ascii')
-
 
 
 class Uploader(object):
@@ -67,3 +68,27 @@ class Uploader(object):
     def upload(self):
         self.establish_connection()
         self.send_data()
+    
+    def set_label(self, num, message):
+        if self.handler is None:
+            return
+        
+        label = [self.label1, self.label2][num - 1]
+        
+        label.config(text=message)
+    
+    def build_window(self):
+        if self.handler is None:
+            return  # we can't do anything without a root.  likely running
+                    # in terminal mode anyways, where the user doesn't want
+                    # a GUI
+        
+        self.window = tk.Toplevel(self.handler.root)
+        self.window.title("Data Upload Interface")
+        
+        self.label1 = tk.Label(self.window, text=" "*50)
+        self.label1.grid(row=0, column=0, sticky=tk.E+tk.W)
+        
+        self.label2 = tk.Label(self.window, text=" "*50)
+        self.label2.grid(row=1, column=0, sticky=tk.E+tk.W)
+        
