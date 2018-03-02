@@ -39,12 +39,12 @@ import traceback
 
 # import the rest of the code
 from main import test_once
-from uploadclient import upload
+from uploadclient import Uploader
 from analytics import run_analytics
 from autoupdate import has_update, download_update
 from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER, \
                      ANALYZE_FILE, ANALYTICS_REC_FILE, STANDARDS_ENABLE, \
-                     STANDARD_PING, STANDARD_UP, STANDARD_DOWN, UPLOAD_URL, \
+                     STANDARD_PING, STANDARD_UP, STANDARD_DOWN, UPLOAD_URLS, \
                      UPLOAD_PORT, parser
                      
 BLOCK_EXIT_CONDITIONS = ['testing', 'waiting']
@@ -143,6 +143,9 @@ class SpeedTesterGUI(object):
 
         # instantiate the speed tester background thread
         self.thread = SpeedTesterThread(self)
+        
+        # instantiate the upload UI
+        self.uploader = Uploader(self)
 
         # build and start the GUI
         self.init_gui()
@@ -267,7 +270,9 @@ class SpeedTesterGUI(object):
 
         Requires a network connection (duh).
         """
-        upload()  # easy enough :)
+        self.uploader.build_window()
+        self.uploader.establish_connection()
+        self.uploader.send_data()
 
     def edit_config(self):
         """
