@@ -36,12 +36,19 @@ class Uploader(object):
         self.has_connection = False
 
     def establish_connection(self):
+        self.set_label(1, 'Beginning connection searching on port ' + 
+                       str(UPLOAD_PORT))
+        
         for url in UPLOAD_URLS:
             try:
+                self.set_label(1, url + ":" + str(UPLOAD_PORT))
                 self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 self.socket.settimeout(30)  # it's slow...
                 self.socket.connect((url, int(UPLOAD_PORT)))
                 self.has_connection = True
+                self.set_label(1, "Connected to " + url + ":" + 
+                               str(UPLOAD_PORT))
+                break
 
             except Exception as exc:
                 # Welp, that one didn't work... keep going!
@@ -54,14 +61,17 @@ class Uploader(object):
         if not self.has_connection:
             raise ValueError("Can't upload data with no connection!")
 
+        self.set_label(2, 'Reading file')
         with open(self.filename, 'r') as infile:
             self.lines = infile.readlines()
 
-        text = ''.join(self.lines)
-        encoded = encoder(text)
-        # TODO: GUI message
-        self.socket.sendall(encoded)
 
+        for line in self.lines:
+            self.set_label(2, line)
+            encoded = encoder(line)
+            self.socket.sendall(encoded)
+
+        self.set_label(2, 'Clearing file')
         with open(self.filename, 'w') as handle:
             handle.write('')
 
