@@ -77,7 +77,15 @@ class Uploader(object):
 
     def upload(self):
         self.establish_connection()
+        
+        if not self.has_connection:
+            self.set_label(1, 'Uh-oh!')
+            self.set_label(2, "Unable to connect!")
+        
         self.send_data()
+        
+        self.set_label(1, 'Done!')
+        self.set_label(2, 'Yay!  It worked!')
     
     def set_label(self, num, message):
         if self.handler is None:
