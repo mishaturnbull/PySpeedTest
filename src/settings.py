@@ -35,8 +35,13 @@ csv_output_file = Internet_speed_record.csv
 csv_clear_infile = False
 
 [Upload]
-url = mcv156.163.und.nodak.edu
 port = 11356
+
+[UploadURLs]
+a = 172.30.140.181
+b = 134.129.156.163
+c = mcv156.163.und.nodak.edu
+d = 25.3.82.86
 """
 
 try:
@@ -68,5 +73,8 @@ CSV_INPUT_FILE = parser.get('CSV', 'csv_input_file')
 CSV_OUTPUT_FILE = parser.get('CSV', 'csv_output_file')
 CSV_CLEAR_INFILE = parser.get('CSV', 'csv_clear_infile')
 
-UPLOAD_URL = parser.get('Upload', 'url')
 UPLOAD_PORT = int(parser.get('Upload', 'port'))
+url_items = parser.items('UploadURLs')
+UPLOAD_URLS = []
+for key, path in url_items:
+    UPLOAD_URLS.append(path)
