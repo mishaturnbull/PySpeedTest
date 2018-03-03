@@ -39,6 +39,17 @@ def download_dependencies(pst_loc=None, urllib3_loc=None,
     except ImportError:
         HAS_URLLIB3 = False
     print("+++ urllib3 present: {}".format(str(HAS_URLLIB3)))
+    
+    HAS_TKINTER = True
+    try:
+        # darn you, python 2
+        try:
+            import Tkinter
+        except ImportError:
+            import tkinter
+    except ImportError:
+        HAS_TKINTER = False
+    print("+++ tkinter present: {}".format(str(HAS_TKINTER)))
             
     if not HAS_URLLIB3:
         print("+++ attempting to download urllib3...")
@@ -71,6 +82,14 @@ def download_dependencies(pst_loc=None, urllib3_loc=None,
             print("+++ pyspeedtest installed successfully")
         except ImportError:
             print("+++ E: unable to install pyspeedtest   <========")
+    
+    if not HAS_TKINTER:
+        msg = "\n\nI found a problem!  You don't have the tcl/tk module\n"
+        msg += "installed, which is necessary for running GUI's.  Usually,\n"
+        msg += "this happens on new-ish installations of Linux that are\n"
+        msg += "missing the _tkinter package.  Usually, running the command\n"
+        msg += "\n\nsudo apt-get install python-tkinter\n\nwill fix this.\n"
+        raise Exception(msg)
             
     if CHANGES and not quiet:
         # quitting and making the user run again is wayyy easier than dealing
