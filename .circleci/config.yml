@@ -25,5 +25,6 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            pip install python-tkinter
             python3 dependencies.py
           
