@@ -7,6 +7,11 @@ Downloads necessary dependencies if not found.
 
 import sys
 
+# lazy man's argparse
+SILENT = False
+if '--silent' in sys.argv:
+    SILENT = True
+
 if sys.version_info[0] == 2:
     from urllib import urlretrieve
 elif sys.version_info[0] == 3:
@@ -97,4 +102,4 @@ def download_dependencies(pst_loc=None, urllib3_loc=None,
         raise Exception("\n\n\nI think I fixed the problem -- restart and try again.\n\n\n")
 
 if __name__ == '__main__':
-    download_dependencies('src/pyspeedtest.py', 'src/urllib3/')
+    download_dependencies('src/pyspeedtest.py', 'src/urllib3/', SILENT)
