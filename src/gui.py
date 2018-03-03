@@ -411,9 +411,12 @@ class SpeedTesterGUI(object):
                 entry_stan_up.config(state=tk.NORMAL)
                 entry_stan_down.config(state=tk.NORMAL)
             else:
-                entry_stan_ping.config(text='0')
-                entry_stan_up.config(text='0')
-                entry_stan_down.config(text='0')
+                entry_stan_ping.delete(0, 'end')
+                entry_stan_ping.insert(0, '0')
+                entry_stan_up.delete(0, 'end')
+                entry_stan_up.insert(0, '0')
+                entry_stan_down.delete(0, 'end')
+                entry_stan_down.insert(0, '0')
                 entry_stan_ping.config(state=tk.DISABLED)
                 entry_stan_up.config(state=tk.DISABLED)
                 entry_stan_down.config(state=tk.DISABLED)
@@ -421,7 +424,7 @@ class SpeedTesterGUI(object):
         standvar = tk.IntVar()
         label_standards = tk.Label(cfgmen, text="Standards:")
         label_standards.grid(row=10, column=0, sticky=tk.W)
-        button_standards = tk.Checkbutton(cfgmen, text="Enable",
+        button_standards = tk.Checkbutton(cfgmen, text="Enabled",
                                           variable=standvar,
                                           command=_updopt)
         button_standards.grid(row=10, column=1, sticky=tk.W)
@@ -442,7 +445,7 @@ class SpeedTesterGUI(object):
         entry_stan_down.grid(row=13, column=1, sticky=tk.W)
 
         label_sec_upload = tk.Label(cfgmen, text="===== UPLOAD SETTINGS =====")
-        label_sec_upload.grid(row=14, column=0, columnspan=2, sticky=tk.W)
+        label_sec_upload.grid(row=14, column=0, columnspan=2)
 
         label_upload_url = tk.Label(cfgmen, text="Upload URL:")
         label_upload_url.grid(row=15, column=0, sticky=tk.W)
