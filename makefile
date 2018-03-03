@@ -4,8 +4,8 @@ compiler = pyinstaller
 target = src/gui.py
 
 ver_major = 1
-ver_minor = 5
-ver_patch = 1
+ver_minor = 6
+ver_patch = 0
 
 hiddenimports = --hidden-import urllib3
 hiddenimports += --hidden-import pyspeedtest
