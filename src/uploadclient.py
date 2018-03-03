@@ -30,15 +30,16 @@ class Uploader(object):
 
     def __init__(self, handler=None):
         self.handler = handler
-        self.filename = REC_FILE
         self.lines = None
         self.socket = None
         self.has_connection = False
 
+        self.window = self.label1 = self.label2 = None
+
     def establish_connection(self):
-        self.set_label(1, 'Beginning connection searching on port ' + 
+        self.set_label(1, 'Beginning connection searching on port ' +
                        str(UPLOAD_PORT))
-        
+
         for url in UPLOAD_URLS:
             try:
                 self.set_label(1, url + ":" + str(UPLOAD_PORT))
@@ -46,14 +47,14 @@ class Uploader(object):
                 self.socket.settimeout(30)  # it's slow...
                 self.socket.connect((url, int(UPLOAD_PORT)))
                 self.has_connection = True
-                self.set_label(1, "Connected to " + url + ":" + 
+                self.set_label(1, "Connected to " + url + ":" +
                                str(UPLOAD_PORT))
                 break
 
-            except Exception as exc:
+            except (socket.gaierror, socket.timeout) as exc:
                 # Welp, that one didn't work... keep going!
-                # TODO: implement GUI message here
-                pass
+                self.set_label(1, 'No connection established')
+                messagebox.showerror(exc.args[0])
 
         return self.has_connection
 
@@ -62,7 +63,7 @@ class Uploader(object):
             raise ValueError("Can't upload data with no connection!")
 
         self.set_label(2, 'Reading file')
-        with open(self.filename, 'r') as infile:
+        with open(REC_FILE, 'r') as infile:
             self.lines = infile.readlines()
 
 
@@ -72,41 +73,40 @@ class Uploader(object):
             self.socket.sendall(encoded)
 
         self.set_label(2, 'Clearing file')
-        with open(self.filename, 'w') as handle:
+        with open(REC_FILE, 'w') as handle:
             handle.write('')
 
     def upload(self):
         self.establish_connection()
-        
+
         if not self.has_connection:
             self.set_label(1, 'Uh-oh!')
             self.set_label(2, "Unable to connect!")
-        
+
         self.send_data()
-        
+
         self.set_label(1, 'Done!')
         self.set_label(2, 'Yay!  It worked!')
-    
+
     def set_label(self, num, message):
         if self.handler is None:
             return
-        
-        label = [self.label1, self.label2][num - 1]
-        
+
+        label = self.label2 if (num - 1) else self.label1
+
         label.config(text=message)
-    
+
     def build_window(self):
         if self.handler is None:
             return  # we can't do anything without a root.  likely running
                     # in terminal mode anyways, where the user doesn't want
                     # a GUI
-        
+
         self.window = tk.Toplevel(self.handler.root)
         self.window.title("Data Upload Interface")
-        
+
         self.label1 = tk.Label(self.window, text=" "*50)
         self.label1.grid(row=0, column=0, sticky=tk.E+tk.W)
-        
+
         self.label2 = tk.Label(self.window, text=" "*50)
         self.label2.grid(row=1, column=0, sticky=tk.E+tk.W)
-        
