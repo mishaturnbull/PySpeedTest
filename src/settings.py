@@ -56,27 +56,37 @@ except IOError:
 parser = configparser.ConfigParser()
 parser.read("config.ini")
 
-REC_FILE = parser.get('Speedtester', 'rec_file')
-LOCATION = parser.get('Speedtester', 'location')
-FREQ = float(parser.get('Speedtester', 'freq'))
-VERBOSITY = int(parser.get('Speedtester', 'verbosity'))
-server = parser.get('Speedtester', 'force_server')
-FORCE_SERVER = None if server == 'None' else server
-
-ANALYZE_FILE = parser.get('Analytics', 'analyze_file')
-ANALYTICS_REC_FILE = parser.get('Analytics', 'analytics_rec_file')
-STANDARDS_ENABLE = parser.get('Analytics', 'standards_enable') in ['true', '1', 
-                         't', 'y', 'yes', 'yeah', 'yup', 'certainly', 'uh-huh']
-STANDARD_PING = float(parser.get('Analytics', 'standard_ping') or 0)
-STANDARD_DOWN = float(parser.get('Analytics', 'standard_down') or 0)
-STANDARD_UP = float(parser.get('Analytics', 'standard_up') or 0)
-
-CSV_INPUT_FILE = parser.get('CSV', 'csv_input_file')
-CSV_OUTPUT_FILE = parser.get('CSV', 'csv_output_file')
-CSV_CLEAR_INFILE = parser.get('CSV', 'csv_clear_infile')
-
-UPLOAD_PORT = int(parser.get('Upload', 'port'))
-url_items = parser.items('UploadURLs')
-UPLOAD_URLS = []
-for key, path in url_items:
-    UPLOAD_URLS.append(path)
+try:
+    REC_FILE = parser.get('Speedtester', 'rec_file')
+    LOCATION = parser.get('Speedtester', 'location')
+    FREQ = float(parser.get('Speedtester', 'freq'))
+    VERBOSITY = int(parser.get('Speedtester', 'verbosity'))
+    server = parser.get('Speedtester', 'force_server')
+    FORCE_SERVER = None if server == 'None' else server
+    
+    ANALYZE_FILE = parser.get('Analytics', 'analyze_file')
+    ANALYTICS_REC_FILE = parser.get('Analytics', 'analytics_rec_file')
+    STANDARDS_ENABLE = parser.get('Analytics', 'standards_enable') in ['true', '1', 
+                             't', 'y', 'yes', 'yeah', 'yup', 'certainly', 'uh-huh']
+    STANDARD_PING = float(parser.get('Analytics', 'standard_ping') or 0)
+    STANDARD_DOWN = float(parser.get('Analytics', 'standard_down') or 0)
+    STANDARD_UP = float(parser.get('Analytics', 'standard_up') or 0)
+    
+    CSV_INPUT_FILE = parser.get('CSV', 'csv_input_file')
+    CSV_OUTPUT_FILE = parser.get('CSV', 'csv_output_file')
+    CSV_CLEAR_INFILE = parser.get('CSV', 'csv_clear_infile')
+    
+    UPLOAD_PORT = int(parser.get('Upload', 'port'))
+    url_items = parser.items('UploadURLs')
+    UPLOAD_URLS = []
+    for key, path in url_items:
+        UPLOAD_URLS.append(path)
+except (configparser.NoSectionError, configparser.NoOptionError) as exc:
+    with open(CONFIG_FILE_NAME, 'w') as conf:
+        conf.write(EMERGENCY_DEFAULT)
+    
+    msg = "\n\nThere was an error loading the configuration file.  Maybe\n"
+    msg += "you updated the problem recently?  I restored it to the\n"
+    msg += "default state, try loading the program again.\n\n"
+    
+    raise Exception(msg)
