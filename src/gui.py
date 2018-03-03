@@ -37,6 +37,9 @@ from pyspeedtest import pretty_speed
 # showing errors
 import traceback
 
+# letters
+import string
+
 # import the rest of the code
 from main import test_once
 from uploadclient import Uploader
@@ -45,7 +48,7 @@ from autoupdate import has_update, download_update
 from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER, \
                      ANALYZE_FILE, ANALYTICS_REC_FILE, STANDARDS_ENABLE, \
                      STANDARD_PING, STANDARD_UP, STANDARD_DOWN, UPLOAD_URLS, \
-                     UPLOAD_PORT, parser
+                     UPLOAD_PORT, CONFIG_FILE_NAME, parser
                      
 BLOCK_EXIT_CONDITIONS = ['testing', 'waiting']
 
@@ -300,10 +303,15 @@ class SpeedTesterGUI(object):
             parser.set('Analytics', 'standard_ping', entry_stan_ping.get())
             parser.set('Analytics', 'standard_up', entry_stan_up.get())
             parser.set('Analytics', 'standard_down', entry_stan_down.get())
-            parser.set('Upload', 'url', entry_upload_url.get())
             parser.set('Upload', 'port', entry_upload_port.get())
+            
+            letters = string.ascii_lowercase
+            urls = entry_upload_url.get()
+            urls = [s.strip() for s in urls.split(',')]
+            for i in range(len(urls)):
+                parser.set("UploadURLs", letters[i], urls[i])
 
-            with open("config.ini", 'w') as configfile:
+            with open(CONFIG_FILE_NAME, 'w') as configfile:
                 parser.write(configfile)
                 
             ## FIXME: workaround for issue #5.  NOT A FIX!
@@ -351,7 +359,7 @@ class SpeedTesterGUI(object):
             entry_stan_down.insert(0, STANDARD_DOWN)
 
             entry_upload_url.delete(0, 'end')
-            entry_upload_url.insert(0, UPLOAD_URL)
+            entry_upload_url.insert(0, ','.join(UPLOAD_URLS))
 
             entry_upload_port.delete(0, 'end')
             entry_upload_port.insert(0, str(UPLOAD_PORT))

@@ -13,6 +13,8 @@ if sys.version_info[0] == 2:
 elif sys.version_info[0] == 3:
     import configparser
 
+CONFIG_FILE_NAME = "config.ini"
+
 EMERGENCY_DEFAULT = """
 [Speedtester]
 rec_file = speed_record.ilog
@@ -45,10 +47,10 @@ d = 25.3.82.86
 """
 
 try:
-    f = open('config.ini')
+    f = open(CONFIG_FILE_NAME)
     f.close()
 except IOError:
-    with open('config.ini', 'w') as configfile:
+    with open(CONFIG_FILE_NAME, 'w') as configfile:
         configfile.write(EMERGENCY_DEFAULT)
 
 parser = configparser.ConfigParser()
