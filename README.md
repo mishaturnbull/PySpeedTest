@@ -1,4 +1,5 @@
 [![Windows Build](https://ci.appveyor.com/api/projects/status/4hcqenv1vwlb3qvr?svg=true)](https://ci.appveyor.com/project/mishaturnbull/pyspeedtest)
+[![Linux build](https://travis-ci.org/mishaturnbull/PySpeedTest.svg?branch=master)](https://travis-ci.org/mishaturnbull/PySpeedTest.svg?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/github/mishaturnbull/pyspeedtest/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/mishaturnbull/pyspeedtest?targetFile=requirements.txt)
 
 
