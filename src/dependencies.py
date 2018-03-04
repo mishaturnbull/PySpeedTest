@@ -57,15 +57,21 @@ def download_dependencies(pst_loc=None, urllib3_loc=None,
     print("+++ tkinter present: {}".format(str(HAS_TKINTER)))
             
     if not HAS_URLLIB3:
-        print("+++ attempting to download urllib3...")
-        urlretrieve(URLLIB3_URL, 'urllib3.zip')
-        print("+++ download complete, extracting")
-        zipball = zipfile.ZipFile('urllib3.zip', 'r')
-        zipball.extractall('.')
-        zipball.close()
-        shutil.copytree('./urllib3-master/urllib3', urllib3_loc or './urllib3')
-        shutil.rmtree('./urllib3-master/')
-        os.remove('urllib3.zip')
+        print("+++ attempting pip install of urllib3...")
+        result = os.system('pip install urllib3')
+        if result == 0:
+            # okay, we installed successfully, break here
+            print("+++ pip install successful")
+        else:
+            print("+++ attempting to download urllib3...")
+            urlretrieve(URLLIB3_URL, 'urllib3.zip')
+            print("+++ download complete, extracting")
+            zipball = zipfile.ZipFile('urllib3.zip', 'r')
+            zipball.extractall('.')
+            zipball.close()
+            shutil.copytree('./urllib3-master/urllib3', urllib3_loc or './urllib3')
+            shutil.rmtree('./urllib3-master/')
+            os.remove('urllib3.zip')
         CHANGES = True
 
         # test the install
@@ -76,10 +82,16 @@ def download_dependencies(pst_loc=None, urllib3_loc=None,
             print("+++ E: unable to install urllib3   <========")
 
     if not HAS_PYSPEEDTEST:
-        print("+++ attempting to download pyspeedtest...")
-        urlretrieve(PYSPEEDTEST_URL, pst_loc or 'pyspeedtest.py')
-        print("+++ download complete")
-        CHANGES = True
+        print("+++ attempting pip install of pyspeedtest...")
+        result = os.system('pip install pyspeedtest')
+        if result == 0:
+            # success
+            print("+++ pip install successful")
+        else:
+            print("+++ attempting to download pyspeedtest...")
+            urlretrieve(PYSPEEDTEST_URL, pst_loc or 'pyspeedtest.py')
+            print("+++ download complete")
+            CHANGES = True
         
         # test the install to see if it worked
         try:

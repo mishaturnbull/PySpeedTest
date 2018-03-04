@@ -1,10 +1,14 @@
+[![Windows Build](https://ci.appveyor.com/api/projects/status/4hcqenv1vwlb3qvr?svg=true)](https://ci.appveyor.com/project/mishaturnbull/pyspeedtest)
+[![Known Vulnerabilities](https://snyk.io/test/github/mishaturnbull/pyspeedtest/badge.svg?targetFile=package.json)](https://snyk.io/test/github/mishaturnbull/pyspeedtest?targetFile=package.json)
+
+
 # Python Internet Speed Test
 
 This is a small, lightweight utility that tests the Internet connection at set intervals.  I wrote it to prove to the people who manage my Internet that it's ***really*** bad.  It takes periodic (or not-so-periodic) samples of your Internet speed.  Statistics recorded are upload speed, download speed, ping time, and if something fails reason for failure.  
 
 Documentation can be found [here][docs]
 
-p.s. our easy-sharing link is [tinyurl.com/mcnetspeed][tinyurl.con/mcnetspeed]
+p.s. our easy-sharing link is [tinyurl.com/mcnetspeed][http://tinyurl.com/mcnetspeed]
 
 ## Quick start
 
