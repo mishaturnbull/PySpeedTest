@@ -1,5 +1,5 @@
 [![Windows Build](https://ci.appveyor.com/api/projects/status/4hcqenv1vwlb3qvr?svg=true)](https://ci.appveyor.com/project/mishaturnbull/pyspeedtest)
-[![Known Vulnerabilities](https://snyk.io/test/github/mishaturnbull/pyspeedtest/badge.svg?targetFile=package.json)](https://snyk.io/test/github/mishaturnbull/pyspeedtest?targetFile=package.json)
+[![Known Vulnerabilities](https://snyk.io/test/github/mishaturnbull/pyspeedtest/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/mishaturnbull/pyspeedtest?targetFile=requirements.txt)
 
 
 # Python Internet Speed Test
