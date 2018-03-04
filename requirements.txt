@@ -1,0 +1,5 @@
+########### requirements.txt ############
+
+pyspeedtest
+urllib3
+tkinter

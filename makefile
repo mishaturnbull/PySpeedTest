@@ -12,7 +12,7 @@ hiddenimports += --hidden-import pyspeedtest
 
 ifeq ($(OS),Windows_NT)
 	name = PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch).exe
-	delete_cmd = del
+	delete_cmd = del /s
 	delete_dir = rmdir /S /q
 else
 	ifeq ($(OS),Darwin)
@@ -50,22 +50,22 @@ os_check:
 	$(info OS has been detected: $(OS)) 
 
 preclean:
-	-$(delete_cmd) src/*.pyc
-	-$(delete_cmd) dist/$(name)
+	-$(delete_dir) dist
+	-$(delete_cmd) *.pyc; 
 	-$(delete_dir) __pycache__
 
 postclean:
-	-$(delete_cmd) src/*.pyc
-	-$(delete_dir) src/urllib3
 	-$(delete_dir) build
+	-$(delete_cmd) *.pyc
+	-$(delete_dir) src/urllib3
 
-deepclean: preclean postclean
+deepclean:
 	$(info This will make a lot of errors!  That's okay, just ignore them.)
 	-$(delete_dir) dist
-	-$(delete_dir) __pycache
-	-$(delete_cmd) src/*.pyc
-	-$(delete_dir) src/urllib3
 	-$(delete_dir) build
+	-$(delete_dir) src/__pycache__
+	-$(delete_cmd) *.pyc
+	-$(delete_dir) src/urllib3      
 
 main:
 	$(compiler) $(cflags) $(target)
