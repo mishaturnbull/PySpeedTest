@@ -1,14 +1,10 @@
-[![Linux build](https://travis-ci.org/mishaturnbull/PySpeedTest.svg?branch=master)](https://travis-ci.org/mishaturnbull/PySpeedTest.svg?branch=master)
-[![Known Vulnerabilities](https://snyk.io/test/github/mishaturnbull/pyspeedtest/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/mishaturnbull/pyspeedtest?targetFile=requirements.txt)
-
-
 # Python Internet Speed Test
 
 This is a small, lightweight utility that tests the Internet connection at set intervals.  I wrote it to prove to the people who manage my Internet that it's ***really*** bad.  It takes periodic (or not-so-periodic) samples of your Internet speed.  Statistics recorded are upload speed, download speed, ping time, and if something fails reason for failure.  
 
 Documentation can be found [here][docs]
 
-p.s. our easy-sharing link is [tinyurl.com/mcnetspeed][http://tinyurl.com/mcnetspeed]
+p.s. our easy-sharing link is [tinyurl.com/mcnetspeed](http://tinyurl.com/mcnetspeed)
 
 ## Quick start
 
@@ -27,3 +23,11 @@ If you want to change your settings, launch the program and click the `Edit Conf
 [1]: https://github.com/mishaturnbull/PySpeedTest/releases/v0.4.3	"Version 0.4.3"
 [tinyurl.con/mcnetspeed]: tinyurl.com/mcnetspeed
 [docs]: https://mishaturnbull.github.io/PySpeedTest/
+
+## Metadata tags
+
+[![Linux build](https://travis-ci.org/mishaturnbull/PySpeedTest.svg?branch=master)](https://travis-ci.org/mishaturnbull/PySpeedTest.svg?branch=master)
+[![Known Vulnerabilities](https://snyk.io/test/github/mishaturnbull/pyspeedtest/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/mishaturnbull/pyspeedtest?targetFile=requirements.txt)
+[![Python versions](https://img.shields.io/badge/python%20version-2.7%2C%203.4%2C%203.5%2C%203.6%2C%203.6--dev%2C%203.7--dev-blue.svg)](https://img.shields.io/badge/python%20version-2.7%2C%203.4%2C%203.5%2C%203.6%2C%203.6--dev%2C%203.7--dev-blue.svg)
+[![GitHub release](https://img.shields.io/github/release/mishaturnbull/pyspeedtest.svg)](https://github.com/mishaturnbull/pyspeedtest/releases/latest)
+![Github All Releases](https://img.shields.io/github/downloads/mishaturnbull/pyspeedtest/total.svg)
