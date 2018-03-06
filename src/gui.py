@@ -261,7 +261,10 @@ class SpeedTesterGUI(object):
         """
         Create the statistical analysis file.
         """
-        run_analytics()
+        try:
+            run_analytics()
+        except Exception as exc:
+            errors.display_error(exc, False)
 
     def upload_data(self):
         """
