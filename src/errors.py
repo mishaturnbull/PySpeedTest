@@ -29,3 +29,7 @@ def display_error(exception):
     messagebox.showerror('Error', message)
     
     raise exception
+
+def display_warning(message):
+    
+    messagebox.showwarning('Warning', message)
