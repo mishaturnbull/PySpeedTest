@@ -70,5 +70,8 @@ deepclean:
 main:
 	$(compiler) $(cflags) $(target)
 
+debug:
+	$(compiler) $(cflags) --debug $(target)
+
 print-%  : ; @echo $* = $($*)
 

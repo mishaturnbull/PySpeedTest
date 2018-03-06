@@ -35,7 +35,7 @@ download_dependencies()  # pretty please work
 from pyspeedtest import pretty_speed
 
 # showing errors
-import traceback
+import errors
 
 # letters
 import string
@@ -178,10 +178,6 @@ class SpeedTesterGUI(object):
                 messagebox.showerror("PySpeedTest Broke",
                                      sys.exc_info()[0])
             
-    def show_error(self, *args):
-        err = traceback.format_exception(*args)
-        messagebox.showerror('Exception',err)
-            
     def update_statistics(self):
         """
         Updates the statistics display on the GUI menu.
@@ -265,7 +261,10 @@ class SpeedTesterGUI(object):
         """
         Create the statistical analysis file.
         """
-        run_analytics()
+        try:
+            run_analytics()
+        except Exception as exc:
+            errors.display_error(exc, False)
 
     def upload_data(self):
         """
@@ -531,4 +530,8 @@ class SpeedTesterGUI(object):
         self.resnet_button.grid(row=7, column=1, sticky=tk.W)
 
 if __name__ == '__main__':
-    stg = SpeedTesterGUI()
+    
+    try:
+        stg = SpeedTesterGUI()
+    except Exception as exc:
+        errors.display_error(exc, raise_when_done=False)
