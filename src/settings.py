@@ -13,6 +13,8 @@ if sys.version_info[0] == 2:
 elif sys.version_info[0] == 3:
     import configparser
 
+import errors
+
 CONFIG_FILE_NAME = "config.ini"
 
 EMERGENCY_DEFAULT = """
@@ -89,4 +91,4 @@ except (configparser.NoSectionError, configparser.NoOptionError) as exc:
     msg += "you updated the problem recently?  I restored it to the\n"
     msg += "default state, try loading the program again.\n\n"
     
-    raise Exception(msg)
+    errors.display_error(Exception(msg))
