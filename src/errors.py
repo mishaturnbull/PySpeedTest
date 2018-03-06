@@ -17,7 +17,7 @@ except ImportError:
 # py2 proofing
 import sys
 
-def display_error(exception):
+def display_error(exception, raise_when_done=True):
     
     message = "wut"
     if sys.version_info[0] == 2:
@@ -28,7 +28,10 @@ def display_error(exception):
     
     messagebox.showerror('Error', message)
     
-    raise exception
+    if raise_when_done:
+        # re-raise the exception when done...
+        # makes it easier to trace errors for console users
+        raise exception
 
 def display_warning(message):
     

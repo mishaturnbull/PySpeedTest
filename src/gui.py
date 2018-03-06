@@ -527,4 +527,8 @@ class SpeedTesterGUI(object):
         self.resnet_button.grid(row=7, column=1, sticky=tk.W)
 
 if __name__ == '__main__':
-    stg = SpeedTesterGUI()
+    
+    try:
+        stg = SpeedTesterGUI()
+    except Exception as exc:
+        errors.display_error(exc, raise_when_done=False)
