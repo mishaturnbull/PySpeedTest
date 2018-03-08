@@ -19,7 +19,6 @@ jobs:
   include:
     - stage: build
       script: make all
-    
     - stage: lint
       install:
         - pip install flake8-diff
@@ -27,3 +26,7 @@ jobs:
         - >
             git fetch origin $TRAVIS_BRANCH:$TRAVIS_BRANCH --depth 1;
             flake8-diff -v -v -v $TRAVIS_BRANCH;
+
+stages:
+  - lint
+  - build
