@@ -8,6 +8,14 @@ python:
   - "3.6"
   - "3.6-dev"
   - "3.7-dev"
+
+os:
+  - linux
+  - osx
+
+matrix:
+  allow_failures:
+    - osx
   
 # install dependencies
 install:
