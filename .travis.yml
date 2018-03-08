@@ -19,5 +19,15 @@ install:
   - pip install pyinstaller  # only for compiling here, not needed
   
 # do it!
-script:
-  - make all
+jobs:
+  include:
+    - stage: build
+      script: make all
+    
+    - stage: lint
+      install:
+        - pip install flake8-diff
+      script:
+        - >
+            git fetch origin $TRAVIS_BRANCH:$TRAVIS_BRANCH --depth 1;
+            flake8-diff -v -v -v $TRAVIS_BRANCH;
