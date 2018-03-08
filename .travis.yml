@@ -9,9 +9,12 @@ python:
   - "3.6-dev"
   - "3.7-dev"
 
-os:
-  - linux
-  - osx
+matrix:
+  include:
+  - python: "2.7"
+    os: osx
+  - python: "3.6"
+    os: osx
 
 matrix:
   allow_failures:
