@@ -1,23 +1,31 @@
 # travis.CI YML config file
 
 language: python
+
 python:
   - "2.7"
+  - "3.3"
   - "3.4"
   - "3.5"
   - "3.6"
   - "3.6-dev"
   - "3.7-dev"
 
-branches:
-  only:
-    - master
+os:
+  - linux
+
+matrix:
+  allow_failures:
+    - osx
   
 # install dependencies
 install:
   - pip install pyspeedtest urllib3
   - pip install pyinstaller  # only for compiling here, not needed
-  
-# do it!
-script:
+  - pip install flake8-diff  
+# Do it
+script: 
   - make all
+  - >
+      git fetch origin $TRAVIS_BRANCH:$TRAVIS_BRANCH --depth 1;
+      flake8-diff -v -v -v $TRAVIS_BRANCH;
