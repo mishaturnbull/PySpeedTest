@@ -2,12 +2,13 @@
 
 language: python
 
-matrix:
-  include:
-  - python: "2.7"
-    os: osx
-  - python: "3.6"
-    os: osx
+python:
+  - "2.7"
+  - "3.6"
+
+os:
+  - osx
+  - linux
 
 matrix:
   allow_failures:
@@ -17,22 +18,10 @@ matrix:
 install:
   - pip install pyspeedtest urllib3
   - pip install pyinstaller  # only for compiling here, not needed
-  
-# do it!
-jobs:
-  include:
-    - stage: build
-      script: make all
-    - stage: test
-      script: echo "Ignore this."
-    - stage: lint
-      install:
-        - pip install flake8-diff
-      script:
-        - >
-            git fetch origin $TRAVIS_BRANCH:$TRAVIS_BRANCH --depth 1;
-            flake8-diff -v -v -v $TRAVIS_BRANCH;
-
-stages:
-  - lint
-  - build
+  - pip install flake8-diff  
+# Do it
+script: 
+  - make all
+  - >
+      git fetch origin $TRAVIS_BRANCH:$TRAVIS_BRANCH --depth 1;
+      flake8-diff -v -v -v $TRAVIS_BRANCH;
