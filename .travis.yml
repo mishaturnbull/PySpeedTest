@@ -19,6 +19,8 @@ jobs:
   include:
     - stage: build
       script: make all
+    - stage: test
+      script: skip
     - stage: lint
       install:
         - pip install flake8-diff
