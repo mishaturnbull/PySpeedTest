@@ -8,10 +8,8 @@ Py6 compliant.
 """
 
 try:
-    import tkinter as tk
     import tkinter.messagebox as messagebox
 except ImportError:
-    import Tkinter as tk
     import tkMessageBox as messagebox
 
 # py2 proofing
