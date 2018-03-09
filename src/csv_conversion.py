@@ -12,11 +12,11 @@ def reformat_date(datefield):
     out += str(timeidx) + ',-0500'
     return out
 
-readfilename = REC_FILE
+RECORD_FILE_NAME = REC_FILE
 if CSV_INPUT_FILE:
-    readfilename = CSV_INPUT_FILE
+    RECORD_FILE_NAME = CSV_INPUT_FILE
 
-with open(readfilename, 'r') as record:
+with open(RECORD_FILE_NAME, 'r') as record:
     lines = record.readlines()[4:]
 
 newlines = []
@@ -52,7 +52,7 @@ for line in lines:
         print(line)
         print("Critical: The above line is misformatted.  No data has been")
         print("          written to {} or cleared from {}.".format(
-                CSV_OUTPUT_FILE, readfilename))
+            CSV_OUTPUT_FILE, RECORD_FILE_NAME))
         assert False, "Misformatted line"
 
     line = ','.join(fields) + '\n'
@@ -62,5 +62,5 @@ with open(CSV_OUTPUT_FILE, 'w') as datafile:
     datafile.writelines(newlines)
 
 if CSV_CLEAR_INFILE:
-    with open(readfilename, 'w') as clearfile:
+    with open(RECORD_FILE_NAME, 'w') as clearfile:
         clearfile.write('')
