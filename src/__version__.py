@@ -23,12 +23,12 @@ def is_version_greater(ver1, ver2, safe=True):
     """
     maj1, min1, pat1 = [int(i) for i in ver1.split('-')[0].split('.')]
     maj2, min2, pat2 = [int(i) for i in ver2.split('-')[0].split('.')]
-    
+
     if safe:
         prerels = ['alpha', 'beta', 'pre', 'test']
         if any(p in ver1 for p in prerels):
             return False
-        
+
     if maj1 > maj2:
         return True
     if min1 > min2:
