@@ -8,6 +8,8 @@ Created on Thu Jan 25 20:07:11 2018
 import socket
 import sys
 
+import errors
+
 from settings import REC_FILE, UPLOAD_URLS, UPLOAD_PORT
 
 try:
@@ -63,9 +65,14 @@ class Uploader(object):
             raise ValueError("Can't upload data with no connection!")
 
         self.set_label(2, 'Reading file')
+        
         with open(REC_FILE, 'r') as infile:
             self.lines = infile.readlines()
-
+        
+        if not self.lines:
+            errors.display_error(IOError("File contains no data or is not"
+                                         " found on disk!"))
+            return
 
         for line in self.lines:
             self.set_label(2, line)
