@@ -9,7 +9,6 @@ accompanying `settings.py` file.
 
 import datetime
 import time
-import sys
 
 from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER
 
@@ -50,11 +49,12 @@ def test_once(location=None):
         down = round(speed_tester.download(), 1)
         dprint(3, "About to upload...")
         upload_speed = round(speed_tester.upload(), 1)
-        newline = ", ".join([curtime, location or LOCATION, str(ping), str(down), str(upload_speed)]) \
-                  + '\n'
+        newline = ", ".join([curtime, location or LOCATION, str(ping),
+                             str(down), str(upload_speed)]) + '\n'
     except Exception as exc:
         dprint(1, "It didn't work!  Joining error line...")
-        newline = ", ".join([curtime, location or LOCATION, exc.__repr__()]) + '\n'
+        newline = ", ".join([curtime, location or LOCATION,
+                             exc.__repr__()]) + '\n'
         ping = down = upload_speed = 0
 
     time_b = datetime.datetime.now()
