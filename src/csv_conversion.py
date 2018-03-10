@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 import time
 
-from settings import CSV_INPUT_FILE, CSV_OUTPUT_FILE, CSV_CLEAR_INFILE, REC_FILE
+from settings import CSV_INPUT_FILE, CSV_OUTPUT_FILE, CSV_CLEAR_INFILE, \
+                     REC_FILE
+
+
+RECORD_FILE_NAME = REC_FILE
+if CSV_INPUT_FILE:
+    RECORD_FILE_NAME = CSV_INPUT_FILE
 
 def reformat_date(datefield):
     """Convert pretty date to date separated by columns."""
@@ -12,12 +18,8 @@ def reformat_date(datefield):
     out += str(timeidx) + ',-0500'
     return out
 
-RECORD_FILE_NAME = REC_FILE
-if CSV_INPUT_FILE:
-    RECORD_FILE_NAME = CSV_INPUT_FILE
-
 with open(RECORD_FILE_NAME, 'r') as record:
-    lines = record.readlines()[4:]
+    lines = record.readlines()
 
 newlines = []
 i = 0
