@@ -18,51 +18,60 @@ def reformat_date(datefield):
     out += str(timeidx) + ',-0500'
     return out
 
-with open(RECORD_FILE_NAME, 'r') as record:
-    lines = record.readlines()
+def get_lines():
+    with open(RECORD_FILE_NAME, 'r') as record:
+        lines = record.readlines()
 
-newlines = []
-i = 0
-
-for line in lines:
-
-    # first, split on the commas and strip whitespace
-    line = line.split(', ')
-    line = [field.strip() for field in line]
-    fields = []
-    i += 1
-
-    fields.append(reformat_date(line[0]))
-
-    # check the length of `line`.  if 3, connection error; if 5, normal
-    if len(line) == 3:
-        fields.append(line[1])
-        # connection error
-        if "downloaded" in line[1]:
-            # download error
-            fields.append("Download failure")
-        elif "uploaded" in line[1]:
-            # upload error
-            fields.append("Upload failure")
+def convert_lines_to_csv(lines):
+    
+    newlines = []
+    i = 0
+    
+    for line in lines:
+    
+        # first, split on the commas and strip whitespace
+        line = line.split(', ')
+        line = [field.strip() for field in line]
+        fields = []
+        i += 1
+    
+        fields.append(reformat_date(line[0]))
+    
+        # check the length of `line`.  if 3, connection error; if 5, normal
+        if len(line) == 3:
+            fields.append(line[1])
+            # connection error
+            if "downloaded" in line[1]:
+                # download error
+                fields.append("Download failure")
+            elif "uploaded" in line[1]:
+                # upload error
+                fields.append("Upload failure")
+            else:
+                # total error
+                fields.append("Connection failure")
+        elif len(line) == 5:
+            # normal
+            fields.extend(line[1:])
         else:
-            # total error
-            fields.append("Connection failure")
-    elif len(line) == 5:
-        # normal
-        fields.extend(line[1:])
-    else:
-        print(line)
-        print("Critical: The above line is misformatted.  No data has been")
-        print("          written to {} or cleared from {}.".format(
-            CSV_OUTPUT_FILE, RECORD_FILE_NAME))
-        assert False, "Misformatted line"
+            print(line)
+            print("Critical: The above line is misformatted.  No data has been")
+            print("          written to {} or cleared from {}.".format(
+                CSV_OUTPUT_FILE, RECORD_FILE_NAME))
+            assert False, "Misformatted line"
+    
+        line = ','.join(fields) + '\n'
+        newlines.append(line)
+        
+    return newlines
 
-    line = ','.join(fields) + '\n'
-    newlines.append(line)
+def write_to_file(lines):
+    with open(CSV_OUTPUT_FILE, 'w') as datafile:
+        datafile.writelines(lines)
+    
+    if CSV_CLEAR_INFILE:
+        with open(RECORD_FILE_NAME, 'w') as clearfile:
+            clearfile.write('')
 
-with open(CSV_OUTPUT_FILE, 'w') as datafile:
-    datafile.writelines(newlines)
-
-if CSV_CLEAR_INFILE:
-    with open(RECORD_FILE_NAME, 'w') as clearfile:
-        clearfile.write('')
+def csv_conversion():
+    write_to_file(convert_lines_to_csv(get_lines))
