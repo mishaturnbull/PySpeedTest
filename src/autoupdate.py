@@ -59,7 +59,7 @@ def download_file(url):
     local_filename = url.split('/')[-1]
     http = urllib3.PoolManager(headers=AGENT)
     with http.request('GET', url, preload_content=False) as r, \
-         open(local_filename, 'wb') as out_file:
+        open(local_filename, 'wb') as out_file:
         shutil.copyfileobj(r, out_file)
     return local_filename
 
