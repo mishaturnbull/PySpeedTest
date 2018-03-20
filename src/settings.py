@@ -64,7 +64,9 @@ parser = configparser.ConfigParser()
 parser.read("config.ini")
 
 try:
-    REC_FILE = parser.get('Speedtester', 'rec_file')
+    rec_file = parser.get('Speedtester', 'rec_file')
+    REC_FILE = os.path.join(os.path.dirname(sys.argv[0]), rec_file)
+    
     LOCATION = parser.get('Speedtester', 'location')
     FREQ = float(parser.get('Speedtester', 'freq'))
     VERBOSITY = int(parser.get('Speedtester', 'verbosity'))
