@@ -10,34 +10,29 @@ ver_patch = 0
 hiddenimports = --hidden-import urllib3
 hiddenimports += --hidden-import pyspeedtest
 
+cflags = -F -y --specpath build --clean $(hiddenimports)
+
 ifeq ($(OS),Windows_NT)
 	name = PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch).exe
+	cflags += --windowed
 	delete_cmd = del /s
 	delete_dir = rmdir /S /q
 else
-	ifeq ($(OS),Darwin)
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Darwin)
 		name = PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch)_mac
+		cflags += --windowed
 		delete_cmd = rm
 		delete_dir = rmdir -r
 	else
 		name = PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch)_unix
+		cflags += -c
 		delete_cmd = rm
 		delete_dir = rm -r
 	endif
 endif
 
-cflags = -F -y -n $(name) --specpath build --clean $(hiddenimports)
-
-ifeq ($(OS),Windows_NT)
-	cflags += -w
-else
-	ifeq ($(OS),Darwin)
-		cflags += -w
-	else
-		# linux users like their consoles
-		cflags += -c
-	endif
-endif
+cflags += -n $(name)
 
 all: os_check dependencies preclean main postclean
 
