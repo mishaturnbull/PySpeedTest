@@ -6,6 +6,9 @@ Downloads necessary dependencies if not found.
 """
 
 import sys
+import zipfile  # default on py2 and py3
+import shutil   # ''
+import os       # if you've installed python without os module, damn...
 
 # lazy man's argparse
 SILENT = False
@@ -17,10 +20,6 @@ if sys.version_info[0] == 2:
 elif sys.version_info[0] == 3:
     from urllib.request import urlretrieve
 
-import zipfile # default on py2 and py3
-import shutil  # ''
-import os      # if you've installed python without os module, damn...
-
 URLLIB3_URL = "https://github.com/shazow/urllib3/archive/master.zip"
 PYSPEEDTEST_URL = "https://raw.githubusercontent.com/fopina/pyspeedtest/master/pyspeedtest.py"
 
@@ -29,23 +28,23 @@ class DependencyError(Exception): pass
 def download_dependencies(pst_loc=None, urllib3_loc=None,
                           quiet=False):
     print("Running emergency dependency download routine")
-    CHANGES = False
+    changes_made = False
 
-    HAS_PYSPEEDTEST = True
+    has_pyspeedtest = True
     try:
         import pyspeedtest
     except ImportError:
-        HAS_PYSPEEDTEST = False
-    print("+++ pyspeedtest present: {}".format(str(HAS_PYSPEEDTEST)))
-    
-    HAS_URLLIB3 = True
+        has_pyspeedtest = False
+    print("+++ pyspeedtest present: {}".format(str(has_pyspeedtest)))
+
+    has_urllub3 = True
     try:
         import urllib3
     except ImportError:
-        HAS_URLLIB3 = False
-    print("+++ urllib3 present: {}".format(str(HAS_URLLIB3)))
-    
-    HAS_TKINTER = True
+        has_urllub3 = False
+    print("+++ urllib3 present: {}".format(str(has_urllub3)))
+
+    has_tkinter = True
     try:
         # darn you, python 2
         try:
@@ -53,10 +52,10 @@ def download_dependencies(pst_loc=None, urllib3_loc=None,
         except ImportError:
             import tkinter
     except ImportError:
-        HAS_TKINTER = False
-    print("+++ tkinter present: {}".format(str(HAS_TKINTER)))
-            
-    if not HAS_URLLIB3:
+        has_tkinter = False
+    print("+++ tkinter present: {}".format(str(has_tkinter)))
+
+    if not has_urllub3:
         print("+++ attempting pip install of urllib3...")
         result = os.system('pip install urllib3')
         if result == 0:
@@ -72,7 +71,7 @@ def download_dependencies(pst_loc=None, urllib3_loc=None,
             shutil.copytree('./urllib3-master/urllib3', urllib3_loc or './urllib3')
             shutil.rmtree('./urllib3-master/')
             os.remove('urllib3.zip')
-        CHANGES = True
+        changes_made = True
 
         # test the install
         try:
@@ -81,7 +80,7 @@ def download_dependencies(pst_loc=None, urllib3_loc=None,
         except ImportError:
             print("+++ E: unable to install urllib3   <========")
 
-    if not HAS_PYSPEEDTEST:
+    if not has_pyspeedtest:
         print("+++ attempting pip install of pyspeedtest...")
         result = os.system('pip install pyspeedtest')
         if result == 0:
@@ -91,24 +90,24 @@ def download_dependencies(pst_loc=None, urllib3_loc=None,
             print("+++ attempting to download pyspeedtest...")
             urlretrieve(PYSPEEDTEST_URL, pst_loc or 'pyspeedtest.py')
             print("+++ download complete")
-            CHANGES = True
-        
+            changes_made = True
+
         # test the install to see if it worked
         try:
             import pyspeedtest
             print("+++ pyspeedtest installed successfully")
         except ImportError:
             print("+++ E: unable to install pyspeedtest   <========")
-    
-    if not HAS_TKINTER:
+
+    if not has_tkinter:
         msg = "\n\nI found a problem!  You don't have the tcl/tk module\n"
         msg += "installed, which is necessary for running GUI's.  Usually,\n"
         msg += "this happens on new-ish installations of Linux that are\n"
         msg += "missing the _tkinter package.  Usually, running the command\n"
         msg += "\n\nsudo apt-get install python-tkinter\n\nwill fix this.\n"
         raise Exception(msg)
-            
-    if CHANGES and not quiet:
+
+    if changes_made and not quiet:
         # quitting and making the user run again is wayyy easier than dealing
         # with UMR
         raise Exception("\n\n\nI think I fixed the problem -- restart and try again.\n\n\n")

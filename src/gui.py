@@ -1,9 +1,32 @@
 # -*- coding: utf-8 -*-
+#flake8: noqa: E402
 """
 Graphical user interface for speed test.
 
 Hopefully useful.
 """
+
+# now, we have to import the dependency tester to make sure required modules
+# are present and if not install them for us
+from dependencies import download_dependencies
+download_dependencies()  # pretty please work
+
+
+# import the rest of the code
+from main import test_once
+from uploadclient import Uploader
+from analytics import run_analytics
+from autoupdate import has_update, download_update
+from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER, \
+                     ANALYZE_FILE, ANALYTICS_REC_FILE, STANDARDS_ENABLE, \
+                     STANDARD_PING, STANDARD_UP, STANDARD_DOWN, UPLOAD_URLS, \
+                     UPLOAD_PORT, CONFIG_FILE_NAME, parser
+
+# makes the test display easier to read
+from pyspeedtest import pretty_speed
+
+# showing errors
+import errors
 
 # tcl/tk -- used for building GUI
 # messagebox -- neat little popup window
@@ -26,30 +49,9 @@ import threading
 # recordng time
 import time
 
-# now, we have to import the dependency tester to make sure required modules
-# are present and if not install them for us
-from dependencies import download_dependencies
-download_dependencies()  # pretty please work
-
-# makes the test display easier to read
-from pyspeedtest import pretty_speed
-
-# showing errors
-import errors
-
 # letters
 import string
 
-# import the rest of the code
-from main import test_once
-from uploadclient import Uploader
-from analytics import run_analytics
-from autoupdate import has_update, download_update
-from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER, \
-                     ANALYZE_FILE, ANALYTICS_REC_FILE, STANDARDS_ENABLE, \
-                     STANDARD_PING, STANDARD_UP, STANDARD_DOWN, UPLOAD_URLS, \
-                     UPLOAD_PORT, CONFIG_FILE_NAME, parser
-                     
 BLOCK_EXIT_CONDITIONS = ['testing', 'waiting']
 
 # background thread for running speed tests
@@ -73,7 +75,7 @@ class SpeedTesterThread(threading.Thread):
 
         # GUI handler itself
         self.handler = handler
-        
+
         # program is closing, stop now
         self.exit = False
 
@@ -88,25 +90,25 @@ class SpeedTesterThread(threading.Thread):
         while not self.exit:
             # if the stop request is set, we want to stop.  so, run while it's not
             while not self.stoprequest.isSet():
-    
+
                 # tell user we're testing
                 self.handler.thread_status.config(text="Thread status: testing")
-    
+
                 # run the speed test
                 newline, time_diff, self.last_result = test_once(
                     self.handler.location_entry.get())
-    
+
                 # tell the user we're now outputting the results
                 self.handler.thread_status.config(
                     text="Thread status: writing results")
-    
+
                 # write the results to the specified file
                 with open(REC_FILE, 'a') as record:
                     record.write(newline)
-    
+
                 # tell the handler we're done so it can update the display
                 self.handler.update_statistics()
-    
+
                 # check again for stop request here -- otherwise, we'll wait
                 # to the next test unnecessarily
                 if not self.stoprequest.isSet():
@@ -146,15 +148,15 @@ class SpeedTesterGUI(object):
 
         # instantiate the speed tester background thread
         self.thread = SpeedTesterThread(self)
-        
+
         # instantiate the upload UI
         self.uploader = Uploader(self)
 
         # build and start the GUI
         self.init_gui()
         self.root.protocol("WM_DELETE_WINDOW", self.close)
-        
-        # moved below init_gui per 
+
+        # moved below init_gui per
         # https://github.com/mishaturnbull/PySpeedTest/issues/6
         # check for an update.  if there is, prompt user to download
         try:
@@ -166,8 +168,8 @@ class SpeedTesterGUI(object):
                                               "An update has been detected." +
                                               "  Would you like to download?")
             if want_update:
-                download_update()        
-        
+                download_update()
+
         try:
             self.root.mainloop()
         except Exception as exc:
@@ -177,7 +179,7 @@ class SpeedTesterGUI(object):
             elif sys.version_info[0] == 3:
                 messagebox.showerror("PySpeedTest Broke",
                                      sys.exc_info()[0])
-            
+
     def update_statistics(self):
         """
         Updates the statistics display on the GUI menu.
@@ -237,7 +239,7 @@ class SpeedTesterGUI(object):
         """
         self.status_label.config(text="Status: stopping")
         self.thread.stoprequest.set()
-        
+
     def close(self):
         """
         Close action
@@ -245,13 +247,15 @@ class SpeedTesterGUI(object):
         status = self.thread_status.cget("text")
         self.thread.exit = True
         if any(s in status for s in BLOCK_EXIT_CONDITIONS):
-            messagebox.showerror("Closing", "Please wait until the thread is dead to close the program.")
+            messagebox.showerror("Closing",
+                                 "Please wait until the thread is dead to"
+                                 "close the program.")
             return   # no close!
         else:
             # allow close
             try:
                 self.thread.join()
-            except RuntimeError as e:
+            except RuntimeError:
                 # it's the "cannot join thread before it is started" error
                 # normal.  just ignore and close
                 pass
@@ -303,7 +307,7 @@ class SpeedTesterGUI(object):
             parser.set('Analytics', 'standard_up', entry_stan_up.get())
             parser.set('Analytics', 'standard_down', entry_stan_down.get())
             parser.set('Upload', 'port', entry_upload_port.get())
-            
+
             letters = string.ascii_lowercase
             urls = entry_upload_url.get()
             urls = [s.strip() for s in urls.split(',')]
@@ -312,7 +316,7 @@ class SpeedTesterGUI(object):
 
             with open(CONFIG_FILE_NAME, 'w') as configfile:
                 parser.write(configfile)
-                
+
             ## FIXME: workaround for issue #5.  NOT A FIX!
             messagebox.showwarning("Configuration", "You will need to restart"+
                                    " the program for changes to take effect!")
@@ -530,7 +534,7 @@ class SpeedTesterGUI(object):
         self.resnet_button.grid(row=7, column=1, sticky=tk.W)
 
 if __name__ == '__main__':
-    
+
     try:
         stg = SpeedTesterGUI()
     except Exception as exc:
