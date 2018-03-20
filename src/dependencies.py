@@ -6,9 +6,9 @@ Downloads necessary dependencies if not found.
 """
 
 import sys
-import zipfile # default on py2 and py3
-import shutil  # ''
-import os      # if you've installed python without os module, damn...
+import zipfile  # default on py2 and py3
+import shutil   # ''
+import os       # if you've installed python without os module, damn...
 
 # lazy man's argparse
 SILENT = False

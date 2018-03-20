@@ -69,7 +69,8 @@ try:
     ANALYZE_FILE = parser.get('Analytics', 'analyze_file')
     ANALYTICS_REC_FILE = parser.get('Analytics', 'analytics_rec_file')
     STANDARDS_ENABLE = parser.get('Analytics', 'standards_enable') in \
-    ['true', '1', 't', 'y', 'yes', 'yeah', 'yup', 'certainly', 'uh-huh']
+        ['true', '1', 't', 'y', 'yes', 
+         'yeah', 'yup', 'certainly', 'uh-huh']
     STANDARD_PING = float(parser.get('Analytics', 'standard_ping') or 0)
     STANDARD_DOWN = float(parser.get('Analytics', 'standard_down') or 0)
     STANDARD_UP = float(parser.get('Analytics', 'standard_up') or 0)
