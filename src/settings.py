@@ -8,6 +8,9 @@ Created on Wed Jan 17 09:02:00 2018
 # python 2-proofing
 import sys
 
+# macOS proofing
+import os
+
 import errors
 
 if sys.version_info[0] == 2:
@@ -15,7 +18,9 @@ if sys.version_info[0] == 2:
 elif sys.version_info[0] == 3:
     import configparser
 
-CONFIG_FILE_NAME = "config.ini"
+filename = "config.ini"
+
+CONFIG_FILE_NAME = os.path.join(os.path.dirname(sys.argv[0]), filename)
 
 EMERGENCY_DEFAULT = """
 [Speedtester]
