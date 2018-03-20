@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#flake8: noqa: E402
 """
 Graphical user interface for speed test.
 
@@ -9,6 +10,7 @@ Hopefully useful.
 # are present and if not install them for us
 from dependencies import download_dependencies
 download_dependencies()  # pretty please work
+
 
 # import the rest of the code
 from main import test_once
