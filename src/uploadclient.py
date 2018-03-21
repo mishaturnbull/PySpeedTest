@@ -53,7 +53,9 @@ class Uploader(object):
                                str(UPLOAD_PORT))
                 break
 
-            except (socket.gaierror, socket.timeout) as exc:
+            # socket.error is the error returned on timeout
+            # in Python 2 (e.g. MacOS)
+            except (socket.gaierror, socket.timeout, socket.error) as exc:
                 # Welp, that one didn't work... keep going!
                 self.set_label(1, 'No connection established')
                 messagebox.showerror(exc.args[0])

@@ -10,53 +10,47 @@ ver_patch = 0
 hiddenimports = --hidden-import urllib3
 hiddenimports += --hidden-import pyspeedtest
 
+cflags = -F -y --specpath build --clean $(hiddenimports)
+
 ifeq ($(OS),Windows_NT)
 	name = PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch).exe
-	delete_cmd = del /s
+	cflags += --windowed
+	delete_cmd = del /S
 	delete_dir = rmdir /S /q
 else
-	ifeq ($(OS),Darwin)
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Darwin)
 		name = PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch)_mac
+		cflags += --windowed
 		delete_cmd = rm
-		delete_dir = rmdir -r
+		delete_dir = rm -rf
 	else
 		name = PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch)_unix
-		delete_cmd = rm
-		delete_dir = rm -r
-	endif
-endif
-
-cflags = -F -y -n $(name) --specpath build --clean $(hiddenimports)
-
-ifeq ($(OS),Windows_NT)
-	cflags += -w
-else
-	ifeq ($(OS),Darwin)
-		cflags += -w
-	else
-		# linux users like their consoles
 		cflags += -c
+		delete_cmd = rm
+		delete_dir = rm -rf
 	endif
 endif
 
-all: os_check dependencies preclean main postclean
+cflags += -n $(name)
+
+all: dependencies preclean main postclean
+
+no_depends: preclean main postclean
 
 dependencies:
 	python src/dependencies.py
 
-clean: preclean postclean
-
-os_check:
-	$(info OS has been detected: $(OS)) 
+clean: preclean postclean 
 
 preclean:
 	-$(delete_dir) dist
-	-$(delete_cmd) *.pyc; 
+	-$(delete_cmd) src/*.pyc; 
 	-$(delete_dir) __pycache__
 
 postclean:
 	-$(delete_dir) build
-	-$(delete_cmd) *.pyc
+	-$(delete_cmd) src/*.pyc
 	-$(delete_dir) src/urllib3
 
 deepclean:
@@ -64,7 +58,7 @@ deepclean:
 	-$(delete_dir) dist
 	-$(delete_dir) build
 	-$(delete_dir) src/__pycache__
-	-$(delete_cmd) *.pyc
+	-$(delete_cmd) src/*.pyc
 	-$(delete_dir) src/urllib3      
 
 main:
