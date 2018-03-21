@@ -38,10 +38,15 @@ if _IS_MAC:
             # graphical
 
             # path is like
-            # /home/foo/bar/baz/PST.app
+            # /home/foo/bar/PST.app/Contents/MacOS/PySpeedTest_v1.6.0_mac
             # and should be like
-            # /home/foo/bar/baz
-            PATH_TO_APPEND_TO = os.path.split(base_exec)[0]
+            # /home/foo/bar
+            
+            temp_path = base_exec
+            while not os.path.splitext(temp_path)[1] == '.app':
+                temp_path = os.path.split(temp_path)[0]
+            # now we're level with the app bundle, go up one more and done!
+            PATH_TO_APPEND_TO = os.path.split(temp_path)[0]
 
         elif ext == '':
             # non-graphical
