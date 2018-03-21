@@ -36,6 +36,8 @@ cflags += -n $(name)
 
 all: dependencies preclean main postclean
 
+no_depends: preclean main postclean
+
 dependencies:
 	python src/dependencies.py
 
