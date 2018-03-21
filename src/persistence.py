@@ -47,7 +47,12 @@ if _IS_MAC:
             # non-graphical
             PATH_TO_APPEND_TO = os.path.split(base_exec)[0]
         else:
-            assert False, base_exec
+            # this can happen, as I discovered in 591ea42, when the file
+            # is named like PySpeedTest_v1.6.0_mac and called like:
+            # FakeMac:misha dist$ ./PySpeedTest_v1.6.0_mac
+            # os.path.splitext(...) returns:
+            # ('./PySpeedTest_v1.6', '.0_mac')
+            pass
     else:
         # live
         # nothing special needed
