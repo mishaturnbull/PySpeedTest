@@ -44,6 +44,7 @@ if _IS_MAC:
             
             temp_path = base_exec
             while not os.path.splitext(temp_path)[1] == '.app':
+                print(temp_path)
                 temp_path = os.path.split(temp_path)[0]
             # now we're level with the app bundle, go up one more and done!
             PATH_TO_APPEND_TO = os.path.split(temp_path)[0]
