@@ -63,7 +63,7 @@ except IOError:
         configfile.write(EMERGENCY_DEFAULT)
 
 parser = configparser.ConfigParser()
-parser.read("config.ini")
+parser.read(CONFIG_FILE_NAME)
 
 try:
     rec_file = parser.get('Speedtester', 'rec_file')
