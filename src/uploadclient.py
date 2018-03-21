@@ -69,7 +69,7 @@ class Uploader(object):
         try:
             with open(REC_FILE, 'r') as infile:
                 self.lines = infile.readlines()
-        except IOError as exc:
+        except IOError:
             self.lines = []  # let the handler on the next step handle this
 
         if not self.lines:
