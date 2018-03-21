@@ -15,7 +15,7 @@ cflags = -F -y --specpath build --clean $(hiddenimports)
 ifeq ($(OS),Windows_NT)
 	name = PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch).exe
 	cflags += --windowed
-	delete_cmd = del /s
+	delete_cmd = del /S
 	delete_dir = rmdir /S /q
 else
 	UNAME_S := $(shell uname -s)
@@ -23,35 +23,32 @@ else
 		name = PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch)_mac
 		cflags += --windowed
 		delete_cmd = rm
-		delete_dir = rmdir -r
+		delete_dir = rm -rf
 	else
 		name = PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch)_unix
 		cflags += -c
 		delete_cmd = rm
-		delete_dir = rm -r
+		delete_dir = rm -rf
 	endif
 endif
 
 cflags += -n $(name)
 
-all: os_check dependencies preclean main postclean
+all: dependencies preclean main postclean
 
 dependencies:
 	python src/dependencies.py
 
-clean: preclean postclean
-
-os_check:
-	$(info OS has been detected: $(OS)) 
+clean: preclean postclean 
 
 preclean:
 	-$(delete_dir) dist
-	-$(delete_cmd) *.pyc; 
+	-$(delete_cmd) src/*.pyc; 
 	-$(delete_dir) __pycache__
 
 postclean:
 	-$(delete_dir) build
-	-$(delete_cmd) *.pyc
+	-$(delete_cmd) src/*.pyc
 	-$(delete_dir) src/urllib3
 
 deepclean:
@@ -59,7 +56,7 @@ deepclean:
 	-$(delete_dir) dist
 	-$(delete_dir) build
 	-$(delete_dir) src/__pycache__
-	-$(delete_cmd) *.pyc
+	-$(delete_cmd) src/*.pyc
 	-$(delete_dir) src/urllib3      
 
 main:
