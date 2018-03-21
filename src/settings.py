@@ -5,6 +5,8 @@ Created on Wed Jan 17 09:02:00 2018
 @author: Misha
 """
 
+from persistence import PATH_TO_APPEND_TO
+
 # python 2-proofing
 import sys
 
@@ -20,7 +22,7 @@ elif sys.version_info[0] == 3:
 
 filename = "config.ini"
 
-CONFIG_FILE_NAME = os.path.join(os.path.dirname(sys.argv[0]), filename)
+CONFIG_FILE_NAME = os.path.join(PATH_TO_APPEND_TO, filename)
 
 EMERGENCY_DEFAULT = """
 [Speedtester]
