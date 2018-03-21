@@ -67,26 +67,32 @@ parser.read("config.ini")
 
 try:
     rec_file = parser.get('Speedtester', 'rec_file')
-    REC_FILE = os.path.join(os.path.dirname(sys.argv[0]), rec_file)
-    
+    REC_FILE = os.path.join(PATH_TO_APPEND_TO, rec_file)
+
     LOCATION = parser.get('Speedtester', 'location')
     FREQ = float(parser.get('Speedtester', 'freq'))
     VERBOSITY = int(parser.get('Speedtester', 'verbosity'))
     server = parser.get('Speedtester', 'force_server')
     FORCE_SERVER = None if server == 'None' else server
 
-    ANALYZE_FILE = parser.get('Analytics', 'analyze_file')
-    ANALYTICS_REC_FILE = parser.get('Analytics', 'analytics_rec_file')
+    ANALYZE_FILE = os.path.join(PATH_TO_APPEND_TO,
+                                parser.get('Analytics', 'analyze_file'))
+    ANALYTICS_REC_FILE = os.path.join(PATH_TO_APPEND_TO,
+                                      parser.get('Analytics',
+                                                 'analytics_rec_file'))
     STANDARDS_ENABLE = parser.get('Analytics', 'standards_enable') in \
-        ['true', '1', 't', 'y', 'yes', 
+        ['true', '1', 't', 'y', 'yes',
          'yeah', 'yup', 'certainly', 'uh-huh']
     STANDARD_PING = float(parser.get('Analytics', 'standard_ping') or 0)
     STANDARD_DOWN = float(parser.get('Analytics', 'standard_down') or 0)
     STANDARD_UP = float(parser.get('Analytics', 'standard_up') or 0)
 
-    CSV_INPUT_FILE = parser.get('CSV', 'csv_input_file')
-    CSV_OUTPUT_FILE = parser.get('CSV', 'csv_output_file')
-    CSV_CLEAR_INFILE = parser.get('CSV', 'csv_clear_infile')
+    CSV_INPUT_FILE = os.path.join(PATH_TO_APPEND_TO,
+                                  parser.get('CSV', 'csv_input_file'))
+    CSV_OUTPUT_FILE = os.path.join(PATH_TO_APPEND_TO,
+                                   parser.get('CSV', 'csv_output_file'))
+    CSV_CLEAR_INFILE = os.path.join(PATH_TO_APPEND_TO,
+                                    parser.get('CSV', 'csv_clear_infile'))
 
     UPLOAD_PORT = int(parser.get('Upload', 'port'))
     url_items = parser.items('UploadURLs')
