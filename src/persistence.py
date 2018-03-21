@@ -32,9 +32,8 @@ if _IS_MAC:
         # bundled
 
         base_exec = sys.argv[0]
-
-        ext = os.path.splitext(base_exec)[1]
-        if ext == 'app':
+        
+        if '.app' in base_exec:
             # graphical
 
             # path is like
@@ -49,19 +48,10 @@ if _IS_MAC:
             # now we're level with the app bundle, go up one more and done!
             PATH_TO_APPEND_TO = os.path.split(temp_path)[0]
 
-        elif ext == '':
+        else:
             # non-graphical
             PATH_TO_APPEND_TO = os.path.split(base_exec)[0]
-        else:
-            # this can happen, as I discovered in 591ea42, when the file
-            # is named like PySpeedTest_v1.6.0_mac and called like:
-            # FakeMac:misha dist$ ./PySpeedTest_v1.6.0_mac
-            # os.path.splitext(...) returns:
-            # ('./PySpeedTest_v1.6', '.0_mac')
-            pass
     else:
         # live
         # nothing special needed
         pass
-
-print(base_exec, PATH_TO_APPEND_TO)
