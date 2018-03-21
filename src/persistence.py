@@ -32,7 +32,7 @@ if _IS_MAC:
         # bundled
 
         base_exec = sys.argv[0]
-        
+
         if '.app' in base_exec:
             # graphical
 
@@ -40,7 +40,7 @@ if _IS_MAC:
             # /home/foo/bar/PST.app/Contents/MacOS/PySpeedTest_v1.6.0_mac
             # and should be like
             # /home/foo/bar
-            
+
             temp_path = base_exec
             while not os.path.splitext(temp_path)[1] == '.app':
                 print(temp_path)
