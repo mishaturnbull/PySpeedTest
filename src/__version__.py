@@ -21,8 +21,8 @@ def is_version_greater(ver1, ver2, safe=True):
     """
     Assumes ver1 and ver2 are both of the form a.b.c
     """
-    maj1, min1, pat1 = [int(i) for i in ver1.split('-')[0].split('.')]
-    maj2, min2, pat2 = [int(i) for i in ver2.split('-')[0].split('.')]
+    maj1, min1, pat1 = [int(i) for i in ver1[1:].split('-')[0].split('.')]
+    maj2, min2, pat2 = [int(i) for i in ver2[1:].split('-')[0].split('.')]
 
     if safe:
         prerels = ['alpha', 'beta', 'pre', 'test']

@@ -66,8 +66,11 @@ class Uploader(object):
 
         self.set_label(2, 'Reading file')
 
-        with open(REC_FILE, 'r') as infile:
-            self.lines = infile.readlines()
+        try:
+            with open(REC_FILE, 'r') as infile:
+                self.lines = infile.readlines()
+        except IOError:
+            self.lines = []  # let the handler on the next step handle this
 
         if not self.lines:
             errors.display_error(IOError("File contains no data or is not"
