@@ -110,7 +110,7 @@ So, depending on what you're doing, the common accepted "fast" speeds might look
 |        Activity        | Best upload | Best download | Best ping |
 | ---------------------- | ----------- | ------------- | --------- |
 | Homework (Google Docs) |  >= 5 Mpbs  |   >= 5 Mpbs   | <= 20 ms  |
-| Streaming video        |  >= 1 Mpbs  | >= 10-20 Mbps | <= 15 ms  |
+| Streaming video        |  >= 1 Mpbs  | >= 10-15 Mbps | <= 15 ms  |
 | Online gaming          |  >= 15 Mbps |  >= 25 Mbps   | <= 12 ms  |
 
 [fcc-broadband]: https://apps.fcc.gov/edocs_public/attachmatch/FCC-15-10A1_Rcd.pdf
