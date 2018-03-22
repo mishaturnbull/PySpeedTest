@@ -1,10 +1,10 @@
 [Back to main page](index.html)
 
 # Table of contents
-1. [Why is this necessary?](#why-is-this-necessary)  
+1. [What's Wrong?](#whats-wrong)
 2. [What do I have to do?](#what-do-i-have-to-do)
 
-# Why is this necessary?
+# What's Wrong?
 
 tl;dr: Apple wants $99/year from me that I don't have.
 
@@ -16,10 +16,13 @@ As a result of my not-giving-them-money, I cannot get what is known as an "Apple
 
 If you trust me (which I do), and want to run my program (which I do), here's what you can do:
 
-1. Open **Preferences**
-2. Go to **Security & Privacy**
-3. Go to the **General** tab (it's the default)
-4. Click the **Open Anyway** button next to the warning message about PySpeedTest
+1. Launch the program, so it displays the untrusted developer warning message
+2. Open **Preferences**
+3. Go to **Security & Privacy**
+4. Go to the **General** tab (it's the default)
+5. Click the **Open Anyway** button next to the warning message about PySpeedTest
+
+The program should now run free of warnings.
 
 <div style="text-align:center">
     <img src ="https://github.com/mishaturnbull/PySpeedTest/raw/master/docs/security_privacy.png" />
