@@ -10,13 +10,11 @@ Put that file somewhere you'll remember it, then double-click it to run.  The pr
 
 ## Mac
 
-***UPDATE 2018/02/13***:  I tested it on a friend's Mac and found [more issues](https://github.com/mishaturnbull/PySpeedTest/issues/15).  It is hard to run right now.  I am working on making easier to run.
+***UPDATE 2018/03/21***:  Take a look at [this note about Macs][mac] for more details.  It's iffy.
 
-Problem here.  I don't have a Mac, so I can't test anything on them.  I also can't compile single-file builds for them either.  You'll be stuck executing the Python source until I can find a better solution -- which I am working on.  In the mean time, you can do this:
+Download the file named `PySpeedTest_vX.Y.Z_mac.app.zip`, put it somewhere, and double-click it.  Weird warnings may appear.  Look at the [note][mac] for details. 
 
-1. Download the zip file from the left side of the screen
-2. Unzip it
-3. Double-click the file called `mac_run_this.command`.  You may have to allow apps from unidentified developers. 
+The program will automatically create two files in the same folder as it is located: `speed_record.ilog`, a record of the internet speeds, and `config.ini`.  The speed record filename can be changed through the program's settings menu, but at this time the configuration file's name cannot be changed.
 
 ## Linux/\*nix
 
@@ -29,6 +27,6 @@ python3 gui.py
 ```
 
 
-
+[mac]: https://mishaturnbull.github.io/PySpeedTest/macs.html
 [windows_master]: https://github.com/mishaturnbull/PySpeedTest/releases/latest "Latest release for Windows x64"
 [onefile_banch]: https://github.com/mishaturnbull/PySpeedTest/tree/one-file "Terminal version"
