@@ -1,31 +1,60 @@
-# travis.CI YML config file
+# most of this config is shamefully stolen from PyInstaller's travis config
+# because I don't understand YML/Travis well enough to do it on my own
 
 language: python
 
-python:
-  - "2.7"
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.6"
-  - "3.6-dev"
-  - "3.7-dev"
-
 os:
   - linux
+  - osx
 
-matrix:
+jobs:
+  fast_finish: true
+  include:
+    - stage: build
+      os: osx
+      python: 3.6
+      script: &build
+        - make all
+
+    - &lint
+      stage: Lint
+      python: 3.6
+      script:
+        - >
+            git fetch origin $TRAVIS_BRANCH:$TRAVIS_BRANCH --depth 1;
+            flake8-diff -v -v -v $TRAVIS_BRANCH;
+
+    - <<: *build
+      python: 3.4
+    - <<: *lint
+      python: 3.4
+
+    - <<: *build
+      python: 3.5
+    - <<: *lint
+      python: 3.5
+
+    - <<: *build
+      python: 3.6
+    - <<: *lint
+      python: 3.6
+    - <<: *lint
+      python: 3.6
+
+    - <<: *build
+      python: nightly
+
   allow_failures:
-    - osx
-  
-# install dependencies
+      # Just tests how PyInstaller performs with upcoming Python 3.6
+      - python: "nightly"
+
 install:
-  - pip install pyspeedtest urllib3
-  - pip install pyinstaller  # only for compiling here, not needed
-  - pip install flake8-diff  
-# Do it
-script: 
-  - make all
-  - >
-      git fetch origin $TRAVIS_BRANCH:$TRAVIS_BRANCH --depth 1;
-      flake8-diff -v -v -v $TRAVIS_BRANCH;
+  # Update pip.
+  - python -m pip install -U pip setuptools wheel | cat
+
+  # Install dependencies for tests.
+  - pip install -U -r requirements.txt | cat
+
+
+script:
+  - true
