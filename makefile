@@ -3,8 +3,8 @@
 compiler = pyinstaller
 target = src/gui.py
 
-ver_major = 1
-ver_minor = 6
+ver_major = 2
+ver_minor = 0
 ver_patch = 0
 
 hiddenimports = --hidden-import urllib3
@@ -39,7 +39,7 @@ all: dependencies preclean main postclean
 no_depends: preclean main postclean
 
 dependencies:
-	python src/dependencies.py
+	python src/dependencies.py —silent
 
 clean: preclean postclean 
 
