@@ -56,11 +56,12 @@ if _IS_MAC:
         # nothing special needed
         pass
 
+
 # stolen this bit of code from a reply to PyInstaller issue #1804
 # https://github.com/pyinstaller/pyinstaller/
 # issues/1804#issuecomment-332778156
 # thanks, @StefGre!
-def resource_path(relative_path): # needed for bundling                                                                                                                            
+def resource_path(relative_path):  # needed for bundling
     """Get absolute path to resource, works for dev and for PyInstaller"""
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(
             os.path.abspath(__file__)))
