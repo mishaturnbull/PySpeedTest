@@ -5,13 +5,10 @@ Created on Wed Jan 17 09:02:00 2018
 @author: Misha
 """
 
-from persistence import PATH_TO_APPEND_TO
+from persistence import resource_path
 
 # python 2-proofing
 import sys
-
-# macOS proofing
-import os
 
 import errors
 
@@ -22,7 +19,7 @@ elif sys.version_info[0] == 3:
 
 filename = "config.ini"
 
-CONFIG_FILE_NAME = os.path.join(PATH_TO_APPEND_TO, filename)
+CONFIG_FILE_NAME = resource_path(filename)
 
 EMERGENCY_DEFAULT = """
 [Speedtester]
@@ -67,7 +64,7 @@ parser.read(CONFIG_FILE_NAME)
 
 try:
     rec_file = parser.get('Speedtester', 'rec_file')
-    REC_FILE = os.path.join(PATH_TO_APPEND_TO, rec_file)
+    REC_FILE = resource_path(rec_file)
 
     LOCATION = parser.get('Speedtester', 'location')
     FREQ = float(parser.get('Speedtester', 'freq'))
@@ -75,10 +72,8 @@ try:
     server = parser.get('Speedtester', 'force_server')
     FORCE_SERVER = None if server == 'None' else server
 
-    ANALYZE_FILE = os.path.join(PATH_TO_APPEND_TO,
-                                parser.get('Analytics', 'analyze_file'))
-    ANALYTICS_REC_FILE = os.path.join(PATH_TO_APPEND_TO,
-                                      parser.get('Analytics',
+    ANALYZE_FILE = resource_path(parser.get('Analytics', 'analyze_file'))
+    ANALYTICS_REC_FILE = resource_path(parser.get('Analytics',
                                                  'analytics_rec_file'))
     STANDARDS_ENABLE = parser.get('Analytics', 'standards_enable') in \
         ['true', '1', 't', 'y', 'yes',
@@ -87,12 +82,9 @@ try:
     STANDARD_DOWN = float(parser.get('Analytics', 'standard_down') or 0)
     STANDARD_UP = float(parser.get('Analytics', 'standard_up') or 0)
 
-    CSV_INPUT_FILE = os.path.join(PATH_TO_APPEND_TO,
-                                  parser.get('CSV', 'csv_input_file'))
-    CSV_OUTPUT_FILE = os.path.join(PATH_TO_APPEND_TO,
-                                   parser.get('CSV', 'csv_output_file'))
-    CSV_CLEAR_INFILE = os.path.join(PATH_TO_APPEND_TO,
-                                    parser.get('CSV', 'csv_clear_infile'))
+    CSV_INPUT_FILE = resource_path(parser.get('CSV', 'csv_input_file'))
+    CSV_OUTPUT_FILE = resource_path(parser.get('CSV', 'csv_output_file'))
+    CSV_CLEAR_INFILE = resource_path(parser.get('CSV', 'csv_clear_infile'))
 
     UPLOAD_PORT = int(parser.get('Upload', 'port'))
     url_items = parser.items('UploadURLs')
