@@ -19,9 +19,9 @@ _IS_MAC = platform.system() == 'Darwin'
 # modifications were made, however, to suit the cross-platform nature
 # of this program
 def resource_path(relative_path):  # needed for bundling
+    """Get absolute path to resource, works for dev and for PyInstaller"""
     if not _IS_MAC:
         return relative_path
-    """Get absolute path to resource, works for dev and for PyInstaller"""
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(
             os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
