@@ -5,7 +5,7 @@ target = src/gui.py
 
 ver_major = 2
 ver_minor = 0
-ver_patch = 0
+ver_patch = 1
 
 hiddenimports = --hidden-import urllib3
 hiddenimports += --hidden-import pyspeedtest
