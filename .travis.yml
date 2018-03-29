@@ -63,5 +63,3 @@ language: python
 os: 
   - linux
   - osx
-script: 
-  - true
