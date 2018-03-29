@@ -39,7 +39,7 @@ all: dependencies preclean main postclean
 no_depends: preclean main postclean
 
 dependencies:
-	python src/dependencies.py —silent
+	python src/dependencies.py --silent
 
 clean: preclean postclean 
 
