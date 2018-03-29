@@ -46,10 +46,10 @@ csv_clear_infile = False
 port = 11356
 
 [UploadURLs]
-a = 172.30.140.181
+a = 172.30.141.127
 b = 134.129.156.163
 c = mcv156.163.und.nodak.edu
-d = 25.3.82.86
+d = 25.9.117.52
 """
 
 try:

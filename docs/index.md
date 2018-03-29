@@ -1,3 +1,7 @@
+# WARNING
+
+As of right now (2018-03-25 21:06CST), the data collection server is offline.  I'm working to fix it.  Hopefully back up and running before Monday by 6:00PM.
+
 # PySpeedTest
 
 This is a small, lightweight utility that tests the Internet connection at set intervals. I wrote it specifically for University of North Dakota to prove to ResNet that the internet in my dorm is **real bad**.  As part of the project and that I hope to distribute it to the rest of the dorm, I figured I should probably write documentation, so here it is.
