@@ -1,65 +1,32 @@
---- 
-install: 
-  - "python -m pip install -U pip setuptools wheel | cat"
-  - "pip install -U -r requirements.txt | cat"
-jobs: 
-  allow_failures: 
-    - 
-      python: nightly
-  fast_finish: true
-  include: 
-    - 
-      os: osx
-      python: 3.6
-      script: 
-        - "make all"
-      stage: build
-    - 
-      python: 3.6
-      script: 
-        - "git fetch origin $TRAVIS_BRANCH:$TRAVIS_BRANCH --depth 1; flake8-diff -v -v -v $TRAVIS_BRANCH;\n"
-      stage: Lint
-    - 
-      ? "<<"
-      : 
-        - "make all"
-      python: 3.4
-    - 
-      python: 3.4
-      script: 
-        - "git fetch origin $TRAVIS_BRANCH:$TRAVIS_BRANCH --depth 1; flake8-diff -v -v -v $TRAVIS_BRANCH;\n"
-      stage: Lint
-    - 
-      ? "<<"
-      : 
-        - "make all"
-      python: 3.5
-    - 
-      python: 3.5
-      script: 
-        - "git fetch origin $TRAVIS_BRANCH:$TRAVIS_BRANCH --depth 1; flake8-diff -v -v -v $TRAVIS_BRANCH;\n"
-      stage: Lint
-    - 
-      ? "<<"
-      : 
-        - "make all"
-      python: 3.6
-    - 
-      python: 3.6
-      script: 
-        - "git fetch origin $TRAVIS_BRANCH:$TRAVIS_BRANCH --depth 1; flake8-diff -v -v -v $TRAVIS_BRANCH;\n"
-      stage: Lint
-    - 
-      python: 3.6
-      script: 
-        - "git fetch origin $TRAVIS_BRANCH:$TRAVIS_BRANCH --depth 1; flake8-diff -v -v -v $TRAVIS_BRANCH;\n"
-      stage: Lint
-    - 
-      ? "<<"
-      : 
-        - "make all"
-      python: nightly
+# travis.CI YML config file
+
 language: python
-os: 
+
+python:
+  - "2.7"
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+  - "3.6-dev"
+  - "3.7-dev"
+
+os:
   - linux
   - osx
+
+matrix:
+  allow_failures:
+    - osx
+  
+# install dependencies
+install:
+  - pip install pyspeedtest urllib3
+  - pip install pyinstaller  # only for compiling here, not needed
+  - pip install flake8-diff  
+# Do it
+script: 
+  - make all
+  - >
+      git fetch origin $TRAVIS_BRANCH:$TRAVIS_BRANCH --depth 1;
+      flake8-diff -v -v -v $TRAVIS_BRANCH;
