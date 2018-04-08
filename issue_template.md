@@ -1,4 +1,4 @@
-### What were you trying to do when the error occured?
+### What were you trying to do when the error occurred?
 
 ### Did you get an error message?  If so, what did it say?
 
