@@ -280,10 +280,10 @@ class SpeedTesterGUI(object):
         status = self.thread_status.cget("text").lower()
         if any(s in status for s in BLOCK_UPLOAD_CONDITIONS):
             messagebox.showerror("Upload",
-                                 "Unable to upload right now.  Try again" 
+                                 "Unable to upload right now.  Try again"
                                  " in a moment, this issue is temporary.")
             return
-        
+
         self.uploader.build_window()
         self.uploader.establish_connection()
         self.uploader.send_data()
