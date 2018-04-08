@@ -53,6 +53,7 @@ import time
 import string
 
 BLOCK_EXIT_CONDITIONS = ['testing', 'waiting']
+BLOCK_UPLOAD_CONDITIONS = ['testing', 'writing', 'paused']
 
 # background thread for running speed tests
 class SpeedTesterThread(threading.Thread):
@@ -276,6 +277,13 @@ class SpeedTesterGUI(object):
 
         Requires a network connection (duh).
         """
+        status = self.thread_status.cget("text").lower()
+        if any(s in status for s in BLOCK_UPLOAD_CONDITIONS):
+            messagebox.showerror("Upload",
+                                 "Unable to upload right now.  Try again" 
+                                 " in a moment, this issue is temporary.")
+            return
+        
         self.uploader.build_window()
         self.uploader.establish_connection()
         self.uploader.send_data()
