@@ -21,6 +21,12 @@ def is_version_greater(ver1, ver2, safe=True):
     """
     Assumes ver1 and ver2 are both of the form "v"a.b.c
     """
+
+    if not 'v' in ver1:
+        ver1 = "v{}".format(ver1)
+    if not 'v' in ver2:
+        ver2 = "v{}".format(ver2)
+
     maj1, min1, pat1 = [int(i) for i in ver1[1:].split('-')[0].split('.')]
     maj2, min2, pat2 = [int(i) for i in ver2[1:].split('-')[0].split('.')]
 
