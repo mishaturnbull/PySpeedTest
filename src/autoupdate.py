@@ -47,18 +47,18 @@ def get_download_url(filetype):
                             "https://api.github.com/repos/mishaturnbull/"
                             "PySpeedTest/releases")
     data = json.loads(versions.data)
-    
+
     download_urls = {}
     for asset in data[0]['assets']:
         url = asset['browser_download_url']
-        
+
         if url.endswith('.exe'):
             plat = 'exe'
         elif url.endswith('_mac.zip'):
             plat = 'app'
         else:
             plat = ''
-        
+
         download_urls.update({plat: url})
 
     if filetype in download_urls.keys():
