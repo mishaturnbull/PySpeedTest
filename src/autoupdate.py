@@ -23,9 +23,9 @@ def get_filetype():
     elif 'Linux' in p:
         return 'tarball'
     elif 'Darwin' in p:
-        return 'zipball'  # i think... do Macs do .zip?
+        return 'app'  # get the MacOS app bundle
     else:
-        return 'tarball'  # most things can open tarballs
+        return 'zipball'  # most things can open zipballs
 
 
 def has_update():
@@ -39,17 +39,30 @@ def has_update():
 
 
 def get_download_url(filetype):
-    if filetype not in ['exe', 'zipball', 'tarball']:
-        raise ValueError("I don't know where to download a {}".format(
+    if filetype not in ['exe', 'app', 'zipball', 'tarball']:
+        raise ValueError("I don't know where to download a(n) {}".format(
             filetype))
     http = urllib3.PoolManager(headers=AGENT)
     versions = http.request('GET',
                             "https://api.github.com/repos/mishaturnbull/"
                             "PySpeedTest/releases")
     data = json.loads(versions.data)
+    
+    download_urls = {}
+    for asset in data[0]['assets']:
+        url = asset['browser_download_url']
+        
+        if url.endswith('.exe'):
+            plat = 'exe'
+        elif url.endswith('_mac.zip'):
+            plat = 'app'
+        else:
+            plat = ''
+        
+        download_urls.update({plat: url})
 
-    if filetype == 'exe':
-        url = data[0]['assets'][0]['browser_download_url']
+    if filetype in download_urls.keys():
+        url = download_urls[filetype]
     elif filetype == 'tarball':
         url = data[0]['tarball_url']
     elif filetype == 'zipball':
