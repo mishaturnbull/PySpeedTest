@@ -122,3 +122,6 @@ class Uploader(object):
 
         self.label2 = tk.Label(self.window, text=" "*50)
         self.label2.grid(row=1, column=0, sticky=tk.E+tk.W)
+        
+        self.set_label(1, ' ')
+        self.set_label(2, ' ')
