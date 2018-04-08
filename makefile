@@ -36,10 +36,17 @@ cflags += -n $(name)
 
 all: dependencies preclean main postclean
 
+# useful for those of us using the 'py' launcher:
+# doing `python bla.py` results in python 2, but
+# doing `py bla.py` results in python 3.
+# having a no dependencies target lets you compile
+# with the default python library and not have to
+# worry about downloading already-installed
+# dependencies
 no_depends: preclean main postclean
 
 dependencies:
-	python src/dependencies.py —silent
+	python src/dependencies.py --silent
 
 clean: preclean postclean 
 
