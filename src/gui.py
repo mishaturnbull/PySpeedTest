@@ -21,6 +21,7 @@ from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER, \
                      ANALYZE_FILE, ANALYTICS_REC_FILE, STANDARDS_ENABLE, \
                      STANDARD_PING, STANDARD_UP, STANDARD_DOWN, UPLOAD_URLS, \
                      UPLOAD_PORT, CONFIG_FILE_NAME, parser
+from persistence import resource_path
 
 # makes the test display easier to read
 from pyspeedtest import pretty_speed
@@ -169,7 +170,28 @@ class SpeedTesterGUI(object):
                                               "An update has been detected." +
                                               "  Would you like to download?")
             if want_update:
-                download_update()
+                # new_version is just the filename
+                # of the freshly downloaded program
+                new_version = download_update()
+
+                want_close = messagebox.askyesno("Update",
+                                                 ("The newest verison has"
+                                                  " been downloaded: {}"
+                                                  " Would you like to open"
+                                                  " it now?".format(
+                                                      resource_path(
+                                                          new_version))))
+                if want_close:
+                    # all we can do here is close the program.
+                    # hopefully, the user finds their way to the new
+                    # version...
+                    # stop the thread, wait half a second, close...
+                    # hope for the best.  worst case, users get a popup
+                    # about can't close the program (see self.close())
+                    # and nothing more happens
+                    self.stop()
+                    self.root.after(500, self.close)
+                    
 
         try:
             self.root.mainloop()
