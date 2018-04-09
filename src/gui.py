@@ -191,7 +191,7 @@ class SpeedTesterGUI(object):
                     # and nothing more happens
                     self.stop()
                     self.root.after(500, self.close)
-                    
+ 
 
         try:
             self.root.mainloop()
