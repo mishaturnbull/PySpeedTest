@@ -89,39 +89,51 @@ class SpeedTesterThread(threading.Thread):
         # tell the user we're running
         self.handler.thread_status.config(text="Thread status: alive")
 
-        while not self.exit:
-            # if the stop request is set, we want to stop.  so, run while it's not
-            while not self.stoprequest.isSet():
-
-                # tell user we're testing
-                self.handler.thread_status.config(text="Thread status: testing")
-
-                # run the speed test
-                newline, time_diff, self.last_result = test_once(
-                    self.handler.location_entry.get())
-
-                # tell the user we're now outputting the results
-                self.handler.thread_status.config(
-                    text="Thread status: writing results")
-
-                # write the results to the specified file
-                with open(REC_FILE, 'a') as record:
-                    record.write(newline)
-
-                # tell the handler we're done so it can update the display
-                self.handler.update_statistics()
-
-                # check again for stop request here -- otherwise, we'll wait
-                # to the next test unnecessarily
-                if not self.stoprequest.isSet():
-                    self.handler.thread_status.config(text="Thread status: waiting")
-                    time.sleep(time_diff)
-                else:
-                    self.handler.thread_status.config(text='Thread status: paused')
-                    continue
-            self.handler.status_label.config(text="Status: stopped")
-            self.handler.thread_status.config(text="Thread status: dead")
-            time.sleep(0.5)  # let's not be too hard on the system
+        try:
+            while not self.exit:
+                # if the stop request is set, we want to stop.  so, run while it's not
+                while not self.stoprequest.isSet():
+                    print(self.handler)
+    
+                    # tell user we're testing
+                    self.handler.thread_status.config(text="Thread status: testing")
+    
+                    # run the speed test
+                    newline, time_diff, self.last_result = test_once(
+                        self.handler.location_entry.get())
+    
+                    # tell the user we're now outputting the results
+                    self.handler.thread_status.config(
+                        text="Thread status: writing results")
+    
+                    # write the results to the specified file
+                    with open(REC_FILE, 'a') as record:
+                        record.write(newline)
+    
+                    # tell the handler we're done so it can update the display
+                    self.handler.update_statistics()
+    
+                    # check again for stop request here -- otherwise, we'll wait
+                    # to the next test unnecessarily
+                    if not self.stoprequest.isSet():
+                        self.handler.thread_status.config(text="Thread status: waiting")
+                        time.sleep(time_diff)
+                    else:
+                        self.handler.thread_status.config(text='Thread status: paused')
+                        continue
+                self.handler.status_label.config(text="Status: stopped")
+                self.handler.thread_status.config(text="Thread status: dead")
+                time.sleep(0.5)  # let's not be too hard on the system
+        except RuntimeError as exc:
+            # most likely, it's this one:
+            # RuntimeError: main thread is not in main loop
+            # basically, means that the program was closed without properly
+            # stopping the thread.  darned users :)
+            # all we have to do here is stop the loop (done) and exit
+            # safely...
+            self.exit = True
+            self.stoprequest.set()
+            return
 
     def join(self, timeout=None):
         # set the stop request so next time the test starts/stops we'll exit
@@ -191,7 +203,7 @@ class SpeedTesterGUI(object):
                     # and nothing more happens
                     self.stop()
                     self.root.after(500, self.close)
- 
+
 
         try:
             self.root.mainloop()
@@ -262,6 +274,7 @@ class SpeedTesterGUI(object):
         """
         self.status_label.config(text="Status: stopping")
         self.thread.stoprequest.set()
+        self.thread.exit = True
 
     def close(self):
         """
