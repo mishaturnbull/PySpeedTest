@@ -98,7 +98,7 @@ class SpeedTesterThread(threading.Thread):
 
                     # tell user we're testing
                     self.handler.thread_status.config(
-                            text="Thread status: testing")
+                        text="Thread status: testing")
 
                     # run the speed test
                     newline, time_diff, self.last_result = test_once(
@@ -120,15 +120,15 @@ class SpeedTesterThread(threading.Thread):
                     # wait to the next test unnecessarily
                     if not self.stoprequest.isSet():
                         self.handler.thread_status.config(
-                                text="Thread status: waiting")
+                            text="Thread status: waiting")
                         time.sleep(time_diff)
                     else:
                         self.handler.thread_status.config(
-                                text='Thread status: paused')
+                            text='Thread status: paused')
                         continue
                 self.handler.status_label.config(text="Status: stopped")
                 self.handler.thread_status.config(
-                        text="Thread status: dead")
+                    text="Thread status: dead")
                 time.sleep(0.5)  # let's not be too hard on the system
         except RuntimeError:
             # most likely, it's this one:
