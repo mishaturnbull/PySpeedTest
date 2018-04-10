@@ -91,14 +91,14 @@ class SpeedTesterThread(threading.Thread):
 
         try:
             while not self.exit:
-                # if the stop request is set, we want to stop.  so, run while it's not
+                # if the stop request is set, we want to stop.  so, run 
+                # while it's not
                 while not self.stoprequest.isSet():
                     print(self.handler)
 
                     # tell user we're testing
-                    self.handler.thread_status.config(text=
-                                                      "Thread status: "
-                                                      "testing")
+                    self.handler.thread_status.config(
+                            text="Thread status: testing")
 
                     # run the speed test
                     newline, time_diff, self.last_result = test_once(
@@ -119,18 +119,16 @@ class SpeedTesterThread(threading.Thread):
                     # check again for stop request here -- otherwise, we'll
                     # wait to the next test unnecessarily
                     if not self.stoprequest.isSet():
-                        self.handler.thread_status.config(text=
-                                                          "Thread status: "
-                                                          "waiting")
+                        self.handler.thread_status.config(
+                                text="Thread status: waiting")
                         time.sleep(time_diff)
                     else:
-                        self.handler.thread_status.config(text=
-                                                          'Thread status: '
-                                                          'paused')
+                        self.handler.thread_status.config(
+                                text='Thread status: paused')
                         continue
                 self.handler.status_label.config(text="Status: stopped")
-                self.handler.thread_status.config(text=
-                                                  "Thread status: dead")
+                self.handler.thread_status.config(
+                        text="Thread status: dead")
                 time.sleep(0.5)  # let's not be too hard on the system
         except RuntimeError:
             # most likely, it's this one:
