@@ -165,6 +165,7 @@ class SpeedTesterGUI(object):
         self.lasttest = {'ping': 0, 'up': 0, 'down': 0}
         self.avg = {'ping': 0, 'up': 0, 'down': 0}
         self.ntests = 0
+        self.windows_open = {'config': False, 'upload': False}
 
         # instantiate the speed tester background thread
         self.thread = SpeedTesterThread(self)
@@ -217,7 +218,7 @@ class SpeedTesterGUI(object):
                              " Would you like to close this version now?"
                              " The new version will not open"
                              " automatically").format(resource_path(
-                                 new_version))
+                                     new_version))
                 want_close = messagebox.askyesno("Update", msgstring)
 
                 if want_close:
@@ -322,6 +323,9 @@ class SpeedTesterGUI(object):
                                  "Unable to upload right now.  Try again"
                                  " in a moment, this issue is temporary.")
             return
+        
+        if self.windows_open['upload']:
+            return
 
         self.uploader.build_window()
         self.uploader.establish_connection()
@@ -332,9 +336,18 @@ class SpeedTesterGUI(object):
         Configuration edit menu.
         Shouldn't all be in one function, but oh well.
         """
+        
+        if self.windows_open['config']:
+            # doesn't make sense to open two at once
+            return
 
         cfgmen = tk.Toplevel(self.root)
         cfgmen.wm_title("Configuration")
+        
+        def close_act():
+            self.windows_open['config'] = False
+            
+        cfgmen.protocol("WM_DELETE_WINDOW", close_act)
 
         def set_vars():
             """

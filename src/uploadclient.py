@@ -30,6 +30,7 @@ else:
 
 class Uploader(object):
 
+
     def __init__(self, handler=None):
         self.handler = handler
         self.lines = None
@@ -37,6 +38,7 @@ class Uploader(object):
         self.has_connection = False
 
         self.window = self.label1 = self.label2 = None
+
 
     def establish_connection(self):
         self.set_label(1, 'Beginning connection searching on port ' +
@@ -61,6 +63,7 @@ class Uploader(object):
                 messagebox.showerror(exc.args[0])
 
         return self.has_connection
+
 
     def send_data(self):
         if not self.has_connection:
@@ -88,6 +91,7 @@ class Uploader(object):
         with open(REC_FILE, 'w') as handle:
             handle.write('')
 
+
     def upload(self):
         self.establish_connection()
 
@@ -100,6 +104,7 @@ class Uploader(object):
         self.set_label(1, 'Done!')
         self.set_label(2, 'Yay!  It worked!')
 
+
     def set_label(self, num, message):
         if self.handler is None:
             return
@@ -107,6 +112,7 @@ class Uploader(object):
         label = self.label2 if (num - 1) else self.label1
 
         label.config(text=message)
+
 
     def build_window(self):
         if self.handler is None:
