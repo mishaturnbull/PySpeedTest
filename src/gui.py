@@ -314,8 +314,7 @@ class SpeedTesterGUI(object):
             return
 
         self.uploader.build_window()
-        self.uploader.establish_connection()
-        self.uploader.send_data()
+        self.uploader.upload()
 
     def edit_config(self):
         """
