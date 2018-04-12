@@ -14,14 +14,14 @@ cflags = -F -y --specpath build --clean $(hiddenimports)
 
 ifeq ($(OS),Windows_NT)
 	name = PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch).exe
-	cflags += --windowed
+	cflags += --windowed --icon=icon.ico
 	delete_cmd = del /S
 	delete_dir = rmdir /S /q
 else
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Darwin)
 		name = PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch)_mac
-		cflags += --windowed
+		cflags += --windowed --icon=icon.icns
 		delete_cmd = rm
 		delete_dir = rm -rf
 	else

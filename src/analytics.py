@@ -20,6 +20,11 @@ def run_analytics():
     with open(RECORD_FILE_NAME, 'r') as record:
         lines = record.readlines()
 
+    if len(lines) <= 0:
+        # not sure how it would be less than 0, but hey... error checking.
+        raise ValueError("There must be data present to perform an"
+                         " analysis!")
+
     records = {"time": [], "locs": [], "ping": [], "down": [], "up": []}
     fails, totaltries = 0, 0
 

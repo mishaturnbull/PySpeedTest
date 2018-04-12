@@ -28,4 +28,4 @@ script:
   - make all
   - >
       git fetch origin $TRAVIS_BRANCH:$TRAVIS_BRANCH --depth 1;
-      flake8-diff -v -v -v $TRAVIS_BRANCH;
+      flake8-diff --flake8-options --ignore=E402 $TRAVIS_BRANCH;
