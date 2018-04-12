@@ -218,7 +218,7 @@ class SpeedTesterGUI(object):
                              " Would you like to close this version now?"
                              " The new version will not open"
                              " automatically").format(resource_path(
-                                     new_version))
+                                 new_version))
                 want_close = messagebox.askyesno("Update", msgstring)
 
                 if want_close:
@@ -323,7 +323,7 @@ class SpeedTesterGUI(object):
                                  "Unable to upload right now.  Try again"
                                  " in a moment, this issue is temporary.")
             return
-        
+
         if self.windows_open['upload']:
             return
 
@@ -335,17 +335,17 @@ class SpeedTesterGUI(object):
         Configuration edit menu.
         Shouldn't all be in one function, but oh well.
         """
-        
+
         if self.windows_open['config']:
             # doesn't make sense to open two at once
             return
 
         cfgmen = tk.Toplevel(self.root)
         cfgmen.wm_title("Configuration")
-        
+
         def close_act():
             self.windows_open['config'] = False
-            
+
         cfgmen.protocol("WM_DELETE_WINDOW", close_act)
 
         def set_vars():
