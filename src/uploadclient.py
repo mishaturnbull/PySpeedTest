@@ -28,6 +28,7 @@ else:
     def encoder(string):
         return bytes(string, 'ascii')
 
+
 class UploadProcess(threading.Thread):
 
     timeout = 30
@@ -107,6 +108,7 @@ class UploadProcess(threading.Thread):
     def join(self, timeout=None):
         super(UploadProcess, self).join(timeout)
 
+
 class Uploader(object):
 
     def __init__(self, handler=None):
@@ -140,7 +142,7 @@ class Uploader(object):
         self.label1 = tk.Label(self.window, text="Waiting for connection")
         self.label1.grid(row=0, column=0, sticky=tk.E+tk.W)
 
-        self.label2 = tk.Label(self.window, text="Please be patient"*50)
+        self.label2 = tk.Label(self.window, text="Please be patient")
         self.label2.grid(row=1, column=0, sticky=tk.E+tk.W)
 
         self.set_label(1, ' ')
