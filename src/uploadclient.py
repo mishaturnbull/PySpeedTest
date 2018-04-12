@@ -92,7 +92,7 @@ class UploadProcess(threading.Thread):
             errors.display_error(IOError("File contains no data or is not"
                                          " found on disk!"))
             return
-        
+
         outlines = copy.deepcopy(self.lines)
 
         for line in self.lines:
