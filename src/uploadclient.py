@@ -8,6 +8,7 @@ Created on Thu Jan 25 20:07:11 2018
 import socket
 import sys
 import threading
+import copy
 
 import errors
 
@@ -91,15 +92,23 @@ class UploadProcess(threading.Thread):
             errors.display_error(IOError("File contains no data or is not"
                                          " found on disk!"))
             return
+        
+        outlines = copy.deepcopy(self.lines)
 
         for line in self.lines:
             self.handler.set_label(2, line)
             encoded = encoder(line)
-            self.socket.sendall(encoded)
+            try:
+                self.socket.sendall(encoded)
+            except (socket.gaierror, socket.timeout, socket.error):
+                # timeout, stop trying
+                self.handler.set_label(2, "Connection lost")
+                break
+            outlines.remove(line)
 
         self.handler.set_label(2, 'Clearing file')
         with open(REC_FILE, 'w') as handle:
-            handle.write('')
+            handle.writelines(outlines)
 
     def run(self):
         self.establish_connection()
