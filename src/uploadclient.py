@@ -37,7 +37,6 @@ class UploadProcess(threading.Thread):
 
         # init the thread
         threading.Thread.__init__(self)
-
         self.handler = handler
         self.lines = None
         self.socket = None
@@ -74,6 +73,7 @@ class UploadProcess(threading.Thread):
             self.handler.set_label(1, 'No connection established')
 
         return self.has_connection
+
 
     def send_data(self):
         if not self.has_connection:
@@ -122,6 +122,7 @@ class Uploader(object):
 
         self.subprocess.start()
 
+
     def set_label(self, num, message):
         if self.handler is None:
             return
@@ -129,6 +130,7 @@ class Uploader(object):
         label = self.label2 if (num - 1) else self.label1
 
         label.config(text=message)
+
 
     def build_window(self):
         if self.handler is None:
