@@ -176,40 +176,9 @@ class SpeedTesterGUI(object):
         self.init_gui()
         self.root.protocol("WM_DELETE_WINDOW", self.close)
 
-        # moved below init_gui per
+        # this has to be below the init_gui() method:
         # https://github.com/mishaturnbull/PySpeedTest/issues/6
-        # check for an update.  if there is, prompt user to download
-        try:
-            update_available = has_update()
-        except Exception:
-            update_available = False  # can't update with no connection!
-        if update_available:
-            want_update = messagebox.askyesno("Update",
-                                              "An update has been detected." +
-                                              "  Would you like to download?")
-            if want_update:
-                # new_version is just the filename
-                # of the freshly downloaded program
-                new_version = download_update()
-
-                want_close = messagebox.askyesno("Update",
-                                                 ("The newest verison has"
-                                                  " been downloaded: {}"
-                                                  " Would you like to open"
-                                                  " it now?".format(
-                                                      resource_path(
-                                                          new_version))))
-                if want_close:
-                    # all we can do here is close the program.
-                    # hopefully, the user finds their way to the new
-                    # version...
-                    # stop the thread, wait half a second, close...
-                    # hope for the best.  worst case, users get a popup
-                    # about can't close the program (see self.close())
-                    # and nothing more happens
-                    self.stop()
-                    self.root.after(500, self.close)
-
+        self.update_routine()
 
         try:
             self.root.mainloop()
@@ -220,6 +189,47 @@ class SpeedTesterGUI(object):
             elif sys.version_info[0] == 3:
                 messagebox.showerror("PySpeedTest Broke",
                                      sys.exc_info()[0])
+                
+    def update_routine(self):
+        # check for updates, if available, ask to install them
+        # after downloading, ask user if they want to close the program
+        try:
+            update_available = has_update()
+        except Exception:
+            # can't update with no connection!
+            # not a big problem here, fail silently and move on.
+            # annoying to have a popup every time you start the program
+            # that says you don't have a connection, especially for a
+            # feature that's not vital to program operation
+            update_available = False
+            
+        if update_available:
+            
+            msgstring = ("An update has been detected.  Would you like "
+                         "to download it?")
+            want_update = messagebox.askyesno("Update", msgstring)
+            if want_update:
+                # new_version is just the filename
+                # of the freshly downloaded program
+                new_version = download_update()
+
+                msgstring = ("The newest version has been downloaded: {}"
+                             " Would you like to close this version now?"
+                             " The new version will not open"
+                             " automatically").format(resource_path(
+                                 new_version))
+                want_close = messagebox.askyesno("Update", msgstring)
+
+                if want_close:
+                    # all we can do here is close the program.
+                    # hopefully, the user finds their way to the new
+                    # version...
+                    # stop the thread, wait half a second, close...
+                    # hope for the best.  worst case, users get a popup
+                    # about can't close the program (see self.close())
+                    # and nothing more happens
+                    self.stop()
+                    self.root.after(500, self.close)
 
     def update_statistics(self):
         """
