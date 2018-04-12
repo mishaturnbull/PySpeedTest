@@ -189,7 +189,7 @@ class SpeedTesterGUI(object):
             elif sys.version_info[0] == 3:
                 messagebox.showerror("PySpeedTest Broke",
                                      sys.exc_info()[0])
-                
+
     def update_routine(self):
         # check for updates, if available, ask to install them
         # after downloading, ask user if they want to close the program
@@ -202,9 +202,9 @@ class SpeedTesterGUI(object):
             # that says you don't have a connection, especially for a
             # feature that's not vital to program operation
             update_available = False
-            
+
         if update_available:
-            
+
             msgstring = ("An update has been detected.  Would you like "
                          "to download it?")
             want_update = messagebox.askyesno("Update", msgstring)
