@@ -1,7 +1,7 @@
 [Back to main page](index.html)
 
 # Table of contents
-1. [Problems](#problems)  
+1. [Problems](#problems)
     1.1 [Why can't I close the program?](#why-cant-i-close-the-program)
 
 # Problems
