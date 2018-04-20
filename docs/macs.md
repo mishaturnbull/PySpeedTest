@@ -8,7 +8,7 @@
 
 tl;dr: Apple wants $99/year from me that I don't have.
 
-Apple is very concerned about user security.  This is good!  It's one of the main reasons Macs have a status as being immune to viruses.  Turns out, they aren't, it's just Apple preventing any code at all except what they approve from ever getting near one of their machines.  This is all very good and well, except that they blatantly refuse to allow your code unless you pay them.  $99 per year.  I'm a college student.  That means I'm broke.  That means I'm not giving Apple any more money than I absolutely have to.
+Apple is very concerned about user security.  This is good!  It's one of the main reasons Macs have a status as being immune to viruses.  Turns out, they aren't, it's just Apple preventing any code at all except what they approve from ever getting near one of their machines.  This is all very good and well, except that they blatantly refuse to allow your code unless you pay them -- $99 per year.  I'm a college student.  That means I'm broke.  That means I'm not giving Apple any more money than I absolutely have to.
 
 As a result of my not-giving-them-money, I cannot get what is known as an "Apple Developer Connection".  This effectively means that people who want to use my program on their Macs either aren't able to run it, or get rather scary warnings about security and whatnot.  This is quite unfortunate, but there's no way around it.
 

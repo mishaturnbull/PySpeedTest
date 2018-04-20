@@ -4,8 +4,8 @@ compiler = pyinstaller
 target = src/gui.py
 
 ver_major = 2
-ver_minor = 0
-ver_patch = 1
+ver_minor = 1
+ver_patch = 2
 
 hiddenimports = --hidden-import urllib3
 hiddenimports += --hidden-import pyspeedtest
@@ -14,14 +14,14 @@ cflags = -F -y --specpath build --clean $(hiddenimports)
 
 ifeq ($(OS),Windows_NT)
 	name = PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch).exe
-	cflags += --windowed
+	cflags += --windowed --icon=icon.ico
 	delete_cmd = del /S
 	delete_dir = rmdir /S /q
 else
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Darwin)
 		name = PySpeedTest_v$(ver_major).$(ver_minor).$(ver_patch)_mac
-		cflags += --windowed
+		cflags += --windowed --icon=icon.icns
 		delete_cmd = rm
 		delete_dir = rm -rf
 	else
@@ -36,10 +36,17 @@ cflags += -n $(name)
 
 all: dependencies preclean main postclean
 
+# useful for those of us using the 'py' launcher:
+# doing `python bla.py` results in python 2, but
+# doing `py bla.py` results in python 3.
+# having a no dependencies target lets you compile
+# with the default python library and not have to
+# worry about downloading already-installed
+# dependencies
 no_depends: preclean main postclean
 
 dependencies:
-	python src/dependencies.py —silent
+	python src/dependencies.py --silent
 
 clean: preclean postclean 
 

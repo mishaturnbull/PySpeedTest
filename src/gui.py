@@ -21,6 +21,7 @@ from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER, \
                      ANALYZE_FILE, ANALYTICS_REC_FILE, STANDARDS_ENABLE, \
                      STANDARD_PING, STANDARD_UP, STANDARD_DOWN, UPLOAD_URLS, \
                      UPLOAD_PORT, CONFIG_FILE_NAME, parser
+from persistence import resource_path
 
 # makes the test display easier to read
 from pyspeedtest import pretty_speed
@@ -53,6 +54,7 @@ import time
 import string
 
 BLOCK_EXIT_CONDITIONS = ['testing', 'waiting']
+BLOCK_UPLOAD_CONDITIONS = ['testing', 'writing', 'paused']
 
 # background thread for running speed tests
 class SpeedTesterThread(threading.Thread):
@@ -87,39 +89,57 @@ class SpeedTesterThread(threading.Thread):
         # tell the user we're running
         self.handler.thread_status.config(text="Thread status: alive")
 
-        while not self.exit:
-            # if the stop request is set, we want to stop.  so, run while it's not
-            while not self.stoprequest.isSet():
+        try:
+            while not self.exit:
+                # if the stop request is set, we want to stop.  so, run
+                # while it's not
+                while not self.stoprequest.isSet():
+                    print(self.handler)
 
-                # tell user we're testing
-                self.handler.thread_status.config(text="Thread status: testing")
+                    # tell user we're testing
+                    self.handler.thread_status.config(
+                        text="Thread status: testing")
 
-                # run the speed test
-                newline, time_diff, self.last_result = test_once(
-                    self.handler.location_entry.get())
+                    # run the speed test
+                    newline, time_diff, self.last_result = test_once(
+                        self.handler.location_entry.get())
 
-                # tell the user we're now outputting the results
+                    # tell the user we're now outputting the results
+                    self.handler.thread_status.config(
+                        text="Thread status: writing results")
+
+                    # write the results to the specified file
+                    with open(REC_FILE, 'a') as record:
+                        record.write(newline)
+
+                    # tell the handler we're done so it can update the
+                    # display
+                    self.handler.update_statistics()
+
+                    # check again for stop request here -- otherwise, we'll
+                    # wait to the next test unnecessarily
+                    if not self.stoprequest.isSet():
+                        self.handler.thread_status.config(
+                            text="Thread status: waiting")
+                        time.sleep(time_diff)
+                    else:
+                        self.handler.thread_status.config(
+                            text='Thread status: paused')
+                        continue
+                self.handler.status_label.config(text="Status: stopped")
                 self.handler.thread_status.config(
-                    text="Thread status: writing results")
-
-                # write the results to the specified file
-                with open(REC_FILE, 'a') as record:
-                    record.write(newline)
-
-                # tell the handler we're done so it can update the display
-                self.handler.update_statistics()
-
-                # check again for stop request here -- otherwise, we'll wait
-                # to the next test unnecessarily
-                if not self.stoprequest.isSet():
-                    self.handler.thread_status.config(text="Thread status: waiting")
-                    time.sleep(time_diff)
-                else:
-                    self.handler.thread_status.config(text='Thread status: paused')
-                    continue
-            self.handler.status_label.config(text="Status: stopped")
-            self.handler.thread_status.config(text="Thread status: dead")
-            time.sleep(0.5)  # let's not be too hard on the system
+                    text="Thread status: dead")
+                time.sleep(0.5)  # let's not be too hard on the system
+        except RuntimeError:
+            # most likely, it's this one:
+            # RuntimeError: main thread is not in main loop
+            # basically, means that the program was closed without properly
+            # stopping the thread.  darned users :)
+            # all we have to do here is stop the loop (done) and exit
+            # safely...
+            self.exit = True
+            self.stoprequest.set()
+            return
 
     def join(self, timeout=None):
         # set the stop request so next time the test starts/stops we'll exit
@@ -145,6 +165,7 @@ class SpeedTesterGUI(object):
         self.lasttest = {'ping': 0, 'up': 0, 'down': 0}
         self.avg = {'ping': 0, 'up': 0, 'down': 0}
         self.ntests = 0
+        self.windows_open = {'config': False, 'upload': False}
 
         # instantiate the speed tester background thread
         self.thread = SpeedTesterThread(self)
@@ -156,19 +177,9 @@ class SpeedTesterGUI(object):
         self.init_gui()
         self.root.protocol("WM_DELETE_WINDOW", self.close)
 
-        # moved below init_gui per
+        # this has to be below the init_gui() method:
         # https://github.com/mishaturnbull/PySpeedTest/issues/6
-        # check for an update.  if there is, prompt user to download
-        try:
-            update_available = has_update()
-        except Exception:
-            update_available = False  # can't update with no connection!
-        if update_available:
-            want_update = messagebox.askyesno("Update",
-                                              "An update has been detected." +
-                                              "  Would you like to download?")
-            if want_update:
-                download_update()
+        self.update_routine()
 
         try:
             self.root.mainloop()
@@ -179,6 +190,47 @@ class SpeedTesterGUI(object):
             elif sys.version_info[0] == 3:
                 messagebox.showerror("PySpeedTest Broke",
                                      sys.exc_info()[0])
+
+    def update_routine(self):
+        # check for updates, if available, ask to install them
+        # after downloading, ask user if they want to close the program
+        try:
+            update_available = has_update()
+        except Exception:
+            # can't update with no connection!
+            # not a big problem here, fail silently and move on.
+            # annoying to have a popup every time you start the program
+            # that says you don't have a connection, especially for a
+            # feature that's not vital to program operation
+            update_available = False
+
+        if update_available:
+
+            msgstring = ("An update has been detected.  Would you like "
+                         "to download it?")
+            want_update = messagebox.askyesno("Update", msgstring)
+            if want_update:
+                # new_version is just the filename
+                # of the freshly downloaded program
+                new_version = download_update()
+
+                msgstring = ("The newest version has been downloaded: {}"
+                             " Would you like to close this version now?"
+                             " The new version will not open"
+                             " automatically").format(resource_path(
+                                 new_version))
+                want_close = messagebox.askyesno("Update", msgstring)
+
+                if want_close:
+                    # all we can do here is close the program.
+                    # hopefully, the user finds their way to the new
+                    # version...
+                    # stop the thread, wait half a second, close...
+                    # hope for the best.  worst case, users get a popup
+                    # about can't close the program (see self.close())
+                    # and nothing more happens
+                    self.stop()
+                    self.root.after(500, self.close)
 
     def update_statistics(self):
         """
@@ -239,27 +291,16 @@ class SpeedTesterGUI(object):
         """
         self.status_label.config(text="Status: stopping")
         self.thread.stoprequest.set()
+        self.thread.exit = True
 
     def close(self):
         """
         Close action
         """
-        status = self.thread_status.cget("text")
         self.thread.exit = True
-        if any(s in status for s in BLOCK_EXIT_CONDITIONS):
-            messagebox.showerror("Closing",
-                                 "Please wait until the thread is dead to"
-                                 "close the program.")
-            return   # no close!
-        else:
-            # allow close
-            try:
-                self.thread.join()
-            except RuntimeError:
-                # it's the "cannot join thread before it is started" error
-                # normal.  just ignore and close
-                pass
-            self.root.destroy()
+        self.stop()
+
+        self.root.destroy()
 
     def make_analysis_file(self):
         """
@@ -276,9 +317,18 @@ class SpeedTesterGUI(object):
 
         Requires a network connection (duh).
         """
+        status = self.thread_status.cget("text").lower()
+        if any(s in status for s in BLOCK_UPLOAD_CONDITIONS):
+            messagebox.showerror("Upload",
+                                 "Unable to upload right now.  Try again"
+                                 " in a moment, this issue is temporary.")
+            return
+
+        if self.windows_open['upload']:
+            return
+
         self.uploader.build_window()
-        self.uploader.establish_connection()
-        self.uploader.send_data()
+        self.uploader.upload()
 
     def edit_config(self):
         """
@@ -286,8 +336,17 @@ class SpeedTesterGUI(object):
         Shouldn't all be in one function, but oh well.
         """
 
+        if self.windows_open['config']:
+            # doesn't make sense to open two at once
+            return
+
         cfgmen = tk.Toplevel(self.root)
         cfgmen.wm_title("Configuration")
+
+        def close_act():
+            self.windows_open['config'] = False
+
+        cfgmen.protocol("WM_DELETE_WINDOW", close_act)
 
         def set_vars():
             """
