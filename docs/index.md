@@ -1,3 +1,7 @@
+# Discontinuation notice
+
+As of 05/11/2018, this project is no longer being actively maintained.  I had a blast writing the code and getting everyone involved -- thanks to everyone that did!
+
 # PySpeedTest
 
 This is a small, lightweight utility that tests the Internet connection at set intervals. I wrote it specifically for University of North Dakota to prove to ResNet that the internet in my dorm is **real bad**.  As part of the project and that I hope to distribute it to the rest of the dorm, I figured I should probably write documentation, so here it is.
