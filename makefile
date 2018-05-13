@@ -1,7 +1,7 @@
 .PHONY : main all os_check clean preclean postclean
 
 compiler = pyinstaller
-target = src/gui.py
+target = src/interface.py
 
 ver_major = 2
 ver_minor = 1
