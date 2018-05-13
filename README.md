@@ -7,6 +7,8 @@
 
 This project is no longer being actively maintained.  I will continue to work on newly opened issues & pull requests, but will not be coming forward with new ideas/features/fixes myself.  The collection server has been taken offline (as I am moving out) indefinitely.  Thanks for all the help!
 
+Alright, I lied a bit.  My dad wants to make use of this at his local school, so I'm reinforcing the non-graphical mode that can be run in the background.  Don't expect a lot else though.
+
 # Python Internet Speed Test
 
 This is a small, lightweight utility that tests the Internet connection at set intervals.  I wrote it to prove to the people who manage my Internet that it's ***really*** bad.  It takes periodic (or not-so-periodic) samples of your Internet speed.  Statistics recorded are upload speed, download speed, ping time, and if something fails reason for failure.

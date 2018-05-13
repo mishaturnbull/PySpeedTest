@@ -20,7 +20,7 @@ from autoupdate import has_update, download_update
 from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER, \
                      ANALYZE_FILE, ANALYTICS_REC_FILE, STANDARDS_ENABLE, \
                      STANDARD_PING, STANDARD_UP, STANDARD_DOWN, UPLOAD_URLS, \
-                     UPLOAD_PORT, CONFIG_FILE_NAME, parser
+                     UPLOAD_PORT, CONFIG_FILE_NAME, GRAPHICAL, parser
 from persistence import resource_path
 
 # makes the test display easier to read
