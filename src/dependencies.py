@@ -37,12 +37,12 @@ def download_dependencies(pst_loc=None, urllib3_loc=None,
         has_pyspeedtest = False
     print("+++ pyspeedtest present: {}".format(str(has_pyspeedtest)))
 
-    has_urllub3 = True
+    has_urllib3 = True
     try:
         import urllib3
     except ImportError:
-        has_urllub3 = False
-    print("+++ urllib3 present: {}".format(str(has_urllub3)))
+        has_urllib3 = False
+    print("+++ urllib3 present: {}".format(str(has_urllib3)))
 
     has_tkinter = True
     try:
@@ -55,7 +55,7 @@ def download_dependencies(pst_loc=None, urllib3_loc=None,
         has_tkinter = False
     print("+++ tkinter present: {}".format(str(has_tkinter)))
 
-    if not has_urllub3:
+    if not has_urllib3:
         print("+++ attempting pip install of urllib3...")
         result = os.system('pip install urllib3')
         if result == 0:
