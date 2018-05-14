@@ -8,6 +8,50 @@ TODO: Add module docstring
 # Py2-proofing
 from __future__ import print_function
 
+import sys
+import threading
+import time
+
+class DelayedEvent(threading.Thread):
+    
+    def __init__(self, handler, millisec, callback):
+        threading.Thread.__init__(self)
+        self.handler = handler
+        self.millisec = millisec
+        self.callback = callback
+    
+    def run(self):
+        time.sleep(self.millisec / 1000)  # convert to seconds
+        self.callback()
+
+class Tkinter_Root_Fake(object):
+    
+    def __init__(self, 
+                 stdin=sys.stdin, 
+                 stdout=sys.stdout, 
+                 stderr=sys.stderr):
+        self._stdin = stdin
+        self._stdout = stdout
+        self._stderr = stderr
+        self._callbacks = {}
+        self._running = True
+    
+    def protocol(self, event, callback):
+        self._callbacks.update({event: callback})
+    
+    def after(self, millisec, callback):
+        thread = DelayedEvent(self, millisec, callback)
+        thread.start()
+    
+    def destroy(self):
+        self._running = False
+    
+    def title(self, title):
+        raise NotImplemented
+    
+    def mainloop(self):
+        raise NotImplemented
+
 class Tkinter_Element_Fake(object):
     
     def __init__(self, root, *args, **kwargs):
@@ -39,12 +83,12 @@ class Tkinter_Entry_Fake(Tkinter_Element_Fake):
     def get(self):
         inp = None
         if self._last_input is not None:
-            inp = input("Enter input (blank for previous) > {}".format(
-                    self.default)).strip()
+            inp = input("Enter input [{}] > ".format(
+                    self._default)).strip()
             if not inp:
                 inp = self._last_input
         else:
-            inp = input("Enter input > {}".format(self._default)).strip()
+            inp = input("Enter input [{}] > ".format(self._default)).strip()
         
         self._last_input = inp
         return inp
@@ -60,4 +104,3 @@ class Tkinter_Entry_Fake(Tkinter_Element_Fake):
             self._default = text
         else:
             raise NotImplemented("not sure what to do...")
-        
