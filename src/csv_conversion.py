@@ -18,10 +18,12 @@ def reformat_date(datefield):
     out += str(timeidx) + ',-0500'
     return out
 
+
 def get_lines():
     with open(RECORD_FILE_NAME, 'r') as record:
         lines = record.readlines()
     return lines
+
 
 def convert_lines_to_csv(lines):
 
@@ -66,6 +68,7 @@ def convert_lines_to_csv(lines):
 
     return newlines
 
+
 def write_to_file(lines):
     with open(CSV_OUTPUT_FILE, 'w') as datafile:
         datafile.writelines(lines)
@@ -73,6 +76,7 @@ def write_to_file(lines):
     if CSV_CLEAR_INFILE:
         with open(RECORD_FILE_NAME, 'w') as clearfile:
             clearfile.write('')
+
 
 def csv_conversion():
     write_to_file(convert_lines_to_csv(get_lines))

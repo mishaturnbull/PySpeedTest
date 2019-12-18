@@ -76,7 +76,6 @@ def run_analytics():
 
     statlines.append("\n")
 
-
     if STANDARDS_ENABLE:
         print("Standards!" + str(STANDARDS_ENABLE))
 

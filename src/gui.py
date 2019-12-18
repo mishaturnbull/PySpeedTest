@@ -29,15 +29,6 @@ from pyspeedtest import pretty_speed
 # showing errors
 import errors
 
-# tcl/tk -- used for building GUI
-# messagebox -- neat little popup window
-try:
-    import tkinter as tk
-    import tkinter.messagebox as messagebox
-except ImportError:
-    import Tkinter as tk
-    import tkMessageBox as messagebox
-
 # for the Resnet button
 import webbrowser
 
@@ -53,8 +44,18 @@ import time
 # letters
 import string
 
+# tcl/tk -- used for building GUI
+# messagebox -- neat little popup window
+try:
+    import tkinter as tk
+    import tkinter.messagebox as messagebox
+except ImportError:
+    import Tkinter as tk
+    import tkMessageBox as messagebox
+
 BLOCK_EXIT_CONDITIONS = ['testing', 'waiting']
 BLOCK_UPLOAD_CONDITIONS = ['testing', 'writing', 'paused']
+
 
 # background thread for running speed tests
 class SpeedTesterThread(threading.Thread):
@@ -535,7 +536,6 @@ class SpeedTesterGUI(object):
         _updopt()
         refresh()
 
-
     def resnet(self):
         """
         Open your web browser to the ResNet support ticket page.
@@ -591,6 +591,7 @@ class SpeedTesterGUI(object):
         self.resnet_button = tk.Button(self.root, text="ResNet",
                                        command=self.resnet)
         self.resnet_button.grid(row=7, column=1, sticky=tk.W)
+
 
 if __name__ == '__main__':
 
