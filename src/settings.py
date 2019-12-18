@@ -71,7 +71,7 @@ parser.read(CONFIG_FILE_NAME)
 try:
     rec_file = parser.get('Speedtester', 'rec_file')
     REC_FILE = resource_path(rec_file)
-    
+
     GRAPHICAL = parser.get('Analytics', 'standards_enable').lower() in \
         TRUE_VALUES
 
