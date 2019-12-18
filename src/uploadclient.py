@@ -75,7 +75,6 @@ class UploadProcess(threading.Thread):
 
         return self.has_connection
 
-
     def send_data(self):
         if not self.has_connection:
             raise ValueError("Can't upload data with no connection!")
@@ -131,7 +130,6 @@ class Uploader(object):
 
         self.subprocess.start()
 
-
     def set_label(self, num, message):
         if self.handler is None:
             return
@@ -139,7 +137,6 @@ class Uploader(object):
         label = self.label2 if (num - 1) else self.label1
 
         label.config(text=message)
-
 
     def build_window(self):
         if self.handler is None:

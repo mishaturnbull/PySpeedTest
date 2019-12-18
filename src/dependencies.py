@@ -23,7 +23,9 @@ elif sys.version_info[0] == 3:
 URLLIB3_URL = "https://github.com/shazow/urllib3/archive/master.zip"
 PYSPEEDTEST_URL = "https://raw.githubusercontent.com/fopina/pyspeedtest/master/pyspeedtest.py"
 
+
 class DependencyError(Exception): pass
+
 
 def download_dependencies(pst_loc=None, urllib3_loc=None,
                           quiet=False):
@@ -111,6 +113,7 @@ def download_dependencies(pst_loc=None, urllib3_loc=None,
         # quitting and making the user run again is wayyy easier than dealing
         # with UMR
         raise Exception("\n\n\nI think I fixed the problem -- restart and try again.\n\n\n")
+
 
 if __name__ == '__main__':
     download_dependencies('src/pyspeedtest.py', 'src/urllib3/', SILENT)

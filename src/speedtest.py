@@ -19,11 +19,13 @@ except ModuleNotFoundError:
     download_dependencies()
     import pyspeedtest
 
+
 # lazy man's debugging
 def dprint(level, msg):
     """Debug printer.  Args are [level], [message]."""
     if VERBOSITY >= level:
         print(msg)
+
 
 def make_speedtest_object():
     speed_tester = pyspeedtest.SpeedTest()

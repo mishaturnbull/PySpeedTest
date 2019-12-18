@@ -13,3 +13,4 @@ requests-master/
 requests.zip
 pyspeedtest.py
 *.ico
+.idea/

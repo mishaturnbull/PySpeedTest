@@ -15,6 +15,7 @@ except ImportError:
 # py2 proofing
 import sys
 
+
 def display_error(exception, raise_when_done=True):
 
     message = "wut"
@@ -30,6 +31,7 @@ def display_error(exception, raise_when_done=True):
         # re-raise the exception when done...
         # makes it easier to trace errors for console users
         raise exception
+
 
 def display_warning(message):
 
