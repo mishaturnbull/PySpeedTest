@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#flake8: noqa: E402
+# flake8: noqa: E402
 """
 Graphical user interface for speed test.
 
@@ -18,9 +18,9 @@ from uploadclient import Uploader
 from analytics import run_analytics
 from autoupdate import has_update, download_update
 from settings import REC_FILE, LOCATION, FREQ, VERBOSITY, FORCE_SERVER, \
-                     ANALYZE_FILE, ANALYTICS_REC_FILE, STANDARDS_ENABLE, \
-                     STANDARD_PING, STANDARD_UP, STANDARD_DOWN, UPLOAD_URLS, \
-                     UPLOAD_PORT, CONFIG_FILE_NAME, parser
+    ANALYZE_FILE, ANALYTICS_REC_FILE, STANDARDS_ENABLE, \
+    STANDARD_PING, STANDARD_UP, STANDARD_DOWN, UPLOAD_URLS, \
+    UPLOAD_PORT, CONFIG_FILE_NAME, parser
 from persistence import resource_path
 
 # makes the test display easier to read
@@ -243,15 +243,13 @@ class SpeedTesterGUI(object):
 
         self.lasttest = self.thread.last_result
         self.ntests += 1
-        self.avg['ping'] = self.avg['ping'] + ((self.lasttest['ping'] -
-                                                self.avg['ping']) /
-                                               self.ntests)
-        self.avg['down'] = self.avg['down'] + ((self.lasttest['down'] -
-                                                self.avg['down']) /
-                                               self.ntests)
-        self.avg['up'] = self.avg['up'] + ((self.lasttest['up'] -
-                                            self.avg['up']) /
-                                           self.ntests)
+
+        ping_offset = (self.lasttest['ping'] - self.avg['ping']) / self.ntests
+        down_offset = (self.lasttest['down'] - self.avg['down']) / self.ntests
+        up_offset = (self.lasttest['up'] - self.avg['up']) / self.ntests
+        self.avg['ping'] = self.avg['ping'] + ping_offset
+        self.avg['down'] = self.avg['down'] + down_offset
+        self.avg['up'] = self.avg['up'] + up_offset
 
         # create new format strings from computed averages/last test
         # \u2191 is an up arrow
@@ -377,8 +375,9 @@ class SpeedTesterGUI(object):
             with open(CONFIG_FILE_NAME, 'w') as configfile:
                 parser.write(configfile)
 
-            ## FIXME: workaround for issue #5.  NOT A FIX!
-            messagebox.showwarning("Configuration", "You will need to restart"+
+            # FIXME: workaround for issue #5.  NOT A FIX!
+            messagebox.showwarning("Configuration",
+                                   "You will need to restart" +
                                    " the program for changes to take effect!")
 
         def refresh():
@@ -426,7 +425,6 @@ class SpeedTesterGUI(object):
 
             entry_upload_port.delete(0, 'end')
             entry_upload_port.insert(0, str(UPLOAD_PORT))
-
 
         setbutton = tk.Button(cfgmen, text="Apply", command=set_vars)
         setbutton.grid(row=0, column=0, sticky=tk.W)
@@ -568,7 +566,8 @@ class SpeedTesterGUI(object):
                                  sticky=tk.W)
         self.location_entry.insert(0, LOCATION)
 
-        self.makefile_button = tk.Button(self.root, text="Create analysis file",
+        self.makefile_button = tk.Button(self.root,
+                                         text="Create analysis file",
                                          command=self.make_analysis_file)
         self.makefile_button.grid(row=3, column=0, columnspan=2,
                                   sticky=tk.W)

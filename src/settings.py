@@ -5,12 +5,11 @@ Created on Wed Jan 17 09:02:00 2018
 @author: Misha
 """
 
-from persistence import resource_path
-
 # python 2-proofing
 import sys
 
 import errors
+from persistence import resource_path
 
 if sys.version_info[0] == 2:
     import ConfigParser as configparser
@@ -21,7 +20,13 @@ filename = "config.ini"
 
 CONFIG_FILE_NAME = resource_path(filename)
 
+TRUE_VALUES = ['true', '1', 't', 'y', 'yes', 'yeah', 'yup', 'certainly',
+               'uh-huh', 'usually']
+
 EMERGENCY_DEFAULT = """
+[General]
+graphical = True
+
 [Speedtester]
 rec_file = speed_record.ilog
 location = Wherever
@@ -67,6 +72,9 @@ try:
     rec_file = parser.get('Speedtester', 'rec_file')
     REC_FILE = resource_path(rec_file)
 
+    GRAPHICAL = parser.get('Analytics', 'standards_enable').lower() in \
+        TRUE_VALUES
+
     LOCATION = parser.get('Speedtester', 'location')
     FREQ = float(parser.get('Speedtester', 'freq'))
     VERBOSITY = int(parser.get('Speedtester', 'verbosity'))
@@ -75,10 +83,9 @@ try:
 
     ANALYZE_FILE = resource_path(parser.get('Analytics', 'analyze_file'))
     ANALYTICS_REC_FILE = resource_path(parser.get('Analytics',
-                                                 'analytics_rec_file'))
+                                                  'analytics_rec_file'))
     STANDARDS_ENABLE = parser.get('Analytics', 'standards_enable') in \
-        ['true', '1', 't', 'y', 'yes',
-         'yeah', 'yup', 'certainly', 'uh-huh']
+        TRUE_VALUES
     STANDARD_PING = float(parser.get('Analytics', 'standard_ping') or 0)
     STANDARD_DOWN = float(parser.get('Analytics', 'standard_down') or 0)
     STANDARD_UP = float(parser.get('Analytics', 'standard_up') or 0)

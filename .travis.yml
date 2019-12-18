@@ -4,7 +4,6 @@ language: python
 
 python:
   - "2.7"
-  - "3.3"
   - "3.4"
   - "3.5"
   - "3.6"
@@ -17,14 +16,14 @@ os:
 matrix:
   allow_failures:
     - osx
-  
+
 # install dependencies
 install:
   - pip install pyspeedtest urllib3
   - pip install pyinstaller  # only for compiling here, not needed
-  - pip install flake8-diff  
+  - pip install flake8-diff
 # Do it
-script: 
+script:
   - make all
   - >
       git fetch origin $TRAVIS_BRANCH:$TRAVIS_BRANCH --depth 1;
