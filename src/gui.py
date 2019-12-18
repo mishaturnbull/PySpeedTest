@@ -13,7 +13,7 @@ download_dependencies()  # pretty please work
 
 
 # import the rest of the code
-from main import test_once
+from speedtest import test_once
 from uploadclient import Uploader
 from analytics import run_analytics
 from autoupdate import has_update, download_update
