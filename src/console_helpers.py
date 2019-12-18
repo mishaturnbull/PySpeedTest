@@ -49,10 +49,10 @@ class Tkinter_Root_Fake(object):
         self._running = False
 
     def title(self, title):
-        raise NotImplemented
+        raise NotImplementedError
 
     def mainloop(self):
-        raise NotImplemented
+        raise NotImplementedError
 
 
 class Tkinter_Element_Fake(object):
@@ -101,10 +101,10 @@ class Tkinter_Entry_Fake(Tkinter_Element_Fake):
         if index == 0 and end == 'end':
             self._default = ''
         else:
-            raise NotImplemented("not sure what to do...")
+            raise NotImplementedError("not sure what to do...")
 
     def insert(self, index, text):
         if index == 0:
             self._default = text
         else:
-            raise NotImplemented("not sure what to do...")
+            raise NotImplementedError("not sure what to do...")
